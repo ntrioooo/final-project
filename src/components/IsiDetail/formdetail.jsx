@@ -62,6 +62,7 @@ function FormDetail() {
       destinationAirport: formDetail.destinationAirport,
       totalPassenger: formDetail.tiket,
       price: totalPrice,
+      tipe: formDetail.tipe
     }))
 
     navigate('/sukses')
