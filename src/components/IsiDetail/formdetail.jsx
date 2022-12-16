@@ -60,7 +60,7 @@ function FormDetail() {
       flightDate: formDetail.date_pergi,
       originAirport: formDetail.originAirport,
       destinationAirport: formDetail.destinationAirport,
-      tiket: formDetail.tiket,
+      totalPassenger: formDetail.tiket,
       price: totalPrice,
     }))
 

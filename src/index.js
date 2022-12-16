@@ -52,9 +52,7 @@ root.render(
         </Routes>
         <Routes>
           <Route path="/pilih-penerbangan" element={
-            <Protected>
               <PilihPenerbangan />
-            </Protected>
           } />
         </Routes>
         <Routes>
