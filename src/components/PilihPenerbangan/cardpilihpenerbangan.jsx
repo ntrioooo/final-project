@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { Container, Row, Col, Card } from "react-bootstrap";
 import { useDispatch, useSelector, connect } from "react-redux";
 import { getListAirlines } from "../../actions/airlinesAction";
+import { Link } from 'react-router-dom'
+import { submitForm } from "../../actions/formAction";
 import arrowDown from "../../assets/images/arrow-down.png";
 // import airports from "../../list-airport";
 
@@ -81,12 +83,13 @@ function CardPilihPenerbangan() {
                           {airline.Price.toLocaleString().replaceAll(",", ".")}
                         </span>
                       </div>
-                      <a
-                        href="/pilih-penerbangan/isi-detail"
-                        className="btn btn-booking rounded-0 mt-4"
-                      >
-                        BOOKING
-                      </a>
+                      <Link to = '/isi-detail'>
+                        <a
+                          className="btn btn-booking rounded-0 mt-4"
+                        >
+                          BOOKING
+                        </a>
+                      </Link>
                     </Card>
                   </Col>
                 );

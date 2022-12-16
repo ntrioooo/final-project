@@ -1,5 +1,7 @@
 const initialState = {
     formData: {},
+    formDetail:{
+    }
   };
   
   const formReducer = (state = initialState, action) => {
@@ -8,6 +10,11 @@ const initialState = {
         return {
           ...state,
           formData: action.payload,
+        };
+      case 'STORE_FORM_DETAIL':
+        return {
+          ...state,
+          formDetail: action.payload,
         };
       default:
         return state;

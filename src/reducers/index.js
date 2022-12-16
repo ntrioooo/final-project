@@ -4,5 +4,5 @@ import formReducer from './form'
 
 export default combineReducers({
     AirlinesReducer,
-    formReducer
+    formReducer,
 });

@@ -75,6 +75,7 @@ export default function Register() {
                     I agree with terms and conditions
                   </label>
                 </div>
+                <a href="/login">asd</a>
                 <input type="submit" className="w-100 btn btn-lg btn-primary mt-3" value={isLoading ? "Loading" : "Register"} />
                 {/* <button className="w-100 btn btn-lg btn-primary mt-3">
                   Sign Up

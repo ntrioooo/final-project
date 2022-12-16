@@ -18,7 +18,9 @@ import {
   Register,
   Destinations,
   AllDestinations,
-  DeatailDestinations
+  DeatailDestinations,
+  Login,
+  Protected
 } from "./components";
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -26,7 +28,7 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-const reduxDevToolsExtension = false;
+const reduxDevToolsExtension = true;
 
 const composeEnhancers = composeWithDevTools({});
 
@@ -46,10 +48,17 @@ root.render(
           <Route path="/register" element={<Register />} />
         </Routes>
         <Routes>
-          <Route path="/pilih-penerbangan" element={<PilihPenerbangan />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
         <Routes>
-          <Route path="/pilih-penerbangan/isi-detail" element={<IsiDetail />} />
+          <Route path="/pilih-penerbangan" element={
+            <Protected>
+              <PilihPenerbangan />
+            </Protected>
+          } />
+        </Routes>
+        <Routes>
+          <Route path="/isi-detail" element={<IsiDetail />} />
         </Routes>
         <Routes>
           <Route path="/destinations" element={<Destinations />} />

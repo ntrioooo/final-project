@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import listClass from "../../list-class";
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate, replace } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getListAirlines } from "../../actions/airlinesAction";
-import { getForms } from "../../actions/formAction";
 
 function SearchAir() {
 
@@ -22,17 +21,8 @@ function SearchAir() {
 
   }, [dispatch])
 
+
   const [ isOnce, setIsOnce ] = useState(false);
-
-  // const initialValues = { tipe: '',
-  // originAirport: '',
-  // destinationAirport:'',
-  // date_pergi:'',
-  // date_pulang:'',
-  // tiket:'',
-  // tipe_class:'' 
-  // }
-
   const [ formData, setFormData ] = useState({})
 
   const handleChange = (e) => {
@@ -53,7 +43,12 @@ function SearchAir() {
       payload: formData,
     });
 
-    navigate('/pilih-penerbangan');
+    dispatch({
+      type: 'STORE_FORM_DETAIL',
+      payload: formData,
+    });
+
+    navigate('/pilih-penerbangan', { replace: true });
     
     console.log(formData)
   }
