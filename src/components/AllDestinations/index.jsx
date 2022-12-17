@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import NavBar from "../LandingPage/navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getListAirlines } from "../../actions/airlinesAction";
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function AllDestinations() {
   const {
@@ -35,7 +35,7 @@ function AllDestinations() {
                     <div className="card-body">
                       <h4>{airline.originAirport}</h4>
                       <p>{airline.desc}</p>
-                      <NavLink to={"/alldst/" + airline.id}>
+                      {/* <NavLink to={"/alldst/" + airline.id}>
                         <button
                           type="submit"
                           className="btn btn-dark"
@@ -43,10 +43,17 @@ function AllDestinations() {
                         >
                           View Detail
                         </button>
-                      </NavLink>
-                      <button>
-                        <img src="images/hati.png" alt="" />
-                      </button>
+                      </NavLink> */}
+                      <Link
+                        to={"/detail-destination/" + airline.id}
+                        class="btn btn-dark"
+                        style={{ width: "250px", marginRight: "15px" }}
+                      >
+                        View Detail
+                      </Link>
+                      <a href="#" id="wishlist">
+                          <img src="images/hati.png" alt="" />
+                        </a>
                       {/* error path gambar */}
                     </div>
                   </div>

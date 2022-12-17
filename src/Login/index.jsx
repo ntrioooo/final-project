@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 
 async function doLogin({ email, password }) {
   const response = await fetch("http://localhost:8000/login", {

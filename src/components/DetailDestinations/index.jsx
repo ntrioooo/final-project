@@ -1,76 +1,50 @@
-import React, { useEffect } from "react";
-import NavBar from "../LandingPage/navbar";
-import { useDispatch, useSelector } from "react-redux";
-import { getListAirlines } from "../../actions/airlinesAction";
+import React, { useState, useEffect } from "react";
+import NavBar from '../LandingPage/navbar';
+import { useParams } from "react-router-dom";
+import destination from "../../assets/images/Destination.png";
+
 
 function DeatailDestinations() {
-  const {
-    getListAirlinesResult,
-    getListAirlinesLoading,
-    getListAirlinesError,
-  } = useSelector((state) => state.AirlinesReducer);
-  const dispatch = useDispatch();
+    const { id } = useParams();
+    const [destinations, setDestinations] = useState(null);
 
-  useEffect(() => {
-    dispatch(getListAirlines());
-  }, [dispatch]);
+    useEffect(() => {
+        fetch(`https://6390373c0bf398c73a805426.mockapi.io/price_list/${id}`)
+            .then((resp) => resp.json())
+            .then((data) => setDestinations(data));
+    }, []);
 
-  return (
-    <div className="container">
-      <NavBar />
-      <div className="container top">
-        <h1 className="text-center mt-2 mb-5">Detail Destination</h1>
-        <div className="row">
-          {getListAirlinesResult ? (
-            getListAirlinesResult.map((airline) => {
-              return (
-                <div className="col-md-4">
-                  <div className="card mb-3">
-                    <img
-                      src="images/Destination.png"
-                      className="card-img-top"
-                      alt=""
-                    />
-                    <div className="card-body">
-                      <h4>{airline.originAirport}</h4>
-                      <p>{airline.desc}</p>
-                      <button
-                        type="submit"
-                        className="btn btn-dark"
-                        style={{ width: "250px", marginRight: "20px" }}
-                      >
-                        View Detail
-                      </button>
+    if (destinations === null) {
+        return <h1 className="text-center">Lagi Loading Cuyy...</h1>;
+    }
 
-                      <a href="/#">
-                        <img src="images/hati.png" alt="" />
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              );
-            })
-          ) : getListAirlinesLoading ? (
-            <h1>Loading</h1>
-          ) : (
-            <h1>
-              {getListAirlinesError ? getListAirlinesError : "Data Kosong"}
-            </h1>
-          )}
-          {/* <div className="col-md">
-                        <img src="images/Destination.png" className="card-img-top" alt=''/>
+    return (
+
+        <div className="container">
+            <NavBar />
+            <div className="container top">
+                {/* <div>
+                    <h2>Detail Page</h2>
+                    <p>id : {destinations.id}</p>
+                    <p>Destinasi : {destinations.destinationAirport}</p>
+                </div> */}
+
+                <h1 className='text-center mt-2 mb-5'>Detail Destination</h1>
+                <div className="row">
+                    <div className="col-md">
+                        <img src={destination} className="card-img-top" />
                     </div>
                     <div className="col-md px-5 py-5">
-                        <h2 className='mb-5'>BANDARA SOEKARNO HATTA</h2>
+                        <h2 className='mb-5'>{destinations.destinationAirport}</h2>
                         <p className='mb-5'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat soluta harum facilis sapiente nesciunt sint pariatur, illo mollitia ea fuga voluptatibus itaque, doloribus velit dolor dicta eaque ipsam cupiditate accusantium?
+                            {destinations.desc}
                         </p>
-                        <button type="submit" className="btn btn-dark" style={{ width: "250px", marginRight: "20px"}}>Bookmark</button>
-                    </div> */}
+                        <button type="submit" class="btn btn-dark" style={{ width: "250px", marginRight: "20px" }}>Bookmark</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    )
 }
 
-export default DeatailDestinations;
+export default DeatailDestinations
