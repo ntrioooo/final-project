@@ -20,7 +20,10 @@ import {
   AllDestinations,
   DeatailDestinations,
   Login,
-  Protected
+  Protected,
+  DashboardDetail,
+  AddMaskapai,
+  EditMaskapai
 } from "./components";
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -71,7 +74,10 @@ root.render(
           <Route path="/sukses" element={<Sukses />} />
         </Routes>
         <Routes>
-          <Route path="/dashboard" element={<DashboardAdmin />} />
+          <Route exact path="/dashboard" element={<DashboardAdmin />} />
+          <Route exact path="/dashboard/detail/:id" element={<DashboardDetail />} />
+          <Route exact path="/dashboard/edit/:id" element={<EditMaskapai />} />
+          <Route path="/dashboard/create" element={<AddMaskapai />} />
         </Routes>
         <Routes>
           <Route path="/profile-saya" element={<ProfileSaya />} />
