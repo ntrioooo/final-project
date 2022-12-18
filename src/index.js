@@ -31,6 +31,10 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import { composeWithDevTools } from 'redux-devtools-extension'
 
+import Admin from './pages/Admin';
+import Maskapai from './pages/Maskapai';
+import Pesanan from './pages/Pesanan';
+
 const reduxDevToolsExtension = false;
 
 const composeEnhancers = composeWithDevTools({});
@@ -89,10 +93,15 @@ root.render(
           <Route path="/pesanan-saya" element={<PesananSaya />} />
         </Routes>
         <Routes>
-          <Route path="/alldst" element={<AllDestinations />} />
+          <Route path="/all-destination" element={<AllDestinations />} />
         </Routes>
         <Routes>
-          <Route path="/alldst/:id" element={<DeatailDestinations />} />
+          <Route path="/detail-destination/:id" element={<DeatailDestinations />} />
+        </Routes>
+        <Routes>
+          <Route path='/admin' element={<Admin/>} />
+          <Route path='/daftar-maskapai' element={<Maskapai/>} />
+          <Route path='/daftar-pesanan' element={<Pesanan/>} />
         </Routes>
       </BrowserRouter>
     </Provider>
