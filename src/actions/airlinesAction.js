@@ -23,8 +23,6 @@ export const getListAirlines = () => (dispatch) => {
     timeout: 120000,
   })
     .then((response) => {
-      //   console.log('3. Berhasil dapat API');
-      // berhasil
       dispatch({
         type: GET_LIST_AIRLINES,
         payload: {
@@ -34,9 +32,7 @@ export const getListAirlines = () => (dispatch) => {
         },
       });
     })
-    .catch((error) => {
-      //   console.log('3. Gagal dapat API', error);
-      // error
+    .catch((error) => { 
       dispatch({
         type: GET_LIST_AIRLINES,
         payload: {

@@ -13,9 +13,7 @@ function FormDetail() {
   } = useSelector((state) => state.AirlinesReducer);
 
   const formDetail = useSelector((state) => state.formReducer.formDetail);
-  // const { formDetail } = props;
-  // const formData = getState().formReducer.formData;
-  // render(formData);
+
   const currentPrice = getListAirlinesResult && getListAirlinesResult.filter((airline) => 
           airline.originAirport === formDetail.originAirport &&
           airline.destinationAirport === formDetail.destinationAirport &&
@@ -42,11 +40,6 @@ function FormDetail() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // dispatch({
-    //   type: 'STORE_FORM_DETAIL',
-    //   payload: formDetail,
-    // });
-
     dispatch(getListAirlines());
   }, [dispatch]);
 

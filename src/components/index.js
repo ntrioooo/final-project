@@ -17,5 +17,7 @@ import Protected from './Protected';
 import DashboardDetail from './DasboardDetail';
 import AddMaskapai from './AddMaskapai'
 import EditMaskapai from './EditMaskapai';
+import DaftarPesanan from './DaftarPesanan';
+import Wishlist from './Wishlist';
 
-export { LandingPage, EditMaskapai, AddMaskapai, DashboardDetail, PilihPenerbangan, IsiDetail, About, Sukses, Register, Experience, Destinations, DashboardAdmin, ProfileSaya, EditProfile, PesananSaya, AllDestinations, DeatailDestinations, Login, Protected };
+export { LandingPage, Wishlist, DaftarPesanan, EditMaskapai, AddMaskapai, DashboardDetail, PilihPenerbangan, IsiDetail, About, Sukses, Register, Experience, Destinations, DashboardAdmin, ProfileSaya, EditProfile, PesananSaya, AllDestinations, DeatailDestinations, Login, Protected };

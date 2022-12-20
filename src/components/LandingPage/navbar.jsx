@@ -22,8 +22,8 @@ function NavBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [setScrollY]);
 
-  const scrolled = () => scrollY > 453;
-
+  const scrolled = () => scrollY > 180;
+  
   return (
     <>
       <Navbar fixed="top" expand="lg" key={"lg"}>

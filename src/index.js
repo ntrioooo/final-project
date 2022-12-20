@@ -23,7 +23,9 @@ import {
   Protected,
   DashboardDetail,
   AddMaskapai,
-  EditMaskapai
+  EditMaskapai,
+  DaftarPesanan,
+  Wishlist
 } from "./components";
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -82,6 +84,7 @@ root.render(
           <Route exact path="/dashboard/detail/:id" element={<DashboardDetail />} />
           <Route exact path="/dashboard/edit/:id" element={<EditMaskapai />} />
           <Route path="/dashboard/create" element={<AddMaskapai />} />
+          <Route path="/dashboard/daftar-pesanan" element={<DaftarPesanan />} />
         </Routes>
         <Routes>
           <Route path="/profile-saya" element={<ProfileSaya />} />
@@ -93,7 +96,8 @@ root.render(
           <Route path="/pesanan-saya" element={<PesananSaya />} />
         </Routes>
         <Routes>
-          <Route path="/all-destination" element={<AllDestinations />} />
+          <Route exact path="/all-destination" element={<AllDestinations />} />
+          <Route path="/wishlist" element={<Wishlist />} />
         </Routes>
         <Routes>
           <Route path="/detail-destination/:id" element={<DeatailDestinations />} />

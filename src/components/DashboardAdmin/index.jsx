@@ -4,10 +4,11 @@ import {
   deleteListAirlines,
 } from "../../actions/airlinesAction";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
+import EditMaskapai from "../EditMaskapai";
 
-const DashboardAdmin = (props) => {
+const DashboardAdmin = () => {
   const { getListAirlinesResult } = useSelector(
     (state) => state.AirlinesReducer
   );
@@ -247,10 +248,12 @@ const DashboardAdmin = (props) => {
                             <Link
                               to={{
                                 pathname: "/dashboard/edit/" + airline.id,
-                                state: props,
                               }}
                             >
                               <button className="btn btn-primary">Edit</button>
+                            </Link>
+                            <Link to={`/dashboard/detail/${airline.id}`}>
+                              <button className="btn btn-primary">View</button>
                             </Link>
                             <button
                               className="btn btn-danger"

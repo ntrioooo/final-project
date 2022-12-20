@@ -4,28 +4,44 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   editListAirlines,
   getListAirlines,
+  getDetailListAirlines
 } from "../../actions/airlinesAction";
+import { useParams, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
-function EditMaskapai(props) {
+function EditMaskapai() {
   const [data, setData] = useState({});
   const dispatch = useDispatch();
-  const id = props.match.params.id;
+  const navigate = useNavigate()
+  const { id } = useParams();
 
-  useEffect(() => {
-    console.log('dispatching getListAirlines action with id:', id);
-    dispatch(getListAirlines(id));
-  }, [dispatch, id]);
-
-  const { getListAirlinesResult, editAirlinesResult } = useSelector(
+  const { getListAirlinesResult, editAirlinesResult, getDetailListAirlinesResult } = useSelector(
     (state) => state.AirlinesReducer
   );
   
   useEffect(() => {
-    console.log('getListAirlinesResult:', getListAirlinesResult);
-    if (getListAirlinesResult) {
-      setData(getListAirlinesResult);
+    console.log("dispatching getListAirlines action with id:", id);
+    dispatch(getDetailListAirlines(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
+    if (getDetailListAirlinesResult) {
+      setData(getDetailListAirlinesResult);
     }
-  }, [getListAirlinesResult]);
+  }, [getDetailListAirlinesResult]);
+
+  // useEffect(() => {
+  //   if (getListAirlinesResult) {
+  //     setData({
+  //       originAirport: getListAirlinesResult.originAirport,
+  //       destinationAirport: getListAirlinesResult.destinationAirport,
+  //       price: getListAirlinesResult.price,
+  //       flightDate: getListAirlinesResult.flightDate,
+  //       ArrivalHour: getListAirlinesResult.ArrivalHour,
+  //       depatureHour: getListAirlinesResult.depatureHour,
+  //     });
+  //   }
+  // }, [getListAirlinesResult]);
 
   const handleChange = (e) => {
     setData({
@@ -36,7 +52,24 @@ function EditMaskapai(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editListAirlines(id, data));
+    // dispatch(editListAirlines(id, data));
+    swal({
+      title: "Are you sure want edit?",
+      text: "File will be updated",
+      icon: "info",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(editListAirlines(id, data));
+        swal("Poof! Data has been updated", {
+          icon: "success",
+        });
+        navigate('/dashboard')
+      } else {
+        swal("Data is safe");
+      }
+    });
   };
 
   return (
@@ -50,7 +83,7 @@ function EditMaskapai(props) {
             className="form-control"
             id="originAirport"
             name="originAirport"
-            value={data.originAirport}
+            defaultValue  ={data.originAirport}
             onChange={handleChange}
           />
         </div>
@@ -61,7 +94,7 @@ function EditMaskapai(props) {
             className="form-control"
             id="destinationAirport"
             name="destinationAirport"
-            value={data.destinationAirport}
+            defaultValue  ={data.destinationAirport}
             onChange={handleChange}
           />
         </div>
@@ -72,7 +105,7 @@ function EditMaskapai(props) {
             className="form-control"
             id="flightDate"
             name="flightDate"
-            value={data.flightDate}
+            defaultValue  ={data.flightDate}
             onChange={handleChange}
           />
         </div>
@@ -83,7 +116,7 @@ function EditMaskapai(props) {
             className="form-control"
             id="depatureHour"
             name="depatureHour"
-            value={data.depatureHour}
+            defaultValue  ={data.depatureHour}
             onChange={handleChange}
           />
         </div>
@@ -94,7 +127,7 @@ function EditMaskapai(props) {
             className="form-control"
             id="ArrivalHour"
             name="ArrivalHour"
-            value={data.ArrivalHour}
+            defaultValue  ={data.ArrivalHour}
             onChange={handleChange}
           />
         </div>
@@ -105,7 +138,7 @@ function EditMaskapai(props) {
             className="form-control"
             id="Price"
             name="Price"
-            value={data.Price}
+            defaultValue  ={data.Price}
             onChange={handleChange}
           />
         </div>

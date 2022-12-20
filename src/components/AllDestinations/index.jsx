@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import NavBar from "../LandingPage/navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getListAirlines } from "../../actions/airlinesAction";
 import { Link } from "react-router-dom";
+import { FaHeart } from 'react-icons/fa';
+import swal from "sweetalert";
 
 function AllDestinations() {
   const {
@@ -12,9 +14,40 @@ function AllDestinations() {
   } = useSelector((state) => state.AirlinesReducer);
   const dispatch = useDispatch();
 
+  const [colors, setColors] = useState({});
+
   useEffect(() => {
     dispatch(getListAirlines());
   }, [dispatch]);
+
+  const handleAddToWishlist = (airline) => {
+    // Get the existing data from the local storage
+    let existingData = localStorage.getItem("wishlist");
+
+    // If there is no existing data, create an empty array
+    if (existingData === null) {
+      existingData = [];
+    } else {
+      // Otherwise, parse the existing data from the local storage
+      existingData = JSON.parse(existingData);
+    }
+
+    // Check if the item already exists in the existing data
+    const index = existingData.findIndex((item) => item.id === airline.id);
+    if (index === -1) {
+      // If the item does not exist, add it to the existing data
+      existingData.push(airline);
+      setColors({ ...colors, [airline.id]: 'red' });
+    } else {
+      // If the item exists, remove it from the existing data
+      existingData.splice(index, 1);
+      setColors({ ...colors, [airline.id]: 'black' });
+    }
+
+    // Save the updated data back to the local storage
+    localStorage.setItem("wishlist", JSON.stringify(existingData));
+    console.log(existingData);
+  };
 
   return (
     <div className="container">
@@ -35,26 +68,18 @@ function AllDestinations() {
                     <div className="card-body">
                       <h4>{airline.originAirport}</h4>
                       <p>{airline.desc}</p>
-                      {/* <NavLink to={"/alldst/" + airline.id}>
-                        <button
-                          type="submit"
-                          className="btn btn-dark"
-                          style={{ width: "250px", marginRight: "20px" }}
-                        >
-                          View Detail
-                        </button>
-                      </NavLink> */}
                       <Link
                         to={"/detail-destination/" + airline.id}
-                        class="btn btn-dark"
+                        className="btn btn-dark"
                         style={{ width: "250px", marginRight: "15px" }}
                       >
                         View Detail
                       </Link>
-                      <a href="#" id="wishlist">
-                          <img src="images/hati.png" alt="" />
-                        </a>
-                      {/* error path gambar */}
+                        <FaHeart 
+                        id="wishlist"
+                        onClick={() => handleAddToWishlist(airline)}
+                        style = {{ color: colors[airline.id], fontSize: '30px' }}  
+                      />
                     </div>
                   </div>
                 </div>

@@ -68,8 +68,6 @@ function SearchAir() {
             <Col md={'auto'} className="text-center">
               <h4>Book</h4>
             </Col>
-              <hr />
-              {/* <pre>{JSON.stringify(formData, undefined, 2)}</pre> */}
             <Form onSubmit={handleSubmit}>
               <Row className="">
                 <Col md={{ span: 4, offset: 9 }}>
