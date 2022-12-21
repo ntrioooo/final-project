@@ -79,6 +79,11 @@ nav.navbar .button-sign button {
   padding-top: 120px;
 }
 
+.btn-cream {
+  background-color:  var(--cream-color);
+  padding: 18px 25px;
+}
+
 /* Form */
 
 .form {

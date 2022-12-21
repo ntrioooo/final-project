@@ -76,7 +76,7 @@ function EditMaskapai() {
     <div className="container mt-5">
       <h3>Edit Maskapai</h3>
       <form onSubmit={handleSubmit}>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label htmlFor="originAirport">Asal</label>
           <input
             type="text"
@@ -87,7 +87,7 @@ function EditMaskapai() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label htmlFor="destinationAirport">Tujuan</label>
           <input
             type="text"
@@ -98,7 +98,7 @@ function EditMaskapai() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label htmlFor="flightDate">Tanggal</label>
           <input
             type="date"
@@ -109,7 +109,7 @@ function EditMaskapai() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label htmlFor="depatureHour">Jam Berangkat</label>
           <input
             type="time"
@@ -120,7 +120,7 @@ function EditMaskapai() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label htmlFor="arrivalHour">Jam Sampai</label>
           <input
             type="time"
@@ -131,7 +131,7 @@ function EditMaskapai() {
             onChange={handleChange}
           />
         </div>
-        <div className="form-group">
+        <div className="form-group mt-3">
           <label htmlFor="flightDate">Price</label>
           <input
             type="number"
@@ -142,7 +142,7 @@ function EditMaskapai() {
             onChange={handleChange}
           />
         </div>
-        <input type="submit" />
+        <input type="submit" className="btn btn-primary mt-3"/>
       </form>
     </div>
   );

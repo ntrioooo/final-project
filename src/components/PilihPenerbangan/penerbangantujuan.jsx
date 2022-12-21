@@ -58,7 +58,10 @@ function PenerbanganTujuan(props) {
           </Col>
           {getListAirlinesResult ? (
             getListAirlinesResult
-              .filter((airline) => airline.id === "1")
+              .filter((airline) => 
+                  airline.originAirport === formData.originAirport &&
+                  airline.destinationAirport === formData.destinationAirport
+              )
               .map((airline) => {
                 return (
                   <Col md={4} className="mt-2" key={airline.id}>

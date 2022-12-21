@@ -19,15 +19,16 @@ export const getListAirlines = () => (dispatch) => {
   // get API
   axios({
     method: "GET",
-    url: "https://6390373c0bf398c73a805426.mockapi.io/price_list/",
+    url: "http://localhost:8000/get-airport",
     timeout: 120000,
   })
     .then((response) => {
+      console.log('action', response.data.data.airport);
       dispatch({
         type: GET_LIST_AIRLINES,
         payload: {
           loading: false,
-          data: response.data,
+          data: response.data.data.airport,
           errorMessage: false,
         },
       });
@@ -43,6 +44,42 @@ export const getListAirlines = () => (dispatch) => {
       });
     });
 };
+
+// export const getListAirlines = () => async (dispatch) => {
+//   dispatch({
+//     type: GET_LIST_AIRLINES,
+//     payload: {
+//       loading: true,
+//       data: false,
+//       errorMessage: false,
+//     },
+//   });
+
+//   try {
+//     const response = await axios({
+//       method: "GET",
+//       url: "http://localhost:8000/get-airport",
+//       timeout: 120000,
+//     });
+//     dispatch({
+//       type: GET_LIST_AIRLINES,
+//       payload: {
+//         loading: false,
+//         data: response.data,
+//         errorMessage: false,
+//       },
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: GET_LIST_AIRLINES,
+//       payload: {
+//         loading: false,
+//         data: false,
+//         errorMessage: error.message,
+//       },
+//     });
+//   }
+// };
 
 export const addListAirlines = (data) => (dispatch) => {
   dispatch({

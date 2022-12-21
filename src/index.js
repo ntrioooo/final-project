@@ -31,13 +31,13 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import Admin from './pages/Admin';
 import Maskapai from './pages/Maskapai';
 import Pesanan from './pages/Pesanan';
 
-const reduxDevToolsExtension = false;
+const reduxDevToolsExtension = true;
 
 const composeEnhancers = composeWithDevTools({});
 

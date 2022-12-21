@@ -5,6 +5,7 @@ import popularImg from "../../assets/images/popular.png";
 import popularImg1 from "../../assets/images/popular-1.png";
 import popularImg2 from "../../assets/images/popular-2.png";
 import MostPopularRes from "./mostpopularres";
+import { AiFillStar, AiOutlineArrowRight } from 'react-icons/ai'
 
 
 function MostPopular() {
@@ -56,62 +57,6 @@ function MostPopular() {
       
     },
   ]
-
-  // const transaksi = [
-  //   {
-  //     id: 1,
-  //     nama: 'Celana Panjang',
-  //     jumlah_pesanan: 5,
-  //   },
-  //   {
-  //     id: 2,
-  //     nama: 'Baju Lengan Panjang',
-  //     jumlah_pesanan: 8,
-  //   },
-  //   {
-  //     id: 3,
-  //     nama: 'Celana Levis',
-  //     jumlah_pesanan: 10,
-  //   },
-  //   {
-  //     id: 4,
-  //     nama: 'Jaket',
-  //     jumlah_pesanan: 2,
-  //   },
-  //   {
-  //     id: 5,
-  //     nama: 'Jaket',
-  //     jumlah_pesanan: 2,
-  //   },
-  //   {
-  //     id: 6,
-  //     nama: 'Jaket',
-  //     jumlah_pesanan: 2,
-  //   },
-  //   {
-  //     id: 7,
-  //     nama: 'Jaket',
-  //     jumlah_pesanan: 2,
-  //   },
-  // ]
-
-  // const result = _(transaksi)
-  //               .groupBy('nama')
-  //               .map((grp, nama) => ({
-  //                 nama,
-  //                 jumlah_pesanan: _.sumBy(grp, 'jumlah_pesanan'),
-  //               })).value();
-
-  // console.log(result);
-
-  // const result_fix = result.sort((a,b) => b-a)
-  // const mapping = result.map((x) => x.jumlah_pesanan).sort((a,b) => b-a)
-  // console.log(mapping);
-  // console.log(result_fix, 'a')
-
-  // const tempRest = transaksi.map((x) => x.jumlah_pesanan).sort((a,b) => b-a)
-  // console.log(tempRest[0]);
-
   
   const [isHovering, setIsHovering] = useState(false);
   const [isHover, setIsHover] = useState(false);
@@ -134,8 +79,6 @@ function MostPopular() {
 
   const filterBan = airports.filter(airport => airport.id === 1)
 
-  // console.log(airports.sort((a,b) => b-a));
-
   const displayBan = filterBan.map((airport, index) => {
     return (
       <div
@@ -151,6 +94,8 @@ function MostPopular() {
                 <div className="">
                   <p className="most-popular-card-star">
                     5.0
+                    <AiFillStar 
+                      style={{ fontSize: '18px', marginBottom: '2px'}}/>
                     <span className="most-popular-card-total">
                         (5.2K+)
                     </span>
@@ -163,7 +108,7 @@ function MostPopular() {
                   </p>
                 </div>
                 <a href="/#" className="btn btn-cream rounded-4">
-                  &gt;
+                  < AiOutlineArrowRight />
                 </a>
               </div>
             </div>
@@ -176,7 +121,6 @@ function MostPopular() {
   const filterBan1 = airports.filter(airport => airport.id === 2)
 
   const displayBan1 = filterBan1.map((airport, index) => {
-    // console.log(index) 0, 1
     return (
       <div
         key={index}
@@ -185,7 +129,7 @@ function MostPopular() {
         onMouseEnter={(e) => handleMouseEnter(e)}
         onMouseLeave={(e) => handleMouseLeave(e)}
       >
-        <img src={popularImg} alt={airport.image} className="w-100 h-100" />
+        <img src={popularImg2} alt={airport.image} className="w-100 h-100" />
         <div className="most-popular-card">
           <div className="card">
             <div className="card-body">
@@ -193,6 +137,8 @@ function MostPopular() {
                 <div className="">
                   <p className="most-popular-card-star">
                     5.0
+                    <AiFillStar 
+                      style={{ fontSize: '18px', marginBottom: '2px'}}/>
                     <span className="most-popular-card-total">
                         (5.2K+)
                     </span>
@@ -205,7 +151,7 @@ function MostPopular() {
                   </p>
                 </div>
                 <a href="/#" className="btn btn-cream rounded-4">
-                  &gt;
+                < AiOutlineArrowRight />
                 </a>
               </div>
             </div>
@@ -227,7 +173,7 @@ function MostPopular() {
         onMouseEnter={(e) => handleHover(e)}
         onMouseLeave={(e) => handleHoverLeave(e)}
       >
-        <img src={popularImg} alt={airport.image} className="w-100 h-100" />
+        <img src={popularImg1} alt={airport.image} className="w-100 h-100" />
         <div className="most-popular-card">
           <div className="card">
             <div className="card-body">
@@ -235,6 +181,8 @@ function MostPopular() {
                 <div className="">
                   <p className="most-popular-card-star">
                     5.0
+                    <AiFillStar 
+                      style={{ fontSize: '18px', marginBottom: '2px'}}/>
                     <span className="most-popular-card-total">
                         (5.2K+)
                     </span>
@@ -247,7 +195,7 @@ function MostPopular() {
                   </p>
                 </div>
                 <a href="/#" className="btn btn-cream rounded-4">
-                  &gt;
+                < AiOutlineArrowRight />
                 </a>
               </div>
             </div>
@@ -268,7 +216,7 @@ function MostPopular() {
             <p className="text-title-gray">
               The best destination in our opinion is how much customers like it in terms of place, price, comfort and of course airport service
             </p>
-            <a href="/#" className="btn btn-view">
+            <a href="/all-destination" className="btn btn-view">
               View All Destination
             </a>
           </div>

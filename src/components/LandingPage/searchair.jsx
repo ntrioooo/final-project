@@ -101,14 +101,13 @@ function SearchAir() {
                 <Col md ={3}>
                   <Form.Select required name="originAirport"
                   onChange={handleChange}
-                  // value={formData.originAirport}
                   >
                   <option hidden>Dari</option>
                   {getListAirlinesResult &&
                       getListAirlinesResult.map((airline) => {
                         return (
-                          <option key={airline.id} value={airline.originAirport}>
-                            {airline.originAirport}
+                          <option key={airline.id} value={airline.Airport_Name}>
+                            {airline.Airport_Name}
                           </option>
                         )
                       })
@@ -124,8 +123,8 @@ function SearchAir() {
                     {getListAirlinesResult &&
                       getListAirlinesResult.map((airline) => {
                         return (
-                          <option key={airline.id} value={airline.destinationAirport}>
-                            {airline.destinationAirport}
+                          <option key={airline.id} value={airline.Airport_Name}>
+                            {airline.Airport_Name}
                           </option>
                         )
                       })

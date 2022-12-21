@@ -3,7 +3,8 @@ import { useState } from "react";
 import { Navigate } from "react-router-dom";
 
 async function doRegister ({ email, password, name }) {
-  const response = await fetch("https://6390373c0bf398c73a805426.mockapi.io/users", {
+  const response = await fetch("https://tesdep2-production.up.railway.app/register", {
+    mode: "no-cors",
     method: "POST",
     headers: {
       "Content-Type": "application/json"

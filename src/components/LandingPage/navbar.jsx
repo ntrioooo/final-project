@@ -62,7 +62,7 @@ function NavBar() {
                 <span className="button-sign">
                   <NavLink to="/register">
                     <button>
-                      <span>Sign In</span>
+                      <span style={{ marginLeft: '0px' }}>Sign In</span>
                     </button>
                   </NavLink>
                 </span>

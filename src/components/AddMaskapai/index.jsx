@@ -28,6 +28,8 @@ function AddMaskapai() {
         destinationAirport: destinationAirport,
         flightDate: flightDate,
         Price: price,
+        arrivalHour: arrivalHour,
+        depatureHour: depatureHour
       })
     );
 
@@ -38,45 +40,74 @@ function AddMaskapai() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Bandara Asal
-          <input
-            type="text"
-            name="originAirport"
-            onChange={(e) => setOriginAirport(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Bandara Tujuan
-          <input
-            type="text"
-            name="destinatonAirport"
-            onChange={(e) => setDestinationAirport(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Flight Date
-          <input
-            type="date"
-            name="flightDate"
-            onChange={(e) => setFlightDate(e.target.value)}
-          />
-        </label>
-        <br />
-        <label>
-          Price
-          <input
-            type="number"
-            name="Price"
-            onChange={(e) => setPrice(e.target.value)}
-          />
-        </label>
-        <br />
-        <input type="submit" />
-      </form>
+      <div className="container mt-5">
+        <h3>Add Maskapai</h3>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group mt-3">
+            <label htmlFor="originAirport">Asal</label>
+            <input
+              type="text"
+              className="form-control"
+              id="originAirport"
+              name="originAirport"
+              onChange={(e) => setOriginAirport(e.target.value)}
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="destinationAirport">Tujuan</label>
+            <input
+              type="text"
+              className="form-control"
+              id="destinationAirport"
+              name="destinationAirport"
+              onChange={(e) => setDestinationAirport(e.target.value)}
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="flightDate">Tanggal</label>
+            <input
+              type="date"
+              className="form-control"
+              id="flightDate"
+              name="flightDate"
+              onChange={(e) => setFlightDate(e.target.value)}
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="depatureHour">Jam Berangkat</label>
+            <input
+              type="time"
+              className="form-control"
+              id="depatureHour"
+              name="depatureHour"
+              onChange={(e) => setDepatureHour(e.target.value)}
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="arrivalHour">Jam Sampai</label>
+            <input
+              type="time"
+              className="form-control"
+              id="ArrivalHour"
+              name="ArrivalHour"
+              onChange={(e) => setArrivalHour(e.target.value)}
+            />
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="price">Price</label>
+            <input
+              type="number"
+              className="form-control"
+              id="Price"
+              name="Price"
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary mt-3">
+            Create
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

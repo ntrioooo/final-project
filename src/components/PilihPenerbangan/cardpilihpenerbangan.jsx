@@ -39,16 +39,6 @@ function CardPilihPenerbangan() {
   return (
     <div>
       <Container>
-        Check redux data
-        <div>
-          <ul>
-            {Object.entries(formData).map(([key, value]) => (
-              <li key={key}>
-                <strong>{key}:</strong> {value}
-              </li>
-            ))}
-          </ul>
-        </div>
         <Row className="mt-3">
           {getListAirlinesResult ? (
             filteredAirlines.length > 0 ? (
@@ -85,7 +75,7 @@ function CardPilihPenerbangan() {
                       </div>
                       <Link to = '/isi-detail'>
                         <a
-                          className="btn btn-booking rounded-0 mt-4"
+                          className="btn btn-booking rounded-0 mt-4 ms-3"
                         >
                           BOOKING
                         </a>

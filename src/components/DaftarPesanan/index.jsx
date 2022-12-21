@@ -23,12 +23,7 @@ function DaftarPesanan() {
       <div className="container mt-5 pesanan">
         <div className="row">
           <div className="col-6">
-            <h3 className="fs-4 mb-3">Pesanan</h3>
-          </div>
-          <div className="col-6">
-            <a href="/#" className="btn btn-primary kanan" id="kanan">
-              Tambah Pesanan
-            </a>
+            <h3 className="fs-4 mb-3">Pesanan Buyer</h3>
           </div>
         </div>
         <div className="row my-2">
@@ -39,9 +34,15 @@ function DaftarPesanan() {
                   <th scope="col" width="50">
                     No
                   </th>
-                  <th scope="col">Pesawat</th>
                   <th scope="col">Nama</th>
-                  <th scope="col">Action</th>
+                  <th scope="col">Asal</th>
+                  <th scope="col">Tujuan</th>
+                  <th scope="col">Tanggal</th>
+                  <th scope="col">Harga</th>
+                  <th scope="col">Tiket</th>
+                  <th scope="col">Tipe</th>
+                  <th scope="col">Kelas</th>
+                  <th scope="col">No HP</th>
                 </tr>
               </thead>
               {getIsiDetailResult && 
@@ -52,10 +53,13 @@ function DaftarPesanan() {
                         <th scope="row">{index + 1}</th>
                         <td>{airline.nama}</td>
                         <td>{airline.originAirport}</td>
-                        <td>
-                          <button className="btn btn-primary me-2">Edit</button>
-                          <button className="btn btn-danger">Hapus</button>
-                        </td>
+                        <td>{airline.destinationAirport}</td>
+                        <td>{airline.flightDate}</td>
+                        <td>{airline.Price}</td>
+                        <td>{airline.totalPassenger}</td>
+                        <td>{airline.tipe}</td>
+                        <td>{airline.planeClass}</td>
+                        <td>{airline.HP}</td>
                       </tr>
                     </tbody>
                   )
