@@ -35,8 +35,6 @@ function SearchAir() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // const formData = new FormData(e.target);
-
     // Dispatch an action with the form data as payload
     dispatch({
       type: 'SUBMIT_FORM',

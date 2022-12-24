@@ -4,6 +4,7 @@ import { useDispatch, useSelector, connect } from "react-redux";
 import { getListAirlines } from "../../actions/airlinesAction";
 import airTakeOff from "../../assets/images/air-takeoff.png";
 import arrowRight from "../../assets/images/arrow-right.png";
+import { getListSchedule } from "../../actions/scheduleAction";
 
 function PenerbanganTujuan(props) {
   const {
@@ -11,6 +12,11 @@ function PenerbanganTujuan(props) {
     getListAirlinesLoading,
     getListAirlinesError,
   } = useSelector((state) => state.AirlinesReducer);
+
+  const { getListScheduleResult } = useSelector(
+    (state) => state.ScheduleReducer
+  );
+
   const formData = useSelector((state) => state.formReducer.formData);
 
   const dispatch = useDispatch();
@@ -29,56 +35,21 @@ function PenerbanganTujuan(props) {
         </div>
         <Row>
           <Col md={1}>
-            <img src={airTakeOff} alt="" className="img-fluid" />
+            <img src={airTakeOff} alt="Gambar" className="img-fluid" />
           </Col>
-          {getListAirlinesResult ? (
-            getListAirlinesResult
-              .filter(
-                (airline) =>
-                  airline.originAirport === formData.originAirport &&
-                  airline.destinationAirport === formData.destinationAirport
-              )
-              .map((airline) => {
-                return (
-                  <Col md={4} className="mt-2" key={airline.id}>
-                    <p className="text-airport">{airline.originAirport}</p>
-                    <p className="text-city">{airline.city}</p>
-                  </Col>
-                );
-              })
-          ) : getListAirlinesLoading ? (
-            <h1>Loading</h1>
-          ) : (
-            <h1>
-              {getListAirlinesError ? getListAirlinesError : "Data Kosong"}
-            </h1>
-          )}
+            <Col md={4} className="mt-2">
+              <p>From</p>
+              <p className="text-airport">{formData.originAirport}</p>
+            </Col>
           <Col md={1}>
             <img src={arrowRight} alt="" className="img-fluid" />
           </Col>
-          {getListAirlinesResult ? (
-            getListAirlinesResult
-              .filter((airline) => 
-                  airline.originAirport === formData.originAirport &&
-                  airline.destinationAirport === formData.destinationAirport
-              )
-              .map((airline) => {
-                return (
-                  <Col md={4} className="mt-2" key={airline.id}>
-                    <p className="text-airport">{airline.destinationAirport}</p>
-                    <p className="text-city">{airline.city}</p>
-                  </Col>
-                );
-              })
-          ) : getListAirlinesLoading ? (
-            <h1>Loading</h1>
-          ) : (
-            <h1>
-              {getListAirlinesError ? getListAirlinesError : "Data Kosong"}
-            </h1>
-          )}
+              <Col md={4} className="mt-2">
+              <p>To</p>
+              <p className="text-airport">{formData.destinationAirport}</p>
+              </Col>
           <Col md={2} className="mt-auto pe-5">
-            <p className="ms-3 tanggal">{date_pergi}</p>
+            <p className="ms-3 tanggal">{formData.date_pergi}</p>
           </Col>
         </Row>
       </Container>

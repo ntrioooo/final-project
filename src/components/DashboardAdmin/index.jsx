@@ -3,20 +3,19 @@ import {
   getListAirlines,
   deleteListAirlines,
 } from "../../actions/airlinesAction";
+import { getListSchedule, deleteListSchedule } from "../../actions/scheduleAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
-import EditMaskapai from "../EditMaskapai";
 
 const DashboardAdmin = () => {
-  const { getListAirlinesResult } = useSelector(
-    (state) => state.AirlinesReducer
-  );
+
+  const { getListScheduleResult } = useSelector((state) => state.ScheduleReducer)
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getListAirlines());
+    dispatch(getListSchedule());
   }, [dispatch]);
 
   const handleClick = (id) => {
@@ -28,7 +27,7 @@ const DashboardAdmin = () => {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        dispatch(deleteListAirlines(id));
+        dispatch(deleteListSchedule(id));
         swal("Poof! Data has been deleted", {
           icon: "success",
         });
@@ -213,7 +212,16 @@ const DashboardAdmin = () => {
           </div>
 
           <div className="row my-5">
-            <h3 className="fs-4 mb-3">Maskapai</h3>
+            <div className="row">
+              <div className="col-md">
+                <h3 className="fs-4 mb-3">Jadwal Penerbangan</h3>
+              </div>
+              <div className="col-md">
+                <Link to='/dashboard/create'>
+                  <button className="btn btn-primary float-end">Tambah Penerbangan</button>
+                </Link>
+              </div>
+            </div>
             <div className="col">
               <table className="table bg-white rounded shadow-sm  table-hover">
                 <thead>
@@ -221,43 +229,45 @@ const DashboardAdmin = () => {
                     <th scope="col" width="50">
                       No
                     </th>
-                    <th scope="col">Pesawat</th>
                     <th scope="col">Asal</th>
                     <th scope="col">Tujuan</th>
+                    <th scope="col">Tipe Tiket</th>
+                    <th scope="col">Pesawat</th>
+                    <th scope="col">Harga</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Jam Berangkat</th>
-                    <th scope="col">Jam Sampai</th>
-                    <th scope="col">Harga</th>
+                    <th scope="col">Jam Pulang</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
-                {getListAirlinesResult &&
-                  getListAirlinesResult.map((airline, index) => {
+                {getListScheduleResult &&
+                  getListScheduleResult.map((schedule, index) => {
                     return (
-                      <tbody key={airline.id}>
+                      <tbody key={schedule.id}>
                         <tr>
                           <th scope="row">{index + 1}</th>
-                          <td>Pesawat</td>
-                          <td>{airline.originAirport}</td>
-                          <td>{airline.destinationAirport}</td>
-                          <td>{airline.flightDate}</td>
-                          <td>{airline.depatureHour}</td>
-                          <td>{airline.ArrivalHour}</td>
-                          <td>{airline.Price}</td>
+                          <td>{schedule.Origin_Airport}</td>
+                          <td>{schedule.Destination_Airport}</td>
+                          <td>{schedule.Plane_class}</td>
+                          <td>{schedule.Airline_Name}</td>
+                          <td>{schedule.Price.toLocaleString().replaceAll(",", ".")}</td>
+                          <td>{schedule.flight_Date.slice(0, 10)}</td>
+                          <td>{schedule.Departure_Hour.slice(0, 5)}</td>
+                          <td>{schedule.Arrival_Hour.slice(0, 5)}</td>
                           <td>
                             <Link
                               to={{
-                                pathname: "/dashboard/edit/" + airline.id,
+                                pathname: "/dashboard/edit/" + schedule.id,
                               }}
                             >
                               <button className="btn btn-primary">Edit</button>
                             </Link>
-                            <Link to={`/dashboard/detail/${airline.id}`}>
+                            <Link to={`/dashboard/detail/${schedule.id}`}>
                               <button className="btn btn-primary">View</button>
                             </Link>
                             <button
                               className="btn btn-danger"
-                              onClick={() => handleClick(airline.id)}
+                              onClick={() => handleClick(schedule.id)}
                             >
                               Hapus
                             </button>

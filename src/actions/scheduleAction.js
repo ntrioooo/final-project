@@ -1,16 +1,15 @@
 import axios from "axios";
 
-export const GET_LIST_AIRLINES = "GET_LIST_AIRLINES";
-export const GET_DETAIL_LIST_AIRLINES = "GET_DETAIL_LIST_AIRLINES";
-export const ADD_LIST_AIRLINES = "ADD_LIST_AIRLINES";
-export const DELETE_LIST_AIRLINES = "DELETE_LIST_AIRLINES";
-export const EDIT_LIST_AIRLINES = "EDIT_LIST_AIRLINES";
+export const GET_LIST_SCHEDULE = "GET_LIST_SCHEDULE";
+export const GET_DETAIL_LIST_SCHEDULE = "GET_LIST_SCHEDULE";
+export const ADD_LIST_SCHEDULE = "ADD_LIST_SCHEDULE";
+export const EDIT_LIST_SCHEDULE = "EDIT_LIST_SCHEDULE";
+export const DELETE_LIST_SCHEDULE = "DELETE_LIST_SCHEDULE";
 
-const token = localStorage.getItem('token')
-
-export const getListAirlines = () => (dispatch) => {
+export const getListSchedule = () => (dispatch) => {
+  const token = localStorage.getItem("token");
   dispatch({
-    type: GET_LIST_AIRLINES,
+    type: GET_LIST_SCHEDULE,
     payload: {
       loading: true,
       data: false,
@@ -18,25 +17,29 @@ export const getListAirlines = () => (dispatch) => {
     },
   });
 
-  // get API
   axios({
     method: "GET",
-    url: "http://localhost:8000/get-airport",
+    url: "http://localhost:8000/schedule",
     timeout: 120000,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
   })
     .then((response) => {
       dispatch({
-        type: GET_LIST_AIRLINES,
+        type: GET_LIST_SCHEDULE,
         payload: {
           loading: false,
-          data: response.data.data.airport,
+          data: response.data.data.Jadwal,
           errorMessage: false,
         },
       });
     })
-    .catch((error) => { 
+    .catch((error) => {
+      console.log("ERRRRR", error);
       dispatch({
-        type: GET_LIST_AIRLINES,
+        type: GET_LIST_SCHEDULE,
         payload: {
           loading: false,
           data: false,
@@ -46,45 +49,10 @@ export const getListAirlines = () => (dispatch) => {
     });
 };
 
-// export const getListAirlines = () => async (dispatch) => {
-//   dispatch({
-//     type: GET_LIST_AIRLINES,
-//     payload: {
-//       loading: true,
-//       data: false,
-//       errorMessage: false,
-//     },
-//   });
-
-//   try {
-//     const response = await axios({
-//       method: "GET",
-//       url: "http://localhost:8000/get-airport",
-//       timeout: 120000,
-//     });
-//     dispatch({
-//       type: GET_LIST_AIRLINES,
-//       payload: {
-//         loading: false,
-//         data: response.data,
-//         errorMessage: false,
-//       },
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: GET_LIST_AIRLINES,
-//       payload: {
-//         loading: false,
-//         data: false,
-//         errorMessage: error.message,
-//       },
-//     });
-//   }
-// };
-
-export const addListAirlines = (data) => (dispatch) => {
+export const addListSchedule = (data) => (dispatch) => {
+  const token = localStorage.getItem("token");
   dispatch({
-    type: ADD_LIST_AIRLINES,
+    type: ADD_LIST_SCHEDULE,
     payload: {
       loading: true,
       data: false,
@@ -99,14 +67,14 @@ export const addListAirlines = (data) => (dispatch) => {
     data: data,
     timeout: 120000,
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization' : `${token}`
-    }
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
   })
     .then((response) => {
-      console.log(data);
+      console.log(response);
       dispatch({
-        type: ADD_LIST_AIRLINES,
+        type: ADD_LIST_SCHEDULE,
         payload: {
           loading: false,
           data: response.data,
@@ -115,9 +83,9 @@ export const addListAirlines = (data) => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log('ERRRRR', error);
+      console.log("ERRRRR", error);
       dispatch({
-        type: ADD_LIST_AIRLINES,
+        type: ADD_LIST_SCHEDULE,
         payload: {
           loading: false,
           data: false,
@@ -127,9 +95,9 @@ export const addListAirlines = (data) => (dispatch) => {
     });
 };
 
-export const getDetailListAirlines = (id) => (dispatch) => {
+export const getDetailListSchedule = (id) => (dispatch) => {
   dispatch({
-    type: GET_DETAIL_LIST_AIRLINES,
+    type: GET_DETAIL_LIST_SCHEDULE,
     payload: {
       loading: true,
       data: false,
@@ -139,12 +107,13 @@ export const getDetailListAirlines = (id) => (dispatch) => {
 
   axios({
     method: "GET",
-    url: `https://6390373c0bf398c73a805426.mockapi.io/price_list/${id}`,
+    url: `http://localhost:8000/schedule/${id}`,
     timeout: 120000,
   })
     .then((response) => {
+      console.log(response);
       dispatch({
-        type: GET_DETAIL_LIST_AIRLINES,
+        type: GET_DETAIL_LIST_SCHEDULE,
         payload: {
           loading: false,
           data: response.data,
@@ -153,8 +122,9 @@ export const getDetailListAirlines = (id) => (dispatch) => {
       });
     })
     .catch((error) => {
+      console.log(error);
       dispatch({
-        type: GET_DETAIL_LIST_AIRLINES,
+        type: GET_DETAIL_LIST_SCHEDULE,
         payload: {
           loading: false,
           data: false,
@@ -164,40 +134,10 @@ export const getDetailListAirlines = (id) => (dispatch) => {
     });
 };
 
-export const deleteListAirlines = (id) => (dispatch) => {
+export const editListSchedule = (id, data) => (dispatch) => {
+  const token = localStorage.getItem("token");
   dispatch({
-    type: DELETE_LIST_AIRLINES,
-    payload: {
-      loading: true,
-      data: false,
-      errorMessage: false,
-    },
-  });
-
-  // get API
-  axios({
-    method: "delete",
-    url: "https://6390373c0bf398c73a805426.mockapi.io/price_list/" + id,
-    timeout: 120000,
-  })
-    .then((response) => {
-      dispatch(getListAirlines());
-    })
-    .catch((error) => {
-      dispatch({
-        type: DELETE_LIST_AIRLINES,
-        payload: {
-          loading: false,
-          data: false,
-          errorMessage: error.message,
-        },
-      });
-    });
-};
-
-export const editListAirlines = (id, data) => (dispatch) => {
-  dispatch({
-    type: DELETE_LIST_AIRLINES,
+    type: EDIT_LIST_SCHEDULE,
     payload: {
       loading: true,
       data: false,
@@ -208,13 +148,18 @@ export const editListAirlines = (id, data) => (dispatch) => {
   // get API
   axios({
     method: "put",
-    url: "https://6390373c0bf398c73a805426.mockapi.io/price_list/" + id,
+    url: "http://localhost:8000/edit-schedule/" + id,
     data: data,
     timeout: 120000,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
   })
     .then((response) => {
+      console.log(response);
       dispatch({
-        type: EDIT_LIST_AIRLINES,
+        type: EDIT_LIST_SCHEDULE,
         payload: {
           loading: false,
           data: response.data,
@@ -223,8 +168,55 @@ export const editListAirlines = (id, data) => (dispatch) => {
       });
     })
     .catch((error) => {
+      console.log(error);
       dispatch({
-        type: EDIT_LIST_AIRLINES,
+        type: EDIT_LIST_SCHEDULE,
+        payload: {
+          loading: false,
+          data: false,
+          errorMessage: error.message,
+        },
+      });
+    });
+};
+
+export const deleteListSchedule = (id) => (dispatch) => {
+  const token = localStorage.getItem("token");
+  dispatch({
+    type: EDIT_LIST_SCHEDULE,
+    payload: {
+      loading: true,
+      data: false,
+      errorMessage: false,
+    },
+  });
+
+  // get API
+  axios({
+    method: "delete",
+    url: "http://localhost:8000/delete-schedule/" + id,
+    timeout: 120000,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((response) => {
+      console.log(response);
+      dispatch(getListSchedule());
+      dispatch({
+        type: EDIT_LIST_SCHEDULE,
+        payload: {
+          loading: false,
+          data: response.data,
+          errorMessage: false,
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch({
+        type: EDIT_LIST_SCHEDULE,
         payload: {
           loading: false,
           data: false,

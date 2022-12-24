@@ -25,7 +25,7 @@ import {
   AddMaskapai,
   EditMaskapai,
   DaftarPesanan,
-  Wishlist
+  Wishlist,
 } from "./components";
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';

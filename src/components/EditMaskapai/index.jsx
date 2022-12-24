@@ -2,46 +2,34 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  editListAirlines,
   getListAirlines,
-  getDetailListAirlines
+  getDetailListAirlines,
 } from "../../actions/airlinesAction";
+import {
+  editListSchedule,
+} from "../../actions/scheduleAction";
 import { useParams, useNavigate } from "react-router-dom";
 import swal from "sweetalert";
+import listClass from "../../list-class";
 
 function EditMaskapai() {
   const [data, setData] = useState({});
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { id } = useParams();
 
-  const { getListAirlinesResult, editAirlinesResult, getDetailListAirlinesResult } = useSelector(
-    (state) => state.AirlinesReducer
-  );
-  
-  useEffect(() => {
-    console.log("dispatching getListAirlines action with id:", id);
-    dispatch(getDetailListAirlines(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (getDetailListAirlinesResult) {
-      setData(getDetailListAirlinesResult);
-    }
-  }, [getDetailListAirlinesResult]);
+  const {
+    getListAirlinesResult,
+  } = useSelector((state) => state.AirlinesReducer);
 
   // useEffect(() => {
-  //   if (getListAirlinesResult) {
-  //     setData({
-  //       originAirport: getListAirlinesResult.originAirport,
-  //       destinationAirport: getListAirlinesResult.destinationAirport,
-  //       price: getListAirlinesResult.price,
-  //       flightDate: getListAirlinesResult.flightDate,
-  //       ArrivalHour: getListAirlinesResult.ArrivalHour,
-  //       depatureHour: getListAirlinesResult.depatureHour,
-  //     });
-  //   }
-  // }, [getListAirlinesResult]);
+  //   console.log("dispatching getListAirlines action with id:", id);
+  //   dispatch(getDetailListAirlines(id));
+  // }, [dispatch, id]);
+
+  useEffect(() => {
+    dispatch(getListAirlines());
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setData({
@@ -52,7 +40,6 @@ function EditMaskapai() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(editListAirlines(id, data));
     swal({
       title: "Are you sure want edit?",
       text: "File will be updated",
@@ -61,11 +48,11 @@ function EditMaskapai() {
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        dispatch(editListAirlines(id, data));
+        dispatch(editListSchedule(id, data));
         swal("Poof! Data has been updated", {
           icon: "success",
         });
-        navigate('/dashboard')
+        navigate("/dashboard");
       } else {
         swal("Data is safe");
       }
@@ -74,75 +61,120 @@ function EditMaskapai() {
 
   return (
     <div className="container mt-5">
-      <h3>Edit Maskapai</h3>
+      <h3>Edit Jadwal Penerbangan</h3>
       <form onSubmit={handleSubmit}>
         <div className="form-group mt-3">
-          <label htmlFor="originAirport">Asal</label>
+          <label htmlFor="Origin_Airport">Bandara Asal</label>
+          <select
+            name="Origin_Airport"
+            className="form-select"
+            onChange={handleChange}
+            defaultValue={data.Origin_Airport}
+          >
+            <option hidden>Pilih Bandara Asal</option>
+            {getListAirlinesResult &&
+              getListAirlinesResult.map((airline) => {
+                return (
+                  <option key={airline.id} value={airline.Airport_Name}>
+                    {airline.Airport_Name}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <div className="form-group mt-3">
+          <label htmlFor="Destination_Airport">Bandara Tujuan</label>
+          <select
+            name="Destination_Airport"
+            className="form-select"
+            onChange={handleChange}
+            defaultValue={data.Destination_Airport}
+          >
+            <option hidden>Pilih Bandara Tujuan</option>
+            {getListAirlinesResult &&
+              getListAirlinesResult.map((airline) => {
+                return (
+                  <option key={airline.id} value={airline.Airport_Name}>
+                    {airline.Airport_Name}
+                  </option>
+                );
+              })}
+          </select>
+        </div>
+        <div className="form-group mt-3">
+          <label htmlFor="Airline_Name">Nama Pesawat</label>
           <input
             type="text"
             className="form-control"
-            id="originAirport"
-            name="originAirport"
-            defaultValue  ={data.originAirport}
+            id="Airline_Name"
+            name="Airline_Name"
             onChange={handleChange}
+            defaultValue={data.Airline_Name}
           />
         </div>
         <div className="form-group mt-3">
-          <label htmlFor="destinationAirport">Tujuan</label>
-          <input
-            type="text"
-            className="form-control"
-            id="destinationAirport"
-            name="destinationAirport"
-            defaultValue  ={data.destinationAirport}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="form-group mt-3">
-          <label htmlFor="flightDate">Tanggal</label>
+          <label htmlFor="flight_Date">Tanggal</label>
           <input
             type="date"
             className="form-control"
-            id="flightDate"
-            name="flightDate"
-            defaultValue  ={data.flightDate}
+            id="flight_Date"
+            name="flight_Date"
             onChange={handleChange}
+            defaultValue={data.flight_Date}
           />
         </div>
         <div className="form-group mt-3">
-          <label htmlFor="depatureHour">Jam Berangkat</label>
+          <label htmlFor="Depature_Hour">Jam Berangkat</label>
           <input
             type="time"
             className="form-control"
-            id="depatureHour"
-            name="depatureHour"
-            defaultValue  ={data.depatureHour}
+            id="Departure_Hour"
+            name="Departure_Hour"
             onChange={handleChange}
+            defaultValue={data.Departure_Hour}
           />
         </div>
         <div className="form-group mt-3">
-          <label htmlFor="arrivalHour">Jam Sampai</label>
+          <label htmlFor="Arrival_Hour">Jam Sampai</label>
           <input
             type="time"
             className="form-control"
-            id="ArrivalHour"
-            name="ArrivalHour"
-            defaultValue  ={data.ArrivalHour}
+            id="Arrival_Hour"
+            name="Arrival_Hour"
             onChange={handleChange}
+            defaultValue={data.Arrival_Hour}
           />
         </div>
         <div className="form-group mt-3">
-          <label htmlFor="flightDate">Price</label>
+          <label htmlFor="Plane_class">Tipe Class</label>
+          <select
+            name="Plane_class"
+            className="form-select"
+            onChange={handleChange}
+            defaultValue={data.Plane_class}
+          >
+            <option hidden>Pilih Tipe Class</option>
+            {listClass.map((list) => (
+              <option key={list.id} value={list.class}>
+                {list.class}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="form-group mt-3">
+          <label htmlFor="Price">Price</label>
           <input
             type="number"
             className="form-control"
             id="Price"
             name="Price"
-            defaultValue  ={data.Price}
             onChange={handleChange}
+            defaultValue={data.Price}
           />
         </div>
-        <input type="submit" className="btn btn-primary mt-3"/>
+        <button type="submit" className="btn btn-primary mt-3">
+          Edit
+        </button>
       </form>
     </div>
   );

@@ -21,30 +21,20 @@ function AllDestinations() {
   }, [dispatch]);
 
   const handleAddToWishlist = (airline) => {
-    // Get the existing data from the local storage
     let existingData = localStorage.getItem("wishlist");
-
-    // If there is no existing data, create an empty array
     if (existingData === null) {
       existingData = [];
     } else {
-      // Otherwise, parse the existing data from the local storage
       existingData = JSON.parse(existingData);
     }
-
-    // Check if the item already exists in the existing data
     const index = existingData.findIndex((item) => item.id === airline.id);
     if (index === -1) {
-      // If the item does not exist, add it to the existing data
       existingData.push(airline);
       setColors({ ...colors, [airline.id]: 'red' });
     } else {
-      // If the item exists, remove it from the existing data
       existingData.splice(index, 1);
       setColors({ ...colors, [airline.id]: 'black' });
     }
-
-    // Save the updated data back to the local storage
     localStorage.setItem("wishlist", JSON.stringify(existingData));
     console.log(existingData);
   };
