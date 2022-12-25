@@ -25,6 +25,7 @@ function AddMaskapai() {
   }, [dispatch]);
 
   const [Origin_Airport, setOriginAirport] = useState("");
+  const [Origin_Code, setOriginCode] = useState("");
   const [Destination_Airport, setDestinationAirport] = useState("");
   const [flight_Date, setFlightDate] = useState("");
   const [Departure_Hour, setDepatureHour] = useState("");
@@ -32,6 +33,27 @@ function AddMaskapai() {
   const [Price, setPrice] = useState();
   const [Plane_class, setTipeClass] = useState("");
   const [Airline_Name, setAirlineName] = useState("");
+  const [selectedAirport, setSelectedAirport] = useState("");
+
+  let options;
+  if (Array.isArray(getListAirlinesResult)) {
+    options = getListAirlinesResult.map((airline) => ({
+      value: airline.Airport_Name,
+      label: airline.Airport_Name,
+    }));
+  } else {
+    options = [];
+  }
+
+  const handleChange = (event) => {
+    const selectedOption = event.target.value;
+    setSelectedAirport(selectedOption);
+  };
+
+  const selectedCode =
+    getListAirlinesResult &&
+    getListAirlinesResult.find((item) => item.Airport_Name === selectedAirport)
+      ?.Airport_Code;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,7 +73,7 @@ function AddMaskapai() {
 
     swal("SUCCESS", "Jadwal penerbangan berhasil ditambahkan", "success");
 
-    navigate("/dashboard");
+    // navigate("/dashboard");
   };
 
   return (
@@ -64,18 +86,42 @@ function AddMaskapai() {
             <select
               name="Origin_Airport"
               className="form-select"
-              onChange={(e) => setOriginAirport(e.target.value)}
+              onChange={handleChange}
+              value={selectedAirport}
             >
               <option hidden>Pilih Bandara Tujuan</option>
-              {getListAirlinesResult &&
+              {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+              {/* {getListAirlinesResult &&
                 getListAirlinesResult.map((airline) => {
                   return (
-                    <option key={airline.id} value={airline.Airport_Name}>
+                    <option key={airline.id} value={airline.Airport_Code}>
                       {airline.Airport_Name}
                     </option>
                   );
-                })}
+                })} */}
             </select>
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="Origin_Airport">Bandara Asal Code</label>
+            <input
+              type="text"
+              className="form-control"
+              id="Airline_Code"
+              name="Airline_Code"
+              // onChange={(e) => setOriginCode(e.target.value)}
+              value={selectedCode}
+              readOnly
+              // {getListAirlinesResult &&
+              // getListAirlinesResult.map((airline) => {
+              //   return (
+              //     value={airline.Airport_Code[airline.Airline_Name]}
+              //   )
+              // })}
+            />
           </div>
           <div className="form-group mt-3">
             <label htmlFor="Destination_Airport">Bandara Tujuan</label>

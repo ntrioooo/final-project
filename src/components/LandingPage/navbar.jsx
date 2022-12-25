@@ -5,12 +5,33 @@ import {
   Nav,
   Navbar,
   Offcanvas,
+  Dropdown
 } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/images/Logo.png";
+import { getDetailListUsers } from "../../actions/usersAction";
+import { useParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { whoAmI } from "../../actions/usersAction";
 
 function NavBar() {
+
+  const { whoAmIResult } = useSelector((state) => state.UsersReducer)
+
   const [scrollY, setScrollY] = useState(0);
+  const Token = localStorage.getItem("token");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log("dispatching getListAirlines action with id:");
+    dispatch(whoAmI());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setIsLoggedIn(!!Token);
+  }, [Token]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,6 +44,14 @@ function NavBar() {
   }, [setScrollY]);
 
   const scrolled = () => scrollY > 180;
+
+  function handleLogout(e) {
+    setIsLoading(true);
+    e.preventDefault();
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setIsLoading(false);
+  }
   
   return (
     <>
@@ -59,13 +88,31 @@ function NavBar() {
                     About
                   </Nav.Link>
                 </Nav>
-                <span className="button-sign">
-                  <NavLink to="/register">
-                    <button>
-                      <span style={{ marginLeft: '0px' }}>Sign In</span>
+                {!isLoggedIn ? (
+                  <span className="button-sign">
+                    <NavLink to="/register">
+                      <button>
+                        <span style={{ marginLeft: '0px' }}>Sign In</span>
+                      </button>
+                    </NavLink>
+                  </span>
+                ) : (
+                  <div className="btn-group">
+                    <button type="button" className="btn btn-view dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    Welcome, {whoAmIResult.Name}
                     </button>
-                  </NavLink>
-                </span>
+                    <ul className="dropdown-menu">
+                      <Link to=''>
+                        <li><p className="dropdown-item">Pesanan saya</p></li>
+                      </Link>
+                      <Link to={`/edit-profile/${whoAmIResult.id}`}>
+                        <li><p className="dropdown-item">Profile saya</p></li>
+                      </Link>
+                      <li><hr className="dropdown-divider"/></li>
+                      <li><a className="dropdown-item" href="/#" onClick={handleLogout}>Logout</a></li>
+                    </ul>
+                  </div>
+                )}
               </Navbar.Collapse>
             </Offcanvas.Body>
           </Navbar.Offcanvas>

@@ -87,13 +87,9 @@ root.render(
           <Route path="/dashboard/daftar-pesanan" element={<DaftarPesanan />} />
         </Routes>
         <Routes>
-          <Route path="/profile-saya" element={<ProfileSaya />} />
-        </Routes>
-        <Routes>
-          <Route path="/edit-profile" element={<EditProfile />} />
-        </Routes>
-        <Routes>
-          <Route path="/pesanan-saya" element={<PesananSaya />} />
+          <Route exact path="/profile" element={<ProfileSaya />} />
+          <Route exact path="/edit-profile/:id" element={<EditProfile />} />
+          <Route exact path="/pesanan-saya" element={<PesananSaya />} />
         </Routes>
         <Routes>
           <Route exact path="/all-destination" element={<AllDestinations />} />

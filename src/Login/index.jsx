@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+import { loginUsers } from "../actions/usersAction";
+import { useDispatch, useSelector } from "react-redux";
 
-async function doLogin({ email, password }) {
-  const response = await fetch("http://localhost:8000/login", {
-    // mode: "no-cors",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email,
-      password,
-    }),
-  });
-  const data = await response.json();
-  return data;
-}
+// async function doLogin({ email, password }) {
+//   const response = await fetch("http://localhost:8000/login", {
+//     // mode: "no-cors",
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       email,
+//       password,
+//     }),
+//   });
+//   const data = await response.json();
+//   return data;
+// }
 
 async function doLoginWithGoogle(token) {
   // Sesuaikan endpoint
@@ -33,15 +35,30 @@ async function doLoginWithGoogle(token) {
   const data = await response.json();
   return data;
 }
+
 function Login() {
+  const { loginUsersResult, loginUsersError } = useSelector((state) => state.UsersReducer)
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoggedIn, setIsLoggedIn] = useState("false");
-  const [isLoading, setIsLoading] = useState("false");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const Token = localStorage.getItem("token");
 
+  // console.log(loginUsersResult);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (loginUsersResult && loginUsersResult.Token) {
+      localStorage.setItem('token', loginUsersResult.Token);
+      navigate('/profile')
+    } else if (loginUsersError) {
+      setError(loginUsersError);
+    }
+  }, [loginUsersResult, loginUsersError]);
 
   useEffect(() => {
     setIsLoggedIn(!!Token);
@@ -49,17 +66,25 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    doLogin({ email, password })
-      .then((user) => {
-        if (user) {
-          localStorage.setItem("token", user.Token);
-          // navigate('/')
-        } else {
-          setError("Email or password is incorrect");
-        }
-      })
-      .catch((err) => console.log(err.message))
-      .finally(() => setIsLoading(false));
+    dispatch(loginUsers({
+      email,
+      password
+    }))
+
+    // if(Token === true) {
+    //   navigate('/profile')
+    // }
+    // doLogin({ email, password })
+    //   .then((user) => {
+    //     if (user) {
+    //       localStorage.setItem("token", user.Token);
+    //       // navigate('/')
+    //     } else {
+    //       setError("Email or password is incorrect");
+    //     }
+    //   })
+    //   .catch((err) => console.log(err.message))
+    //   .finally(() => setIsLoading(false));
   };
 
   const haldleSuccessGoogle = (response) => {
@@ -124,7 +149,7 @@ function Login() {
                     />
                     <label htmlFor="password">Password</label>
                     {error && (
-                      <div className="alert alert-danger mt-3">{error}</div>
+                      <div className="alert alert-danger mt-3">Password atau email salah</div>
                     )}
                   </div>
                   <div className="mt-3">
