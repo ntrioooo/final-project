@@ -89,12 +89,12 @@ function Login() {
 
   const haldleSuccessGoogle = (response) => {
     console.log(response);
-    console.log(response.tokenId);
-    if (response.tokenId) {
-      doLoginWithGoogle(response.tokenId)
-        .then((_token) => {
-          localStorage.setItem("token", response.tokenId);
-          setIsLoggedIn(response.tokenId);
+    console.log(response.credential);
+    if (response.credential) {
+      doLoginWithGoogle(response.credential)
+        .then((token) => {
+          localStorage.setItem("token", response.credential);
+          setIsLoggedIn(token);
         })
         .catch((err) => console.log(err.message))
         .finally(() => setIsLoading(false));

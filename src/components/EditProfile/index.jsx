@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { whoAmI, editListUsers } from "../../actions/usersAction";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import cloudinary from "cloudinary-core";
+
+// const cl = cloudinary.Cloudinary.new({
+//   cloud_name: "dsx8iumjv",
+//   api_key: "545242235792345",
+//   api_secret: "l8JN7hjkHUUs3Z6oQX9ZMkqXT8",
+// });
 
 function Edit() {
   const { id } = useParams();
@@ -9,11 +16,16 @@ function Edit() {
   const { editListUsersResult } = useSelector((state) => state.UsersReducer);
 
   const [data, setData] = useState({});
+  // const [imageUrl, setImageUrl] = useState([]);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("dispatching getListAirlines action with id: ", whoAmIResult.id);
+    console.log(
+      "dispatching getListAirlines action with id: ",
+      whoAmIResult.id
+    );
     dispatch(whoAmI());
   }, [dispatch]);
 
@@ -28,21 +40,56 @@ function Edit() {
     }
   }, [whoAmIResult]);
 
+  // const handleImage = (e) => {
+  //   const file = e.target.files[0];
+  //   setFileToBase(file);
+  //   console.log(file)
+  // }
+
+  // const setFileToBase = (file) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onloadend = () => {
+  //     setImage(reader.result)
+  //   }
+  // }
+  
+  // const file = e.target.files?.[0];
+  // if (file) {
+  //   cl.upload(
+  //     file,
+  //     {
+  //       public_id: "my_image",
+  //       folder: "my_folder",
+  //     },
+  //     (error, result) => {
+  //       if (error) {
+  //         console.error(error);
+  //       } else {
+  //         console.log(result);
+  //         setImageUrl(result.secure_url);
+  //       }
+  //     }
+  //   );
+  // }
+  
   const handleChange = (e) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
+
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(editListUsers(id, data));
 
+    // navigate('/profile')
+
     // console.log(dispatch(editListUsers(id, data)))
     // console.log(editListUsersResult)
   };
-
 
   return (
     <div className="d-flex" id="wrapper">
@@ -120,7 +167,8 @@ function Edit() {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <i className="fa-sharp fa-solid fa-user me-2"></i>Hello, {whoAmIResult.Name},
+                  <i className="fa-sharp fa-solid fa-user me-2"></i>Hello,{" "}
+                  {whoAmIResult.Name}
                 </a>
                 <ul
                   className="dropdown-menu"
@@ -159,8 +207,9 @@ function Edit() {
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
               >
-              <img src={whoAmIResult.Foto} alt="Foto User" />
-              <input type="file" name="Foto" />
+                <img src={whoAmIResult.Foto} alt="Foto User" />
+                {/* {imageUrl && <img src={imageUrl} alt="uploaded image" />} */}
+                <input type="file" name="Foto" onChange={handleChange} defaultValue={data.Foto}/>
                 <div className="mt-3 mb-3">
                   <label htmlFor="exampleInputEmail1" className="form-label">
                     Email address
@@ -221,8 +270,8 @@ function Edit() {
                     type="password"
                     className="form-control"
                     id="password"
-                    name="password"
-                    defaultValue={data.password}
+                    name="Encrypted_Password"
+                    defaultValue={data.Encrypted_Password}
                     onChange={handleChange}
                   />
                 </div>

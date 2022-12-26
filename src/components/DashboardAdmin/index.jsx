@@ -229,14 +229,15 @@ const DashboardAdmin = () => {
                     <th scope="col" width="50">
                       No
                     </th>
-                    <th scope="col">Asal</th>
-                    <th scope="col">Tujuan</th>
-                    <th scope="col">Tipe Tiket</th>
-                    <th scope="col">Pesawat</th>
-                    <th scope="col">Harga</th>
+                    <th scope="col">Kode Asal</th>
+                    <th scope="col">Bandara Asal</th>
+                    <th scope="col">Kode Tujuan</th>
+                    <th scope="col">Bandara Tujuan</th>
+                    <th scope="col">Kelas</th>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Jam Berangkat</th>
-                    <th scope="col">Jam Pulang</th>
+                    <th scope="col">Jam Sampai</th>
+                    <th scope="col">Harga</th>
                     <th scope="col">Action</th>
                   </tr>
                 </thead>
@@ -246,14 +247,15 @@ const DashboardAdmin = () => {
                       <tbody key={schedule.id}>
                         <tr>
                           <th scope="row">{index + 1}</th>
-                          <td>{schedule.Origin_Airport}</td>
-                          <td>{schedule.Destination_Airport}</td>
-                          <td>{schedule.Plane_class}</td>
-                          <td>{schedule.Airline_Name}</td>
-                          <td>{schedule.Price.toLocaleString().replaceAll(",", ".")}</td>
-                          <td>{schedule.flight_Date.slice(0, 10)}</td>
-                          <td>{schedule.Departure_Hour.slice(0, 5)}</td>
-                          <td>{schedule.Arrival_Hour.slice(0, 5)}</td>
+                          <td>{schedule.origin_code}</td>
+                          <td>{schedule.origin_name}</td>
+                          <td>{schedule.destination_code}</td>
+                          <td>{schedule.destination_name}</td>
+                          <td>{schedule.plane_class}</td>
+                          <td>{schedule.flight_date.slice(0, 10)}</td>
+                          <td>{schedule.departure_hour.slice(0, 5)}</td>
+                          <td>{schedule.arrival_hour.slice(0, 5)}</td>
+                          <td>Rp.{schedule.price.toLocaleString().replace(',' , '.')}</td>
                           <td>
                             <Link
                               to={{

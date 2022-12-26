@@ -5,6 +5,7 @@ import { useSelector, connect, useDispatch } from "react-redux";
 import { getListAirlines } from "../../actions/airlinesAction";
 import { postIsiDetail } from "../../actions/formAction";
 import { getListSchedule } from "../../actions/scheduleAction";
+import { whoAmI } from "../../actions/usersAction";
 
 function FormDetail() {
   const {
@@ -17,29 +18,35 @@ function FormDetail() {
     (state) => state.ScheduleReducer
   );
 
+  const { whoAmIResult } = useSelector((state) => state.UsersReducer);
+  // console.log(whoAmIResult)
+
   const formDetail = useSelector((state) => state.formReducer.formDetail);
 
+  // console.log(getListScheduleResult[0].origin_code)
+
   const location = useLocation()
-  const price = location.state.price
+  const price = location.state?.price
 
-  // console.log(price)
+  console.log(price)
 
-  const currentPrice =
-    getListAirlinesResult &&
-    getListAirlinesResult
-      .filter(
-        (airline) =>
-          airline.originAirport === formDetail.originAirport &&
-          airline.destinationAirport === formDetail.destinationAirport &&
-          airline.flightDate === formDetail.date_pergi
-      )
-      .map((airline) => {
-        return airline.Price;
-      });
+  // const currentPrice =
+  //   getListAirlinesResult &&
+  //   getListAirlinesResult
+  //     .filter(
+  //       (airline) =>
+  //         airline.originAirport === formDetail.originAirport &&
+  //         airline.destinationAirport === formDetail.destinationAirport &&
+  //         airline.flightDate === formDetail.date_pergi
+  //     )
+  //     .map((airline) => {
+  //       return airline.Price;
+  //     });
 
   // const totalPrice = formDetail.tiket * currentPrice;
+
   const totalPrice = formDetail.tiket * price;
-  console.log(totalPrice);
+  // console.log(totalPrice);
 
   const [nama, setNama] = useState("");
   const [HP, setHP] = useState("");
@@ -47,38 +54,65 @@ function FormDetail() {
   const filteredSchedule = Array.isArray(getListScheduleResult)
     ? getListScheduleResult.filter(
         (schedule) =>
-          schedule.Origin_Airport === formDetail.originAirport &&
-          schedule.Destination_Airport === formDetail.destinationAirport &&
-          schedule.flight_Date.slice(0, 10) === formDetail.date_pergi &&
-          schedule.Plane_class === formDetail.tipe_class
+          schedule.origin_name === formDetail.originAirport &&
+          schedule.destination_name === formDetail.destinationAirport &&
+          schedule.flight_date.slice(0, 10) === formDetail.date_pergi &&
+          schedule.plane_class === formDetail.tipe_class &&
+          schedule.price === price
       )
     : [];
 
+  const getScheduleID = filteredSchedule.map((item) => item.id)
+  const getScheduleDepar = filteredSchedule.map((item) => item.departure_hour)
+  const getScheduleArriv = filteredSchedule.map((item) => item.arrival_hour)
+
+  console.log(filteredSchedule)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // console.log(typeof formDetail.tiket);
 
   useEffect(() => {
     dispatch(getListAirlines());
   }, [dispatch]);
 
+  useEffect(() => {
+    dispatch(getListSchedule());
+  }, [dispatch]);
+
+  // console.log(formDetail.originAirport);
+  // console.log(formDetail.destinationAirport);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    dispatch(
-      postIsiDetail({
-        nama: nama,
-        HP: HP,
-        planeClass: formDetail.tipe_class,
-        flightDate: formDetail.date_pergi,
-        originAirport: formDetail.originAirport,
-        destinationAirport: formDetail.destinationAirport,
-        totalPassenger: formDetail.tiket,
+    // console.log(formDetail.originAirport);
+
+    const payload = {
+        user_id: whoAmIResult.id,
+        schedule_id: getScheduleID,
+        origin_name: formDetail.originAirport,
+        destination_name: formDetail.destinationAirport,
+        plane_class: formDetail.tipe_class,
+        total_passenger: formDetail.tiket,
+        flight_type: formDetail.tipe,
+        flight_date: formDetail.date_pergi,
+        flight_back_date: formDetail.date_pulang,
+        departure_hour: getScheduleDepar,
+        arrival_hour: getScheduleArriv,
         price: totalPrice,
-        tipe: formDetail.tipe,
-      })
+        passenger_name: nama,
+        phone_number: HP,
+    };
+
+    dispatch(
+      postIsiDetail(payload)
     );
 
-    navigate("/sukses");
+    console.log(payload);
+
+    // navigate("/sukses");
   };
 
   return (

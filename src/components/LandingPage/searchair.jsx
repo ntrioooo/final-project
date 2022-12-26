@@ -76,7 +76,7 @@ function SearchAir() {
                         label="Sekali Jalan"
                         name="tipe"
                         type={type}
-                        value='sekali jalan'
+                        value='One Way Trip'
                         id={`inline-${type}-1`}
                         onClick={(e) => handleClickOnce(e)}
                         onChange={handleChange}
@@ -86,7 +86,7 @@ function SearchAir() {
                         label="Pulang Pergi"
                         name="tipe"
                         type={type}
-                        value='pulang pergi'
+                        value='Round Trip'
                         id={`inline-${type}-2`}
                         onClick={(e) => handleClickNotOnce(e)}
                         onChange={handleChange}

@@ -34,6 +34,9 @@ function AddMaskapai() {
   const [Plane_class, setTipeClass] = useState("");
   const [Airline_Name, setAirlineName] = useState("");
   const [selectedAirport, setSelectedAirport] = useState("");
+  const [selectedAirportCity, setSelectedAirportCity] = useState('')
+  const [selectedAirportDes, setSelectedAirportDes] = useState('')
+  const [selectedAirportDesCity, setSelectedAirportDesCity] = useState('')
 
   let options;
   if (Array.isArray(getListAirlinesResult)) {
@@ -45,33 +48,70 @@ function AddMaskapai() {
     options = [];
   }
 
-  const handleChange = (event) => {
-    const selectedOption = event.target.value;
+  const handleChange = (e) => {
+    const selectedOption = e.target.value;
+    const selectedOptionCity = e.target.value;
     setSelectedAirport(selectedOption);
+    setSelectedAirportCity(selectedOptionCity);
   };
+
+  const handleChangeDes = (e) => {
+    const selectedOptionDes = e.target.value;
+    const selectedOptionDesCity = e.target.value;
+    setSelectedAirportDes(selectedOptionDes);
+    setSelectedAirportDesCity(selectedOptionDesCity);
+  }
 
   const selectedCode =
     getListAirlinesResult &&
     getListAirlinesResult.find((item) => item.Airport_Name === selectedAirport)
       ?.Airport_Code;
 
+  const selectedCodeCity =
+    getListAirlinesResult &&
+    getListAirlinesResult.find((item) => item.Airport_Name === selectedAirportCity)
+      ?.City;
+
+  const selectedCodeDes =
+    getListAirlinesResult &&
+    getListAirlinesResult.find((item) => item.Airport_Name === selectedAirportDes)
+      ?.Airport_Code;
+
+  const selectedCodeDesCity =
+    getListAirlinesResult &&
+    getListAirlinesResult.find((item) => item.Airport_Name === selectedAirportDesCity)
+      ?.City;
+
+  // console.log('Kode asal ' , selectedCode);
+  // console.log('Kota asal' , selectedCodeCity)
+  // console.log('Kode tujuan' , selectedCodeDes)
+  // console.log('Kota tujuan' , selectedCodeDesCity)
+  // console.log('bandara asal', selectedAirport);
+  // console.log('bandara tujuan', selectedAirportDes);
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const payload = {
-      Origin_Airport: Origin_Airport,
-      Destination_Airport: Destination_Airport,
-      flight_Date: flight_Date,
-      Price: Price,
-      Arrival_Hour: Arrival_Hour,
-      Departure_Hour: Departure_Hour,
-      Plane_class: Plane_class,
-      Airline_Name: Airline_Name,
+      origin_code: selectedCode,
+      origin_name: selectedAirport,
+      origin_city: selectedCodeCity,
+      destination_code: selectedCodeDes,
+      destination_name: selectedAirportDes,
+      destination_city: selectedCodeDesCity,
+      plane_class: Plane_class,
+      flight_date: flight_Date,
+      airline_name: Airline_Name,
+      departure_hour: Departure_Hour,
+      arrival_hour: Arrival_Hour,
+      price: Price,
     };
 
     dispatch(addListSchedule(payload));
 
     swal("SUCCESS", "Jadwal penerbangan berhasil ditambahkan", "success");
+
+    console.log(payload)
 
     // navigate("/dashboard");
   };
@@ -89,7 +129,7 @@ function AddMaskapai() {
               onChange={handleChange}
               value={selectedAirport}
             >
-              <option hidden>Pilih Bandara Tujuan</option>
+              <option hidden>Pilih Bandara Asal</option>
               {options.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
@@ -112,9 +152,9 @@ function AddMaskapai() {
               className="form-control"
               id="Airline_Code"
               name="Airline_Code"
-              // onChange={(e) => setOriginCode(e.target.value)}
-              value={selectedCode}
+              value={selectedCode || ''}
               readOnly
+              // onChange={(e) => setOriginCode(e.target.value)}
               // {getListAirlinesResult &&
               // getListAirlinesResult.map((airline) => {
               //   return (
@@ -124,13 +164,32 @@ function AddMaskapai() {
             />
           </div>
           <div className="form-group mt-3">
+          <label htmlFor="City">Bandara Asal Kota</label>
+            <input
+              type="text"
+              className="form-control"
+              id="City"
+              name="City"
+              value={selectedCodeCity || ''}
+              readOnly
+            />
+          </div>
+          <div className="form-group mt-3">
             <label htmlFor="Destination_Airport">Bandara Tujuan</label>
             <select
               name="Destination_Airport"
               className="form-select"
-              onChange={(e) => setDestinationAirport(e.target.value)}
+              onChange={handleChangeDes}
+              value={selectedAirportDes}
+              // onChange={(e) => setDestinationAirport(e.target.value)}
             >
-              <option hidden>Pilih Bandara Asal</option>
+              <option hidden>Pilih Bandara Tujuan</option>
+              {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+              {/* <option hidden>Pilih Bandara Asal</option>
               {getListAirlinesResult &&
                 getListAirlinesResult.map((airline) => {
                   return (
@@ -138,8 +197,37 @@ function AddMaskapai() {
                       {airline.Airport_Name}
                     </option>
                   );
-                })}
+                })} */}
             </select>
+          </div>
+          <div className="form-group mt-3">
+            <label htmlFor="Origin_Airport">Bandara Tujuan Code</label>
+            <input
+              type="text"
+              className="form-control"
+              id="Airline_Code"
+              name="Airline_Code"
+              value={selectedCodeDes || ''}
+              readOnly
+              // onChange={(e) => setOriginCode(e.target.value)}
+              // {getListAirlinesResult &&
+              // getListAirlinesResult.map((airline) => {
+              //   return (
+              //     value={airline.Airport_Code[airline.Airline_Name]}
+              //   )
+              // })}
+            />
+          </div>
+          <div className="form-group mt-3">
+          <label htmlFor="City">Bandara Tujuan Kota</label>
+            <input
+              type="text"
+              className="form-control"
+              id="City"
+              name="City"
+              value={selectedCodeDesCity || ''}
+              readOnly
+            />
           </div>
           <div className="form-group mt-3">
             <label htmlFor="Airline_Name">Nama Pesawat</label>

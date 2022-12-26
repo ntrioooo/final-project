@@ -4,6 +4,7 @@ export const POST_ISIDETAIL = 'POST_ISIDETAIL';
 export const GET_ISIDETAIL = 'GET_ISIDETAIL'
 
 export const postIsiDetail = (data) => (dispatch) => {
+  const token = localStorage.getItem("token");
     dispatch({
         type: POST_ISIDETAIL,
         payload: {
@@ -16,11 +17,16 @@ export const postIsiDetail = (data) => (dispatch) => {
       // POST API
   axios({
     method: 'POST',
-    url: 'https://6390373c0bf398c73a805426.mockapi.io/booking/',
+    url: 'http://localhost:8000/booking-ticket',
     timeout: 120000,
     data: data,
+    // headers: {
+    //   "Content-Type": "application/json",
+    //   Authorization: `${token}`,
+    // },
   })
     .then((response) => {
+      console.log(response);
       dispatch({
         type: POST_ISIDETAIL,
         payload: {
@@ -31,6 +37,7 @@ export const postIsiDetail = (data) => (dispatch) => {
       });
     })
     .catch((error) => {
+      console.log(error)
       dispatch({
         type: POST_ISIDETAIL,
         payload: {

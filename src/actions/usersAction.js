@@ -299,14 +299,17 @@ export const editListUsers = (id, data) => (dispatch) => {
     url: `http://localhost:8000/user/${id}/update`,
     data: data,
     timeout: 120000,
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
   })
     .then((response) => {
-      console.log(response);
+      console.log(response.data.data);
       dispatch({
         type: EDIT_LIST_USERS,
         payload: {
           loading: false,
-          data: response.data,
+          data: response.data.data,
           errorMessage: false,
         },
       });

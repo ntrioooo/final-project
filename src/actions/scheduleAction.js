@@ -27,6 +27,7 @@ export const getListSchedule = () => (dispatch) => {
     },
   })
     .then((response) => {
+      console.log(response.data);
       dispatch({
         type: GET_LIST_SCHEDULE,
         payload: {

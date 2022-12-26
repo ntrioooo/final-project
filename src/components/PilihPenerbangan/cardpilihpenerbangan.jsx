@@ -25,19 +25,20 @@ function CardPilihPenerbangan() {
   const handleClick = (price) => {
     setValue(price)
   }
+
   const formData = useSelector((state) => state.formReducer.formData);
 
   const filteredSchedule = Array.isArray(getListScheduleResult)
     ? getListScheduleResult.filter(
         (schedule) =>
-          schedule.Origin_Airport === formData.originAirport &&
-          schedule.Destination_Airport === formData.destinationAirport &&
-          schedule.flight_Date.slice(0, 10) === formData.date_pergi &&
-          schedule.Plane_class === formData.tipe_class
+          schedule.origin_name === formData.originAirport &&
+          schedule.destination_name === formData.destinationAirport &&
+          schedule.flight_date.slice(0, 10) === formData.date_pergi &&
+          schedule.plane_class === formData.tipe_class
       )
     : [];
 
-  const pricex = filteredSchedule.map((price) => price.Price)
+  const pricex = filteredSchedule.map((price) => price.price)
 
   console.log(pricex);
 
@@ -58,6 +59,8 @@ function CardPilihPenerbangan() {
     }
   }, [value, navigate]);
 
+  console.log(value);
+
   return (
     <div>
       <Container>
@@ -70,10 +73,10 @@ function CardPilihPenerbangan() {
                     <Card className="rounded-0 penerbangan-card border-0">
                       <Card.Text className="penerbangan-text">
                         <span className="penerbangan-jam">
-                          {airline.Departure_Hour.slice(0,5)}&nbsp;&nbsp;
+                          {airline.departure_hour.slice(0, 5)}&nbsp;&nbsp;
                         </span>
                         <span className="penerbangan-kota">
-                          &nbsp;&nbsp;{airline.Origin_Airport}
+                          &nbsp;&nbsp;{airline.origin_name}
                         </span>
                       </Card.Text>
                       <Card.Img
@@ -83,26 +86,26 @@ function CardPilihPenerbangan() {
                       />
                       <Card.Text className="penerbangan-text mb-3">
                         <span className="penerbangan-jam">
-                          {airline.Arrival_Hour.slice(0,5)}&nbsp;&nbsp;
+                          {airline.arrival_hour.slice(0,5)}&nbsp;&nbsp;
                         </span>
                         <span className="penerbangan-kota">
-                          &nbsp;&nbsp;{airline.Destination_Airport}
+                          &nbsp;&nbsp;{airline.destination_name}
                         </span>
                       </Card.Text>
                       <div className="penerbangan-harga">
                         <span
                         >
                           IDR{" "}
-                          {airline.Price}
+                          {airline.price}
                         </span>
                       </div>
                       {/* <Link to = '/isi-detail'> */}
-                        <a
+                        <button
                           className="btn btn-booking rounded-0 mt-4 ms-3"
-                          onClick={() => handleClick(airline.Price)}
+                          onClick={() => handleClick(airline.price)}
                         >
                           BOOKING
-                        </a>
+                        </button>
                       {/* </Link> */}
                     </Card>
                   </Col>

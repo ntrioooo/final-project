@@ -29,6 +29,7 @@ export const getListAirlines = () => (dispatch) => {
     },
   })
     .then((response) => {
+      // console.log(response);
       dispatch({
         type: GET_LIST_AIRLINES,
         payload: {
