@@ -90,7 +90,7 @@ function NavBar() {
                 </Nav>
                 {!isLoggedIn ? (
                   <span className="button-sign">
-                    <NavLink to="/register">
+                    <NavLink to="/login">
                       <button>
                         <span style={{ marginLeft: '0px' }}>Sign In</span>
                       </button>

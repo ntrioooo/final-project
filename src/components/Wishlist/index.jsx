@@ -25,8 +25,8 @@ function Wishlist() {
                 <div className="col-md-4" key={item.id}>
                   <div className="card mb-3">
                     <div className="card-body">
-                      <p>{item.originAirport}</p>
-                      <p>{item.desc}</p>
+                      <p>{item.Airport_Code}</p>
+                      <p>{item.Airport_Name}</p>
                     </div>
                   </div>
                 </div>

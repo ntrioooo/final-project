@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import swal from "sweetalert";
 export const GET_LIST_USERS = "GET_LIST_USERS";
 export const GET_DETAIL_LIST_USERS = "GET_DETAIL_LIST_USERS";
 export const ADD_LIST_USERS = "ADD_LIST_USERS";
@@ -31,7 +31,7 @@ export const whoAmI = () => (dispatch) => {
     },
   })
   .then((response) => {
-    console.log(response.data.data);
+    // console.log(response.data.data);
     dispatch({
       type: WHO_AM_I,
       payload: {
@@ -192,18 +192,33 @@ export const addListUsers = (data) => (dispatch) => {
     timeout: 120000,
   })
     .then((response) => {
-      console.log(data);
-      dispatch({
-        type: ADD_LIST_USERS,
-        payload: {
-          loading: false,
-          data: response.data,
-          errorMessage: false,
-        },
-      });
+      const navigate = useNavigate();
+      // console.log(data);
+      if (response.status === 400) {
+        dispatch({
+          type: ADD_LIST_USERS,
+          payload: {
+            loading: false,
+            data: false,
+            errorMessage: 'Email is already in use'
+          },
+        });
+      } else {
+        dispatch({
+          type: ADD_LIST_USERS,
+          payload: {
+            loading: false,
+            data: response.data,
+            errorMessage: false,
+          },
+        });
+        swal("Yeeaaay!", "Berhasil Membuat Akun", "success").then(() => {
+          navigate('/login')
+        });
+      }
     })
     .catch((error) => {
-      console.log("ERRRRR", error);
+      // console.log("ERRRRR", error);
       dispatch({
         type: ADD_LIST_USERS,
         payload: {
@@ -283,7 +298,8 @@ export const deleteListUsers = (id) => (dispatch) => {
     });
 };
 
-export const editListUsers = (id, data) => (dispatch) => {
+export const editListUsers = (id, formData) => (dispatch) => {
+  console.log('formdata ', formData)
   dispatch({
     type: DELETE_LIST_USERS,
     payload: {
@@ -297,19 +313,20 @@ export const editListUsers = (id, data) => (dispatch) => {
   axios({
     method: "put",
     url: `http://localhost:8000/user/${id}/update`,
-    data: data,
+    data: formData,
     timeout: 120000,
     headers: {
       'Content-Type': 'multipart/form-data'
     }
   })
-    .then((response) => {
-      console.log(response.data.data);
+  .then((response) => {
+      console.log(response.data.data[0]);
+      console.log(response);
       dispatch({
         type: EDIT_LIST_USERS,
         payload: {
           loading: false,
-          data: response.data.data,
+          data: response.data.data[0],
           errorMessage: false,
         },
       });

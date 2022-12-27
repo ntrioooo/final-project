@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { whoAmI } from '../../actions/usersAction';
+import { whoAmI, editListUsers } from '../../actions/usersAction';
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ function Profile() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        console.log("dispatching getListAirlines action with id: ", whoAmIResult.id);
+        // console.log("dispatching getListAirlines action with id: ", whoAmIResult.id);
         dispatch(whoAmI());
       }, [dispatch]);
 
@@ -78,7 +78,7 @@ function Profile() {
                     <div className="row my-5">
                         <h3 className="fs-4 mb-3">Profile Saya</h3>
                         <div className="col">
-                            <img src={whoAmIResult.Foto} alt="Foto User" />
+                            <img src={whoAmIResult.Foto} alt="Foto User" className='rounded-circle' style={{ maxWidth: '200px' }}/>
                             <form style={{width: "400px"}}>
                                 <div className="mt-3 mb-3">
                                 <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>

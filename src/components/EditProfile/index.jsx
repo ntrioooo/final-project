@@ -16,6 +16,7 @@ function Edit() {
   const { editListUsersResult } = useSelector((state) => state.UsersReducer);
 
   const [data, setData] = useState({});
+  const [image, setImage] = useState("");
   // const [imageUrl, setImageUrl] = useState([]);
 
   const dispatch = useDispatch();
@@ -40,55 +41,28 @@ function Edit() {
     }
   }, [whoAmIResult]);
 
-  // const handleImage = (e) => {
-  //   const file = e.target.files[0];
-  //   setFileToBase(file);
-  //   console.log(file)
-  // }
-
-  // const setFileToBase = (file) => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     setImage(reader.result)
-  //   }
-  // }
-  
-  // const file = e.target.files?.[0];
-  // if (file) {
-  //   cl.upload(
-  //     file,
-  //     {
-  //       public_id: "my_image",
-  //       folder: "my_folder",
-  //     },
-  //     (error, result) => {
-  //       if (error) {
-  //         console.error(error);
-  //       } else {
-  //         console.log(result);
-  //         setImageUrl(result.secure_url);
-  //       }
-  //     }
-  //   );
-  // }
-  
   const handleChange = (e) => {
     setData({
       ...data,
       [e.target.name]: e.target.value,
     });
-
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(editListUsers(id, data));
 
-    // navigate('/profile')
+    const formData = new FormData();
+    formData.append("Email", data.Email);
+    formData.append("Name", data.Name);
+    formData.append("Address", data.Address);
+    formData.append("Phone_Number", data.Phone_Number);
+    formData.append("Encrypted_Password", data.Encrypted_Password);
+    formData.append("Foto", image);
 
-    // console.log(dispatch(editListUsers(id, data)))
-    // console.log(editListUsersResult)
+    dispatch(editListUsers(id, formData));
+
+    navigate('/profile')
+
   };
 
   return (
@@ -207,9 +181,15 @@ function Edit() {
                 onSubmit={handleSubmit}
                 encType="multipart/form-data"
               >
-                <img src={whoAmIResult.Foto} alt="Foto User" />
+                <img src={whoAmIResult.Foto} alt="Foto User" className='rounded-circle' style={{ maxWidth: '200px' }}/>
                 {/* {imageUrl && <img src={imageUrl} alt="uploaded image" />} */}
-                <input type="file" name="Foto" onChange={handleChange} defaultValue={data.Foto}/>
+                <input
+                  type="file"
+                  name="Foto"
+                  onChange={(e) => setImage(e.target.files[0])}
+                  defaultValue={image}
+                  className='mt-3'
+                />
                 <div className="mt-3 mb-3">
                   <label htmlFor="exampleInputEmail1" className="form-label">
                     Email address
@@ -276,13 +256,13 @@ function Edit() {
                   />
                 </div>
                 <div className="mb-3">
-                  <button
-                    type="submit"
-                    className="btn btn-dark"
-                    style={{ width: "400px" }}
-                  >
-                    Submit
-                  </button>
+                    <button
+                      type="submit"
+                      className="btn btn-dark"
+                      style={{ width: "400px" }}
+                    >
+                      Edit Profile
+                    </button>
                 </div>
               </form>
             </div>

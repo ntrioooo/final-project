@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addListUsers } from "../../actions/usersAction";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+// import UsersReducer from "../../reducers/users";
 
 // async function doRegister ({ email, password, name }) {
 //   const response = await fetch("https://tesdep2-production.up.railway.app/register", {
@@ -29,7 +31,11 @@ export default function Register() {
   const [isRegistered, setRegistered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const { addUsersError } = useSelector((state) => state.UsersReducer)
+  // console.log(addUsersError);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   
   function handleSubmit(e) {
     setIsLoading(true);
@@ -46,11 +52,9 @@ export default function Register() {
     //     setIsLoading(false);
     //     setRegistered(true)
     //   });
-
-      window.location.replace('/login');
   }
 
-  console.log(name, email, password);
+  // console.log(name, email, password);
 
   return (
     <div className="register">
@@ -83,7 +87,9 @@ export default function Register() {
                     I agree with terms and conditions
                   </label>
                 </div>
-                <input type="submit" className="w-100 btn btn-lg btn-primary mt-3" value={isLoading ? "Loading" : "Register"} />
+                {addUsersError && <p className="alert alert-danger">Email Sudah Terdaftar</p>}
+                <input type="submit" className="w-100 btn btn-lg btn-primary mt-3" value={isLoading ? "Register" : "Register"} />
+                <p className="mt-3 text-center">Already have an account? <a href="/login"> Sign in</a></p>
                 {/* <button className="w-100 btn btn-lg btn-primary mt-3">
                   Sign Up
                 </button> */}

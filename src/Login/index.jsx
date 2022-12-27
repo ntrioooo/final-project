@@ -20,7 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 //   return data;
 // }
 
-async function doLoginWithGoogle(token) {
+async function doLoginWithGoogle(token, email, name) {
   // Sesuaikan endpoint
   const response = await fetch("http://localhost:8000/api/v1/google", {
     method: "POST",
@@ -29,16 +29,21 @@ async function doLoginWithGoogle(token) {
     },
     body: JSON.stringify({
       token,
+      email,
+      name,
     }),
   });
 
   const data = await response.json();
-  return data;
+  console.log(data);
+  return data.token;
 }
 
 function Login() {
-  const { loginUsersResult, loginUsersError } = useSelector((state) => state.UsersReducer)
-  
+  const { loginUsersResult, loginUsersError } = useSelector(
+    (state) => state.UsersReducer
+  );
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -53,8 +58,8 @@ function Login() {
 
   useEffect(() => {
     if (loginUsersResult && loginUsersResult.Token) {
-      localStorage.setItem('token', loginUsersResult.Token);
-      navigate('/profile')
+      localStorage.setItem("token", loginUsersResult.Token);
+      navigate("/profile");
     } else if (loginUsersError) {
       setError(loginUsersError);
     }
@@ -66,10 +71,12 @@ function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(loginUsers({
-      email,
-      password
-    }))
+    dispatch(
+      loginUsers({
+        email,
+        password,
+      })
+    );
 
     // if(Token === true) {
     //   navigate('/profile')
@@ -114,7 +121,7 @@ function Login() {
     setIsLoading(false);
   }
 
-  console.log(email, password, Token);
+  // console.log(email, password, Token);
 
   return (
     <div className="register">
@@ -149,7 +156,9 @@ function Login() {
                     />
                     <label htmlFor="password">Password</label>
                     {error && (
-                      <div className="alert alert-danger mt-3">Password atau email salah</div>
+                      <div className="alert alert-danger mt-3">
+                        Password atau email salah
+                      </div>
                     )}
                   </div>
                   <div className="mt-3">
@@ -166,10 +175,13 @@ function Login() {
                       />
                     </GoogleOAuthProvider>
                   </div>
-                  <input
+                  <button
                     type="submit"
                     className="w-100 btn btn-lg btn-primary mt-3"
-                  />
+                  >
+                    Sign in
+                  </button>
+                  <p className="mt-3 text-center">Dont have an account? <a href="/register"> Sign up</a></p>
                 </form>
               ) : (
                 <input

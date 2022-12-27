@@ -255,7 +255,7 @@ const DashboardAdmin = () => {
                           <td>{schedule.flight_date.slice(0, 10)}</td>
                           <td>{schedule.departure_hour.slice(0, 5)}</td>
                           <td>{schedule.arrival_hour.slice(0, 5)}</td>
-                          <td>Rp.{schedule.price.toLocaleString().replace(',' , '.')}</td>
+                          <td>Rp.{schedule.price.toLocaleString().replaceAll(',' , '.')}</td>
                           <td>
                             <Link
                               to={{
