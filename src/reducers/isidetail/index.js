@@ -12,13 +12,13 @@ const initialState = {
 
 const Airlines = (state = initialState, action) => {
   switch (action.type) {
-    // case POST_ISIDETAIL:
-    //   return {
-    //     ...state,
-    //     postIsiDetailResult: action.payload.data,
-    //     postIsiDetailLoading: action.payload.loading,
-    //     postIsiDetailError: action.payload.errorMessage,
-    //   };
+    case POST_ISIDETAIL:
+      return {
+        ...state,
+        postIsiDetailResult: action.payload.data,
+        postIsiDetailLoading: action.payload.loading,
+        postIsiDetailError: action.payload.errorMessage,
+      };
     case GET_ISIDETAIL:
       return {
         ...state,

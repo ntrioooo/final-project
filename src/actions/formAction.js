@@ -20,10 +20,9 @@ export const postIsiDetail = (data) => (dispatch) => {
     url: 'http://localhost:8000/booking-ticket',
     timeout: 120000,
     data: data,
-    // headers: {
-    //   "Content-Type": "application/json",
-    //   Authorization: `${token}`,
-    // },
+    headers: {
+      Authorization: `${token}`,
+    },
   })
     .then((response) => {
       console.log(response);
@@ -62,20 +61,22 @@ export const getIsiDetail = () => (dispatch) => {
 
   axios({
     method: 'GET',
-    url: 'https://6390373c0bf398c73a805426.mockapi.io/booking/',
+    url: 'http://localhost:8000/history',
     timeout: 120000,
   })
     .then((response) => {
+      console.log(response.data.data.Booking);
       dispatch({
         type: GET_ISIDETAIL,
         payload: {
           loading: false,
-          data: response.data,
+          data: response.data.data.Booking,
           errorMessage: false,
         },
       });
     })
     .catch((error) => {
+      console.log(error)
       dispatch({
         type: GET_ISIDETAIL,
         payload: {

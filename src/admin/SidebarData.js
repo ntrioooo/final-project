@@ -5,19 +5,19 @@ import * as AiIcons from 'react-icons/ai';
 export const SidebarData = [
   {
     title: 'Home',
-    path: '/admin',
+    path: '/dashboard',
     icon: <AiIcons.AiFillHome />,
     cName: 'nav-text'
   },
   {
-    title: 'Daftar Maskapai',
-    path: '/daftar-maskapai',
+    title: 'Daftar Penerbangan',
+    path: '/dashboard/penerbangan',
     icon: <FaIcons.FaPlane />,
     cName: 'nav-text'
   },
   {
     title: 'Daftar Pesanan',
-    path: '/daftar-pesanan',
+    path: '/dashboard/daftar-pesanan',
     icon: <FaIcons.FaCartPlus />,
     cName: 'nav-text'
   }

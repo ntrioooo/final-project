@@ -102,10 +102,10 @@ function NavBar() {
                     Welcome, {whoAmIResult.Name}
                     </button>
                     <ul className="dropdown-menu">
-                      <Link to=''>
+                      <Link to='/pesanan-saya'>
                         <li><p className="dropdown-item">Pesanan saya</p></li>
                       </Link>
-                      <Link to={`/edit-profile/${whoAmIResult.id}`}>
+                      <Link to={`profile`}>
                         <li><p className="dropdown-item">Profile saya</p></li>
                       </Link>
                       <li><hr className="dropdown-divider"/></li>

@@ -19,5 +19,7 @@ import AddMaskapai from './AddMaskapai'
 import EditMaskapai from './EditMaskapai';
 import DaftarPesanan from './DaftarPesanan';
 import Wishlist from './Wishlist';
+import DashboardPenerbangan from './DashboardPenerbangan'
+import Tiket from './Tiket';
 
-export { LandingPage, Wishlist, DaftarPesanan, EditMaskapai, AddMaskapai, DashboardDetail, PilihPenerbangan, IsiDetail, About, Sukses, Register, Experience, Destinations, DashboardAdmin, ProfileSaya, EditProfile, PesananSaya, AllDestinations, DeatailDestinations, Login, Protected };
+export { LandingPage, Tiket, DashboardPenerbangan, Wishlist, DaftarPesanan, EditMaskapai, AddMaskapai, DashboardDetail, PilihPenerbangan, IsiDetail, About, Sukses, Register, Experience, Destinations, DashboardAdmin, ProfileSaya, EditProfile, PesananSaya, AllDestinations, DeatailDestinations, Login, Protected };

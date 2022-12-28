@@ -26,6 +26,8 @@ import {
   EditMaskapai,
   DaftarPesanan,
   Wishlist,
+  DashboardPenerbangan,
+  Tiket
 } from "./components";
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -81,15 +83,17 @@ root.render(
         </Routes>
         <Routes>
           <Route exact path="/dashboard" element={<DashboardAdmin />} />
-          <Route exact path="/dashboard/detail/:id" element={<DashboardDetail />} />
-          <Route exact path="/dashboard/edit/:id" element={<EditMaskapai />} />
-          <Route path="/dashboard/create" element={<AddMaskapai />} />
+          <Route exact path="/dashboard/penerbangan" element={<DashboardPenerbangan />} />
+          <Route exact path="/dashboard/penerbangan/detail/:id" element={<DashboardDetail />} />
+          <Route exact path="/dashboard/penerbangan/edit/:id" element={<EditMaskapai />} />
+          <Route path="/dashboard/penerbangan/create" element={<AddMaskapai />} />
           <Route path="/dashboard/daftar-pesanan" element={<DaftarPesanan />} />
         </Routes>
         <Routes>
           <Route exact path="/profile" element={<ProfileSaya />} />
           <Route exact path="/edit-profile/:id" element={<EditProfile />} />
           <Route exact path="/pesanan-saya" element={<PesananSaya />} />
+          <Route exact path="/pesanan-saya/tiket" element={<Tiket />} />
         </Routes>
         <Routes>
           <Route exact path="/all-destination" element={<AllDestinations />} />

@@ -9,20 +9,19 @@ export const EDIT_LIST_USERS = "EDIT_LIST_USERS";
 export const LOGIN_USERS = "LOGIN_USERS";
 export const WHO_AM_I = "WHO_AM_I";
 
-
 export const whoAmI = () => (dispatch) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem("token");
   dispatch({
     type: WHO_AM_I,
     payload: {
       loading: true,
       data: false,
-      errorMessage: false
-    }
+      errorMessage: false,
+    },
   });
 
   axios({
-    method: 'get',
+    method: "get",
     url: "http://localhost:8000/api/v1/whoami",
     timeout: 120000,
     headers: {
@@ -30,30 +29,29 @@ export const whoAmI = () => (dispatch) => {
       Authorization: `${token}`,
     },
   })
-  .then((response) => {
-    // console.log(response.data.data);
-    dispatch({
-      type: WHO_AM_I,
-      payload: {
-        loading: false,
-        data: response.data.data,
-        errorMessage: false,
-      },
+    .then((response) => {
+      // console.log(response.data.data);
+      dispatch({
+        type: WHO_AM_I,
+        payload: {
+          loading: false,
+          data: response.data.data,
+          errorMessage: false,
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error.message);
+      dispatch({
+        type: WHO_AM_I,
+        payload: {
+          loading: false,
+          data: false,
+          errorMessage: error.message,
+        },
+      });
     });
-  })
-  .catch((error) => {
-    console.log(error.message);
-    dispatch({
-      type: WHO_AM_I,
-      payload: {
-        loading: false,
-        data: false,
-        errorMessage: error.message,
-      },
-    });
-  });
-} 
-
+};
 
 export const loginUsers = (data) => (dispatch) => {
   const token = localStorage.getItem("token");
@@ -68,13 +66,15 @@ export const loginUsers = (data) => (dispatch) => {
 
   axios({
     method: "post",
-    url: "http://localhost:8000/login",
+    url: "http://testdev5-production.up.railway.app/login",
     data: data,
     timeout: 120000,
     headers: {
       "Content-Type": "application/json",
       Authorization: `${token}`,
     },
+    mode: 'no-cors',
+    followRedirects: false,
   })
     .then((response) => {
       console.log(response.data);
@@ -192,30 +192,15 @@ export const addListUsers = (data) => (dispatch) => {
     timeout: 120000,
   })
     .then((response) => {
-      const navigate = useNavigate();
       // console.log(data);
-      if (response.status === 400) {
-        dispatch({
-          type: ADD_LIST_USERS,
-          payload: {
-            loading: false,
-            data: false,
-            errorMessage: 'Email is already in use'
-          },
-        });
-      } else {
-        dispatch({
-          type: ADD_LIST_USERS,
-          payload: {
-            loading: false,
-            data: response.data,
-            errorMessage: false,
-          },
-        });
-        swal("Yeeaaay!", "Berhasil Membuat Akun", "success").then(() => {
-          navigate('/login')
-        });
-      }
+      dispatch({
+        type: ADD_LIST_USERS,
+        payload: {
+          loading: false,
+          data: response.data,
+          errorMessage: false,
+        },
+      });
     })
     .catch((error) => {
       // console.log("ERRRRR", error);
@@ -227,6 +212,7 @@ export const addListUsers = (data) => (dispatch) => {
           errorMessage: error.message,
         },
       });
+      swal("Error", "Email sudah terdaftar", "error");
     });
 };
 
@@ -299,7 +285,7 @@ export const deleteListUsers = (id) => (dispatch) => {
 };
 
 export const editListUsers = (id, formData) => (dispatch) => {
-  console.log('formdata ', formData)
+  console.log("formdata ", formData);
   dispatch({
     type: DELETE_LIST_USERS,
     payload: {
@@ -312,14 +298,14 @@ export const editListUsers = (id, formData) => (dispatch) => {
   // get API
   axios({
     method: "put",
-    url: `http://localhost:8000/user/${id}/update`,
+    url: `http://testdev5-production.up.railway.app/user/${id}/update`,
     data: formData,
     timeout: 120000,
     headers: {
-      'Content-Type': 'multipart/form-data'
-    }
+      "Content-Type": "multipart/form-data",
+    },
   })
-  .then((response) => {
+    .then((response) => {
       console.log(response.data.data[0]);
       console.log(response);
       dispatch({
@@ -330,6 +316,7 @@ export const editListUsers = (id, formData) => (dispatch) => {
           errorMessage: false,
         },
       });
+      window.location = "/profile";
     })
     .catch((error) => {
       console.log(error.message);

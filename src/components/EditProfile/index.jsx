@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { whoAmI, editListUsers } from "../../actions/usersAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import cloudinary from "cloudinary-core";
+import swal from "sweetalert";
 
 // const cl = cloudinary.Cloudinary.new({
 //   cloud_name: "dsx8iumjv",
@@ -22,24 +22,26 @@ function Edit() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(
-      "dispatching getListAirlines action with id: ",
-      whoAmIResult.id
-    );
-    dispatch(whoAmI());
-  }, [dispatch]);
-
-  //   useEffect(() => {
-  //     console.log("dispatching getListAirlines action with id: ", id);
-  //     dispatch(editListUsers(id));
-  //   }, [dispatch, id]);
+  // useEffect(() => {
+  //   console.log(
+  //     "dispatching getListAirlines action with id: ",
+  //     whoAmIResult.id
+  //   );
+  //   dispatch(whoAmI());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (whoAmIResult) {
       setData(whoAmIResult);
     }
   }, [whoAmIResult]);
+
+  // useEffect(() => {
+  //   if (editListUsersResult) {
+  //     swal("Yeeaaay!", "Berhasil Edit Akun", "success")
+  //     window.location = "/profile";
+  //   }
+  // }, [editListUsersResult]);
 
   const handleChange = (e) => {
     setData({
@@ -61,7 +63,7 @@ function Edit() {
 
     dispatch(editListUsers(id, formData));
 
-    navigate('/profile')
+    // navigate('/profile')
 
   };
 
@@ -251,8 +253,9 @@ function Edit() {
                     className="form-control"
                     id="password"
                     name="Encrypted_Password"
-                    defaultValue={data.Encrypted_Password}
+                    // defaultValue={data.Encrypted_Password}
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <div className="mb-3">

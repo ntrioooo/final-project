@@ -4,18 +4,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getIsiDetail } from "../../actions/formAction";
 
 function DaftarPesanan() {
-  const { getIsiDetailResult  } = useSelector((state) => state.Airlines);
+  const { getIsiDetailResult } = useSelector((state) => state.Airlines);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-
-    dispatch(getIsiDetail())
-
-}, [dispatch])
-
-
-
+    dispatch(getIsiDetail());
+  }, [dispatch]);
 
   return (
     <div>
@@ -23,7 +18,7 @@ function DaftarPesanan() {
       <div className="container mt-5 pesanan">
         <div className="row">
           <div className="col-6">
-            <h3 className="fs-4 mb-3">Pesanan Buyer</h3>
+            <h3 className="fs-4 mb-3">Daftar Pesanan</h3>
           </div>
         </div>
         <div className="row my-2">
@@ -38,6 +33,7 @@ function DaftarPesanan() {
                   <th scope="col">Asal</th>
                   <th scope="col">Tujuan</th>
                   <th scope="col">Tanggal</th>
+                  <th scope="col">Tanggal Pulang</th>
                   <th scope="col">Harga</th>
                   <th scope="col">Tiket</th>
                   <th scope="col">Tipe</th>
@@ -45,26 +41,30 @@ function DaftarPesanan() {
                   <th scope="col">No HP</th>
                 </tr>
               </thead>
-              {getIsiDetailResult && 
+              {getIsiDetailResult &&
                 getIsiDetailResult.map((airline, index) => {
                   return (
                     <tbody key={airline.id}>
                       <tr>
                         <th scope="row">{index + 1}</th>
-                        <td>{airline.nama}</td>
-                        <td>{airline.originAirport}</td>
-                        <td>{airline.destinationAirport}</td>
-                        <td>{airline.flightDate}</td>
-                        <td>{airline.Price}</td>
-                        <td>{airline.totalPassenger}</td>
-                        <td>{airline.tipe}</td>
-                        <td>{airline.planeClass}</td>
-                        <td>{airline.HP}</td>
+                        <td>{airline.passenger_name}</td>
+                        <td>{airline.origin_name}</td>
+                        <td>{airline.destination_name}</td>
+                        <td>{airline.flight_date.slice(0, 10)}</td>
+                        <td>
+                          {airline.flight_back_date === null
+                            ? "-"
+                            : airline.flight_back_date.slice(0, 10)}
+                        </td>
+                        <td>Rp{airline.price.toLocaleString().replaceAll(',', '.')}</td>
+                        <td>{airline.total_passenger}</td>
+                        <td>{airline.flight_type}</td>
+                        <td>{airline.plane_class}</td>
+                        <td>{airline.phone_number}</td>
                       </tr>
                     </tbody>
-                  )
-                })
-              }
+                  );
+                })}
             </table>
           </div>
         </div>

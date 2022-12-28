@@ -42,7 +42,6 @@ const NavbarAdmin = () => {
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown-menu">
                   <li><a className="dropdown-item" href="/#">Profile</a></li>
-                  <li><a className="dropdown-item" href="/#">Settings</a></li>
                   <li><a className="dropdown-item" href="/#">Logout</a></li>
                 </ul>
               </li>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addListUsers } from "../../actions/usersAction";
 import { useNavigate } from "react-router-dom";
@@ -31,15 +31,16 @@ export default function Register() {
   const [isRegistered, setRegistered] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { addUsersError } = useSelector((state) => state.UsersReducer)
+  const { addUsersError, addUsersResult } = useSelector((state) => state.UsersReducer)
   // console.log(addUsersError);
 
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   
   function handleSubmit(e) {
     setIsLoading(true);
     e.preventDefault();
+
     dispatch(addListUsers({
       name,
       email,
@@ -53,6 +54,13 @@ export default function Register() {
     //     setRegistered(true)
     //   });
   }
+
+  useEffect(() => {
+    if (addUsersResult) {
+      swal("Yeeaaay!", "Berhasil Membuat Akun", "success")
+      window.location = "/login";
+    }
+  }, [addUsersResult]);
 
   // console.log(name, email, password);
 
@@ -87,7 +95,6 @@ export default function Register() {
                     I agree with terms and conditions
                   </label>
                 </div>
-                {addUsersError && <p className="alert alert-danger">Email Sudah Terdaftar</p>}
                 <input type="submit" className="w-100 btn btn-lg btn-primary mt-3" value={isLoading ? "Register" : "Register"} />
                 <p className="mt-3 text-center">Already have an account? <a href="/login"> Sign in</a></p>
                 {/* <button className="w-100 btn btn-lg btn-primary mt-3">
