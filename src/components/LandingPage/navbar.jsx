@@ -10,7 +10,7 @@ import {
 import { NavLink, Link } from "react-router-dom";
 import logo from "../../assets/images/Logo.png";
 import { getDetailListUsers } from "../../actions/usersAction";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { whoAmI } from "../../actions/usersAction";
 
@@ -23,6 +23,7 @@ function NavBar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("dispatching getListAirlines action with id:");
@@ -49,8 +50,11 @@ function NavBar() {
     setIsLoading(true);
     e.preventDefault();
     localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("wishlist");
     setIsLoggedIn(false);
     setIsLoading(false);
+    navigate('/login')
   }
   
   return (
@@ -107,6 +111,9 @@ function NavBar() {
                       </Link>
                       <Link to={`profile`}>
                         <li><p className="dropdown-item">Profile saya</p></li>
+                      </Link>
+                      <Link to={`dashboard`}>
+                        <li><p className="dropdown-item">Dashboard</p></li>
                       </Link>
                       <li><hr className="dropdown-divider"/></li>
                       <li><a className="dropdown-item" href="/#" onClick={handleLogout}>Logout</a></li>

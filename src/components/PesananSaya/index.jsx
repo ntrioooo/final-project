@@ -67,7 +67,7 @@ function Pesanan() {
                     <th scope="col">Tipe</th>
                     <th scope="col">Tiket</th>
                     <th scope="col">Tanggal</th>
-                    <th scope='col'>Action</th>
+                    <th scope='col'>E-Ticket</th>
                   </tr>
                 </thead>
 

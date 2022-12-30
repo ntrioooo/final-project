@@ -40,9 +40,9 @@ const NavProfile = () => {
                                 <ul className="dropdown-menu">
                                     <li><h3 className="dropdown-item-text" id="disabledSelect">Notification</h3></li>
                                     <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item" href="#">Action</a></li>
-                                    <li><a className="dropdown-item" href="#">Another action</a></li>
-                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
+                                    <li><a className="dropdown-item" href="/#">Action</a></li>
+                                    <li><a className="dropdown-item" href="/#">Another action</a></li>
+                                    <li><a className="dropdown-item" href="/#">Something else here</a></li>
                                 </ul>
                             </div>
                             <div className="btn-group dropdown-center profile-btn">
@@ -56,7 +56,7 @@ const NavProfile = () => {
                                     <li>
                                         <Link to={`/edit-profile/${whoAmIResult.id}`} className="dropdown-item">Edit Profile</Link>
                                     </li>
-                                    <li><a className="dropdown-item" href="#">Logout</a></li>
+                                    <li><a className="dropdown-item" href="/#">Logout</a></li>
                                 </ul>
                             </div>
                         </div>

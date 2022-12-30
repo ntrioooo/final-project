@@ -22,5 +22,7 @@ import Wishlist from './Wishlist';
 import DashboardPenerbangan from './DashboardPenerbangan'
 import Tiket from './Tiket';
 import Notif from './Notif';
+import ProtectedAdmin from './ProtectedAdmin';
+import Unauthorized from './Unauthorized';
 
-export { LandingPage, Notif,Tiket, DashboardPenerbangan, Wishlist, DaftarPesanan, EditMaskapai, AddMaskapai, DashboardDetail, PilihPenerbangan, IsiDetail, About, Sukses, Register, Experience, Destinations, DashboardAdmin, ProfileSaya, EditProfile, PesananSaya, AllDestinations, DeatailDestinations, Login, Protected };
+export { LandingPage, Unauthorized, ProtectedAdmin, Notif, Tiket, DashboardPenerbangan, Wishlist, DaftarPesanan, EditMaskapai, AddMaskapai, DashboardDetail, PilihPenerbangan, IsiDetail, About, Sukses, Register, Experience, Destinations, DashboardAdmin, ProfileSaya, EditProfile, PesananSaya, AllDestinations, DeatailDestinations, Login, Protected };

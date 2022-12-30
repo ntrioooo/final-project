@@ -19,7 +19,8 @@ export const getListSchedule = () => (dispatch) => {
 
   axios({
     method: "GET",
-    url: "http://localhost:8000/schedule",
+    url: "https://testdev5-production.up.railway.app/schedule",
+    // url: "http://localhost:8000/schedule",
     timeout: 120000,
     headers: {
       "Content-Type": "application/json",
@@ -64,7 +65,8 @@ export const addListSchedule = (data) => (dispatch) => {
   // get API
   axios({
     method: "POST",
-    url: "http://localhost:8000/add-schedule",
+    url: "https://testdev5-production.up.railway.app/add-schedule",
+    // url: "http://localhost:8000/add-schedule",
     data: data,
     timeout: 120000,
     headers: {
@@ -108,7 +110,8 @@ export const getDetailListSchedule = (id) => (dispatch) => {
 
   axios({
     method: "GET",
-    url: `http://localhost:8000/schedule/${id}`,
+    url: `https://testdev5-production.up.railway.app/schedule/${id}`,
+    // url: `http://localhost:8000/schedule/${id}`,
     timeout: 120000,
   })
     .then((response) => {
@@ -149,7 +152,8 @@ export const editListSchedule = (id, data) => (dispatch) => {
   // get API
   axios({
     method: "put",
-    url: "http://localhost:8000/edit-schedule/" + id,
+    // url: "http://localhost:8000/edit-schedule/" + id,
+    url: "https://testdev5-production.up.railway.app/edit-schedule/" + id,
     data: data,
     timeout: 120000,
     headers: {
@@ -195,7 +199,8 @@ export const deleteListSchedule = (id) => (dispatch) => {
   // get API
   axios({
     method: "delete",
-    url: "http://localhost:8000/delete-schedule/" + id,
+    // url: "http://localhost:8000/delete-schedule/" + id,
+    url: "https://testdev5-production.up.railway.app/delete-schedule/" + id,
     timeout: 120000,
     headers: {
       "Content-Type": "application/json",

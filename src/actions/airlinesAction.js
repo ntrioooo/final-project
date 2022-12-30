@@ -21,7 +21,8 @@ export const getListAirlines = () => (dispatch) => {
   // get API
   axios({
     method: "GET",
-    url: "http://localhost:8000/get-airport",
+    // url: "http://localhost:8000/get-airport",
+    url: "https://testdev5-production.up.railway.app/get-airport",
     timeout: 120000,
     headers: {
       "Content-Type": "application/json",
@@ -101,7 +102,8 @@ export const addListAirlines = (data) => (dispatch) => {
   // get API
   axios({
     method: "POST",
-    url: "http://localhost:8000/add-schedule",
+    // url: "http://localhost:8000/add-schedule",
+    url: "https://testdev5-production.up.railway.app/add-schedule",
     data: data,
     timeout: 120000,
     headers: {

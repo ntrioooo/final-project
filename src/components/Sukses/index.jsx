@@ -14,6 +14,11 @@ function Sukses() {
         <Link to ='/'>
           <button className='btn btn-lg btn-primary mt-3'>Return to Home</button>
         </Link>
+        <div>
+          <Link to ='/pesanan-saya'>
+          <button className='btn btn-lg btn-primary mt-3'>Check my booking</button>
+          </Link>
+        </div>
       </div>
     </div>
   )

@@ -28,24 +28,30 @@ import {
   Wishlist,
   DashboardPenerbangan,
   Tiket,
-  Notif
+  ProtectedAdmin,
+  Unauthorized,
 } from "./components";
-import { createStore, compose, applyMiddleware } from 'redux';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
-import reducers from './reducers';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { createStore, compose, applyMiddleware } from "redux";
+import { Provider } from "react-redux";
+import thunk from "redux-thunk";
+import reducers from "./reducers";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-import Admin from './pages/Admin';
-import Maskapai from './pages/Maskapai';
-import Pesanan from './pages/Pesanan';
+import Admin from "./pages/Admin";
+import Maskapai from "./pages/Maskapai";
+import Pesanan from "./pages/Pesanan";
 
 const reduxDevToolsExtension = false;
 
 const composeEnhancers = composeWithDevTools({});
 
-const store = createStore(reducers, compose(applyMiddleware(thunk), reduxDevToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f
-));
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(thunk),
+    reduxDevToolsExtension ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
+  )
+);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -63,14 +69,24 @@ root.render(
           <Route path="/login" element={<Login />} />
         </Routes>
         <Routes>
-          <Route path="/pilih-penerbangan" element={(
-            <Protected>
-              <PilihPenerbangan />
-            </Protected>
-          )} 
+          <Route
+            path="/pilih-penerbangan"
+            element={
+              <Protected>
+                <PilihPenerbangan />
+              </Protected>
+            }
           />
           {/* <Route path="/isi-detail" element={<PilihPenerbangan />} /> */}
-          <Route path="/isi-detail" element={<IsiDetail />} />
+          {/* <Route path="/isi-detail" element={<IsiDetail />} /> */}
+          <Route
+            path="/isi-detail"
+            element={
+              <Protected>
+                <IsiDetail />
+              </Protected>
+            }
+          />
         </Routes>
         <Routes>
           <Route path="/destinations" element={<Destinations />} />
@@ -82,36 +98,102 @@ root.render(
           <Route path="/about" element={<About />} />
         </Routes>
         <Routes>
-          <Route path="/sukses" element={<Sukses />} />
+          <Route path="/sukses" element={
+            <Protected>
+              <Sukses />
+            </Protected>
+          } />
         </Routes>
         <Routes>
-          <Route exact path="/dashboard" element={<DashboardAdmin />} />
-          <Route exact path="/dashboard/penerbangan" element={<DashboardPenerbangan />} />
-          <Route exact path="/dashboard/penerbangan/detail/:id" element={<DashboardDetail />} />
-          <Route exact path="/dashboard/penerbangan/edit/:id" element={<EditMaskapai />} />
-          <Route path="/dashboard/penerbangan/create" element={<AddMaskapai />} />
-          <Route path="/dashboard/daftar-pesanan" element={<DaftarPesanan />} />
+          <Route exact path="/dashboard" element={
+            <ProtectedAdmin>
+              <DashboardAdmin />
+            </ProtectedAdmin>
+          } />
+          <Route
+            exact
+            path="/dashboard/penerbangan"
+            element={
+              <ProtectedAdmin>
+                <DashboardPenerbangan />
+              </ProtectedAdmin>
+          }
+          />
+          <Route
+            exact
+            path="/dashboard/penerbangan/detail/:id"
+            element={
+              <ProtectedAdmin>
+                <DashboardDetail />
+              </ProtectedAdmin>
+          }
+          />
+          <Route
+            exact
+            path="/dashboard/penerbangan/edit/:id"
+            element={
+              <ProtectedAdmin>
+                <EditMaskapai />
+              </ProtectedAdmin>
+          }
+          />
+          <Route
+            path="/dashboard/penerbangan/create"
+            element={
+              <ProtectedAdmin>
+                <AddMaskapai />
+              </ProtectedAdmin>
+          }
+          />
+          <Route path="/dashboard/daftar-pesanan" element={
+            <ProtectedAdmin>
+              <DaftarPesanan />
+            </ProtectedAdmin>
+          } />
         </Routes>
         <Routes>
-          <Route exact path="/profile" element={<ProfileSaya />} />
-          <Route exact path="/edit-profile/:id" element={<EditProfile />} />
-          <Route exact path="/pesanan-saya" element={<PesananSaya />} />
-          <Route exact path="/pesanan-saya/tiket" element={<Tiket />} />
+          <Route exact path="/profile" element={
+            <Protected>
+              <ProfileSaya />
+            </Protected>
+          } />
+          <Route exact path="/edit-profile/:id" element={
+            <Protected>
+              <EditProfile />
+            </Protected>
+          } />
+          <Route exact path="/pesanan-saya" element={
+            <Protected>
+              <PesananSaya />
+            </Protected>
+          } />
+          <Route exact path="/pesanan-saya/tiket" element={
+            <Protected>
+              <Tiket />
+            </Protected>
+          } />
         </Routes>
         <Routes>
           <Route exact path="/all-destination" element={<AllDestinations />} />
-          <Route path="/wishlist" element={<Wishlist />} />
+          <Route path="/wishlist" element={
+            <Protected>
+              <Wishlist />
+            </Protected>
+          } />
         </Routes>
         <Routes>
-          <Route path="/detail-destination/:id" element={<DeatailDestinations />} />
+          <Route
+            path="/detail-destination/:id"
+            element={<DeatailDestinations />}
+          />
         </Routes>
-        {/* <Routes>
-          <Route path='/notif' element={<Notif/>} />
-        </Routes> */}
         <Routes>
-          <Route path='/admin' element={<Admin/>} />
-          <Route path='/daftar-maskapai' element={<Maskapai/>} />
-          <Route path='/daftar-pesanan' element={<Pesanan/>} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
+        </Routes>
+        <Routes>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/daftar-maskapai" element={<Maskapai />} />
+          <Route path="/daftar-pesanan" element={<Pesanan />} />
         </Routes>
       </BrowserRouter>
     </Provider>

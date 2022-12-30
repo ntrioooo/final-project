@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import './Navbar.css';
 import { IconContext } from 'react-icons';
 
 const NavbarAdmin = () => {
   const [sidebar, setSidebar] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
+
+  const navigate = useNavigate();
+
+
+  function handleLogout(e) {
+    setIsLoading(true);
+    e.preventDefault();
+    localStorage.removeItem("token");
+    localStorage.removeItem("role");
+    localStorage.removeItem("wishlist");
+    setIsLoggedIn(false);
+    setIsLoading(false);
+    navigate('/login')
+  }
 
   return (
     <>
@@ -41,8 +57,8 @@ const NavbarAdmin = () => {
                   <i className="fa-sharp fa-solid fa-user-secret me-2"></i>Administrator
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown-menu">
-                  <li><a className="dropdown-item" href="/#">Profile</a></li>
-                  <li><a className="dropdown-item" href="/#">Logout</a></li>
+                  <li><a className="dropdown-item" href="/profile">Profile</a></li>
+                  <li><a className="dropdown-item" href="/#" onClick={handleLogout}>Logout</a></li>
                 </ul>
               </li>
             </ul>

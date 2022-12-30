@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import swal from "sweetalert";
 import Navbar from '../../admin/NavbarAdmin'
+import { whoAmI } from "../../actions/usersAction";
 
 const DashboardAdmin = () => {
   return (

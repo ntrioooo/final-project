@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
+// import { GoogleLogin } from "react-google-login";
 import { loginUsers } from "../actions/usersAction";
 import { useDispatch, useSelector } from "react-redux";
+import { whoAmI } from "../actions/usersAction";
 
 // async function doLogin({ email, password }) {
 //   const response = await fetch("http://localhost:8000/login", {
@@ -35,14 +37,15 @@ async function doLoginWithGoogle(token, email, name) {
   });
 
   const data = await response.json();
-  console.log(data);
-  return data.token;
+  console.log(data)
+  return data.accessToken;
 }
 
 function Login() {
   const { loginUsersResult, loginUsersError } = useSelector(
     (state) => state.UsersReducer
   );
+  const { whoAmIResult } = useSelector((state) => state.UsersReducer)
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -60,6 +63,7 @@ function Login() {
     if (loginUsersResult && loginUsersResult.Token) {
       localStorage.setItem("token", loginUsersResult.Token);
       navigate("/profile");
+      window.location.reload()
     } else if (loginUsersError) {
       setError(loginUsersError);
     }
@@ -95,13 +99,15 @@ function Login() {
   };
 
   const haldleSuccessGoogle = (response) => {
-    console.log(response);
+    // console.log(response);
     console.log(response.credential);
     if (response.credential) {
       doLoginWithGoogle(response.credential)
         .then((token) => {
-          localStorage.setItem("token", response.credential);
+          localStorage.setItem('token', `Bearer ${token}`);
+          console.log(token);
           setIsLoggedIn(token);
+          // navigate('/')
         })
         .catch((err) => console.log(err.message))
         .finally(() => setIsLoading(false));
@@ -162,6 +168,13 @@ function Login() {
                     )}
                   </div>
                   <div className="mt-3">
+                    {/* <GoogleLogin
+                      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                      buttonText="Login with Google"
+                      onSuccess={haldleSuccessGoogle}
+                      onFailure={haldleFailureGoogle}
+                      cookiePolicy="single_host_origin"
+                    /> */}
                     <GoogleOAuthProvider
                       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                     >
@@ -181,7 +194,9 @@ function Login() {
                   >
                     Sign in
                   </button>
-                  <p className="mt-3 text-center">Dont have an account? <a href="/register"> Sign up</a></p>
+                  <p className="mt-3 text-center">
+                    Dont have an account? <a href="/register"> Sign up</a>
+                  </p>
                 </form>
               ) : (
                 <input
