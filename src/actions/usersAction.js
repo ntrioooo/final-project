@@ -66,7 +66,7 @@ export const loginUsers = (data) => (dispatch) => {
 
   axios({
     method: "post",
-    url: "http://testdev5-production.up.railway.app/login",
+    url: "http://localhost:8000/login",
     data: data,
     timeout: 120000,
     headers: {
@@ -298,7 +298,7 @@ export const editListUsers = (id, formData) => (dispatch) => {
   // get API
   axios({
     method: "put",
-    url: `http://testdev5-production.up.railway.app/user/${id}/update`,
+    url: `http://localhost:8000/user/${id}/update`,
     data: formData,
     timeout: 120000,
     headers: {
