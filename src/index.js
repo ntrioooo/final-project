@@ -27,7 +27,8 @@ import {
   DaftarPesanan,
   Wishlist,
   DashboardPenerbangan,
-  Tiket
+  Tiket,
+  Notif
 } from "./components";
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -39,7 +40,7 @@ import Admin from './pages/Admin';
 import Maskapai from './pages/Maskapai';
 import Pesanan from './pages/Pesanan';
 
-const reduxDevToolsExtension = true;
+const reduxDevToolsExtension = false;
 
 const composeEnhancers = composeWithDevTools({});
 
@@ -62,11 +63,13 @@ root.render(
           <Route path="/login" element={<Login />} />
         </Routes>
         <Routes>
-          <Route path="/pilih-penerbangan" element={
+          <Route path="/pilih-penerbangan" element={(
+            <Protected>
               <PilihPenerbangan />
-          } />
-        </Routes>
-        <Routes>
+            </Protected>
+          )} 
+          />
+          {/* <Route path="/isi-detail" element={<PilihPenerbangan />} /> */}
           <Route path="/isi-detail" element={<IsiDetail />} />
         </Routes>
         <Routes>
@@ -102,6 +105,9 @@ root.render(
         <Routes>
           <Route path="/detail-destination/:id" element={<DeatailDestinations />} />
         </Routes>
+        {/* <Routes>
+          <Route path='/notif' element={<Notif/>} />
+        </Routes> */}
         <Routes>
           <Route path='/admin' element={<Admin/>} />
           <Route path='/daftar-maskapai' element={<Maskapai/>} />

@@ -66,15 +66,14 @@ export const loginUsers = (data) => (dispatch) => {
 
   axios({
     method: "post",
-    url: "http://testdev5-production.up.railway.app/login",
+    url: "http://localhost:8000/login",
+    // url: "https://testdev5-production.up.railway.app/login",
     data: data,
     timeout: 120000,
     headers: {
       "Content-Type": "application/json",
       Authorization: `${token}`,
     },
-    mode: 'no-cors',
-    followRedirects: false,
   })
     .then((response) => {
       console.log(response.data);
@@ -201,6 +200,7 @@ export const addListUsers = (data) => (dispatch) => {
           errorMessage: false,
         },
       });
+      swal("Yeayyy", "Akun berhasil dibuat", "success");
     })
     .catch((error) => {
       // console.log("ERRRRR", error);
