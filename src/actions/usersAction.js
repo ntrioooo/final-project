@@ -8,6 +8,7 @@ export const DELETE_LIST_USERS = "DELETE_LIST_USERS";
 export const EDIT_LIST_USERS = "EDIT_LIST_USERS";
 export const LOGIN_USERS = "LOGIN_USERS";
 export const WHO_AM_I = "WHO_AM_I";
+export const NOTIFICATION = "NOTIFICATION";
 
 export const whoAmI = () => (dispatch) => {
   const token = localStorage.getItem("token");
@@ -22,7 +23,7 @@ export const whoAmI = () => (dispatch) => {
 
   axios({
     method: "get",
-    url: "http://localhost:8000/api/v1/whoami",
+    url: "https://testdev5-production.up.railway.app/api/v1/whoami",
     timeout: 120000,
     headers: {
       "Content-Type": "application/json",
@@ -30,7 +31,7 @@ export const whoAmI = () => (dispatch) => {
     },
   })
     .then((response) => {
-      // console.log(response.data.data);
+      console.log("whoami :",response.data.data);
       dispatch({
         type: WHO_AM_I,
         payload: {
@@ -66,7 +67,7 @@ export const loginUsers = (data) => (dispatch) => {
 
   axios({
     method: "post",
-    url: "http://localhost:8000/login",
+    url: "https://testdev5-production.up.railway.app/login",
     data: data,
     timeout: 120000,
     headers: {
@@ -113,7 +114,7 @@ export const getListUsers = () => (dispatch) => {
   // get API
   axios({
     method: "GET",
-    url: "http://localhost:8000/get-airport",
+    url: "https://testdev5-production.up.railway.app/get-airport",
     timeout: 120000,
   })
     .then((response) => {
@@ -187,7 +188,7 @@ export const addListUsers = (data) => (dispatch) => {
   // get API
   axios({
     method: "POST",
-    url: "http://localhost:8000/register",
+    url: "https://testdev5-production.up.railway.app/register",
     data: data,
     timeout: 120000,
   })
@@ -228,7 +229,7 @@ export const getDetailListUsers = (id) => (dispatch) => {
 
   axios({
     method: "GET",
-    url: `http://localhost:8000/user/${id}`,
+    url: `https://testdev5-production.up.railway.app/user/${id}`,
     timeout: 120000,
   })
     .then((response) => {
@@ -298,7 +299,7 @@ export const editListUsers = (id, formData) => (dispatch) => {
   // get API
   axios({
     method: "put",
-    url: `http://localhost:8000/user/${id}/update`,
+    url: `https://testdev5-production.up.railway.app/user/${id}/update`,
     data: formData,
     timeout: 120000,
     headers: {
@@ -322,6 +323,49 @@ export const editListUsers = (id, formData) => (dispatch) => {
       console.log(error.message);
       dispatch({
         type: EDIT_LIST_USERS,
+        payload: {
+          loading: false,
+          data: false,
+          errorMessage: error.message,
+        },
+      });
+    });
+};
+
+export const notification = (id) => (dispatch) => {
+  console.log('notif id: ', id)
+  dispatch({
+    type: NOTIFICATION,
+    payload: {
+      loading: true,
+      data: false,
+      errorMessage: false,
+    },
+  });
+
+  axios({
+    method: "GET",
+    url: `https://testdev5-production.up.railway.app/notification/${id}`,
+    timeout: 120000,
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then((response) => {
+      console.log("response",response.data.data[0]);
+      dispatch({
+        type: NOTIFICATION,
+        payload: {
+          loading: false,
+          data: response.data.data,
+          errorMessage: false,
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+      dispatch({
+        type: NOTIFICATION,
         payload: {
           loading: false,
           data: false,

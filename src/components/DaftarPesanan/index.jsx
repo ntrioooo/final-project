@@ -12,6 +12,8 @@ function DaftarPesanan() {
     dispatch(getIsiDetail());
   }, [dispatch]);
 
+  console.log("isi detail : ",getIsiDetailResult);
+
   return (
     <div>
       <Navbar />

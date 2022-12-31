@@ -1,4 +1,4 @@
-import { GET_DETAIL_LIST_USERS, GET_LIST_USERS, ADD_LIST_USERS, EDIT_LIST_USERS, DELETE_LIST_USERS, LOGIN_USERS, WHO_AM_I } from "../../actions/usersAction";
+import { GET_DETAIL_LIST_USERS, GET_LIST_USERS, ADD_LIST_USERS, EDIT_LIST_USERS, DELETE_LIST_USERS, LOGIN_USERS, WHO_AM_I, NOTIFICATION } from "../../actions/usersAction";
 
 const initialState = {
   loginUsersResult: false,
@@ -28,6 +28,10 @@ const initialState = {
   whoAmIResult : false,
   whoAmILoading : false,
   whoAmIError : false,
+
+  notificationResult: false,
+  notificationLoading: false,
+  notificationError: false,
 };
 
 const UsersReducer = (state = initialState, action) => {
@@ -40,6 +44,13 @@ const UsersReducer = (state = initialState, action) => {
         whoAmIError: action.payload.errorMessage,
       }
 
+    case NOTIFICATION:
+      return {
+        ...state,
+        notificationResult: action.payload.data,
+        notificationLoading: action.payload.loading,
+        notificationError: action.payload.errorMessage,
+      };
 
     case GET_LIST_USERS:
       return {
