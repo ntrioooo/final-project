@@ -1,92 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // import '../App.css'
 // import _ from 'lodash'
-import popularImg from "../../assets/images/popular.png";
-import popularImg1 from "../../assets/images/popular-1.png";
-import popularImg2 from "../../assets/images/popular-2.png";
 import MostPopularRes from "./mostpopularres";
-import { AiFillStar, AiOutlineArrowRight } from 'react-icons/ai'
-
+import { AiFillStar, AiOutlineArrowRight } from "react-icons/ai";
+import { getListAirlines } from "../../actions/airlinesAction";
+import { useSelector, useDispatch } from "react-redux";
 
 function MostPopular() {
-  
-  const airports = [
-    {
-      id: 1,
-      name: 'Bandara Soetta',
-      city: 'Jakarta',
-      country: 'Indonesia',
-      tiket: 3,
-      image: {popularImg}
-      
-    },
-    {
-      id: 2,
-      name: 'Bandara Russia',
-      city: 'Copenhagen',
-      country: 'Russia',
-      tiket: 5,
-      image: {popularImg1}
-      
-    },
-    {
-      id: 3,
-      name: 'Bandara Tamsel',
-      city: 'Bekasi',
-      country: 'Indonesia',
-      tiket: 3,
-      image: {popularImg2}
-      
-    },
-    {
-      id: 4,
-      name: 'Bandara Tamsel',
-      city: 'Bekasi',
-      country: 'Indonesia',
-      tiket: 3,
-      image: {popularImg2}
-      
-    },
-    {
-      id: 5,
-      name: 'Bandara Tamsel',
-      city: 'Bekasi',
-      country: 'Indonesia',
-      tiket: 3,
-      image: {popularImg2}
-      
-    },
-  ]
-  
+  const {
+    getListAirlinesResult,
+  } = useSelector((state) => state.AirlinesReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getListAirlines());
+  }, [dispatch]);
+
   const [isHovering, setIsHovering] = useState(false);
   const [isHover, setIsHover] = useState(false);
 
   function handleHover() {
-    setIsHover(true)
+    setIsHover(true);
   }
 
   function handleHoverLeave() {
-    setIsHover(false)
+    setIsHover(false);
   }
 
   function handleMouseEnter() {
-    setIsHovering(true)
+    setIsHovering(true);
   }
 
   function handleMouseLeave() {
-    setIsHovering(false)
+    setIsHovering(false);
   }
 
-  const filterBan = airports.filter(airport => airport.id === 1)
+  const filteredAirport = Array.isArray(getListAirlinesResult)
+    ? getListAirlinesResult.filter((airport) => airport.id === 1)
+    : [];
 
-  const displayBan = filterBan.map((airport, index) => {
+  const displayBan = filteredAirport.map((airport, index) => {
     return (
       <div
         key={index}
-        className={`most-popular-item ${isHover !== isHovering ? "col-3" : "col-6"}`}
+        className={`most-popular-item ${
+          isHover !== isHovering ? "col-3" : "col-6"
+        }`}
         id="most-popular-item-active"
       >
-        <img src={popularImg} alt={airport.image} className="w-100 h-100" />
+        <img src={airport.Foto} alt={airport.Foto} className="w-100 h-100" />
         <div className="most-popular-card">
           <div className="card">
             <div className="card-body">
@@ -94,33 +56,32 @@ function MostPopular() {
                 <div className="">
                   <p className="most-popular-card-star">
                     5.0
-                    <AiFillStar 
-                      style={{ fontSize: '18px', marginBottom: '2px'}}/>
-                    <span className="most-popular-card-total">
-                        (5.2K+)
-                    </span>
+                    <AiFillStar
+                      style={{ fontSize: "18px", marginBottom: "2px" }}
+                    />
+                    <span className="most-popular-card-total">(5.2K+)</span>
                   </p>
-                  <h3 className="most-popular-card-title">
-                    {airport.name}
-                  </h3>
+                  <h3 className="most-popular-card-title">{airport.Airport_Name}</h3>
                   <p className="most-popular-card-location d-flex">
-                    {`${airport.city}, ${airport.country}`}
+                    {`${airport.Airport_Code}, ${airport.City}`}
                   </p>
                 </div>
                 <a href="/#" className="btn btn-cream rounded-4">
-                  < AiOutlineArrowRight />
+                  <AiOutlineArrowRight />
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
-  })
+    );
+  });
 
-  const filterBan1 = airports.filter(airport => airport.id === 2)
+  const filteredAirport2 = Array.isArray(getListAirlinesResult)
+    ? getListAirlinesResult.filter((airport) => airport.id === 2)
+    : [];
 
-  const displayBan1 = filterBan1.map((airport, index) => {
+  const displayBan1 = filteredAirport2.map((airport, index) => {
     return (
       <div
         key={index}
@@ -129,7 +90,7 @@ function MostPopular() {
         onMouseEnter={(e) => handleMouseEnter(e)}
         onMouseLeave={(e) => handleMouseLeave(e)}
       >
-        <img src={popularImg2} alt={airport.image} className="w-100 h-100" />
+        <img src={airport.Foto} alt={airport.Foto} className="w-100 h-100" />
         <div className="most-popular-card">
           <div className="card">
             <div className="card-body">
@@ -137,34 +98,32 @@ function MostPopular() {
                 <div className="">
                   <p className="most-popular-card-star">
                     5.0
-                    <AiFillStar 
-                      style={{ fontSize: '18px', marginBottom: '2px'}}/>
-                    <span className="most-popular-card-total">
-                        (5.2K+)
-                    </span>
+                    <AiFillStar
+                      style={{ fontSize: "18px", marginBottom: "2px" }}
+                    />
+                    <span className="most-popular-card-total">(5.2K+)</span>
                   </p>
-                  <h3 className="most-popular-card-title">
-                    {airport.name}
-                  </h3>
+                  <h3 className="most-popular-card-title">{airport.Airport_Name}</h3>
                   <p className="most-popular-card-location d-flex">
-                    {`${airport.city}, ${airport.country}`}
+                    {`${airport.Airport_Code}, ${airport.City}`}
                   </p>
                 </div>
                 <a href="/#" className="btn btn-cream rounded-4">
-                < AiOutlineArrowRight />
+                  <AiOutlineArrowRight />
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
-  })
+    );
+  });
 
-  const filterBan2 = airports.filter(airport => airport.id === 3)
-  
-  const displayBan2 = filterBan2.map((airport, index) => {
-    // console.log(index) 0, 1
+  const filteredAirport3 = Array.isArray(getListAirlinesResult)
+    ? getListAirlinesResult.filter((airport) => airport.id === 3)
+    : [];
+
+  const displayBan2 = filteredAirport3.map((airport, index) => {
     return (
       <div
         key={index}
@@ -173,7 +132,7 @@ function MostPopular() {
         onMouseEnter={(e) => handleHover(e)}
         onMouseLeave={(e) => handleHoverLeave(e)}
       >
-        <img src={popularImg1} alt={airport.image} className="w-100 h-100" />
+        <img src={airport.Foto} alt={airport.Foto} className="w-100 h-100" />
         <div className="most-popular-card">
           <div className="card">
             <div className="card-body">
@@ -181,55 +140,54 @@ function MostPopular() {
                 <div className="">
                   <p className="most-popular-card-star">
                     5.0
-                    <AiFillStar 
-                      style={{ fontSize: '18px', marginBottom: '2px'}}/>
-                    <span className="most-popular-card-total">
-                        (5.2K+)
-                    </span>
+                    <AiFillStar
+                      style={{ fontSize: "18px", marginBottom: "2px" }}
+                    />
+                    <span className="most-popular-card-total">(5.2K+)</span>
                   </p>
-                  <h3 className="most-popular-card-title">
-                    {airport.name}
-                  </h3>
+                  <h3 className="most-popular-card-title">{airport.Airport_Name}</h3>
                   <p className="most-popular-card-location d-flex">
-                    {`${airport.city}, ${airport.country}`}
+                    {`${airport.Airport_Code}, ${airport.City}`}
                   </p>
                 </div>
                 <a href="/#" className="btn btn-cream rounded-4">
-                < AiOutlineArrowRight />
+                  <AiOutlineArrowRight />
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-    )
-  })
+    );
+  });
 
   return (
     <>
-    <div id="most-popular" className="most-popular d-none d-sm-block">
-      <div className="container mt-3">
-        <div className="row align-items-center">
-          <div className="col-4">
-            <p className="text-title-blue">TOP 3 FEATURED AIRPORT</p>
-            <h2 className="text-title-black">Most Popular Destinations</h2>
-            <p className="text-title-gray">
-              The best destination in our opinion is how much customers like it in terms of place, price, comfort and of course airport service
-            </p>
-            <a href="/all-destination" className="btn btn-view">
-              View All Destination
-            </a>
-          </div>
-          <div className="col-8">
-            <div className="row">
-              {displayBan}
-              {displayBan1}
-              {displayBan2}
+      <div id="most-popular" className="most-popular d-none d-sm-block">
+        <div className="container mt-3">
+          <div className="row align-items-center">
+            <div className="col-4">
+              <p className="text-title-blue">TOP 3 FEATURED AIRPORT</p>
+              <h2 className="text-title-black">Most Popular Destinations</h2>
+              <p className="text-title-gray">
+                The best destination in our opinion is how much customers like
+                it in terms of place, price, comfort and of course airport
+                service
+              </p>
+              <a href="/destinations" className="btn btn-view">
+                View All Destination
+              </a>
+            </div>
+            <div className="col-8">
+              <div className="row">
+                {displayBan}
+                {displayBan1}
+                {displayBan2}
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
       <MostPopularRes />
     </>
   );

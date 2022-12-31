@@ -41,7 +41,7 @@ import Admin from "./pages/Admin";
 import Maskapai from "./pages/Maskapai";
 import Pesanan from "./pages/Pesanan";
 
-const reduxDevToolsExtension = false;
+const reduxDevToolsExtension = true;
 
 const composeEnhancers = composeWithDevTools({});
 
@@ -174,7 +174,6 @@ root.render(
           } />
         </Routes>
         <Routes>
-          <Route exact path="/all-destination" element={<AllDestinations />} />
           <Route path="/wishlist" element={
             <Protected>
               <Wishlist />
@@ -182,19 +181,13 @@ root.render(
           } />
         </Routes>
         <Routes>
-          <Route
-            path="/detail-destination/:id"
-            element={<DeatailDestinations />}
-          />
-        </Routes>
-        <Routes>
           <Route path="/unauthorized" element={<Unauthorized />} />
         </Routes>
-        <Routes>
+        {/* <Routes>
           <Route path="/admin" element={<Admin />} />
           <Route path="/daftar-maskapai" element={<Maskapai />} />
           <Route path="/daftar-pesanan" element={<Pesanan />} />
-        </Routes>
+        </Routes> */}
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

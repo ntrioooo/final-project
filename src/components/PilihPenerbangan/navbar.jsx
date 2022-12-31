@@ -25,7 +25,7 @@ function NavBar() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("dispatching getListAirlines action with id:");
+    // console.log("dispatching getListAirlines action with id:");
     dispatch(whoAmI());
   }, [dispatch]);
 
@@ -44,6 +44,8 @@ function NavBar() {
   }, [setScrollY]);
 
   const scrolled = () => scrollY > 180;
+
+  const roleAdmin = localStorage.getItem('role')
 
   function handleLogout(e) {
     setIsLoading(true);
@@ -104,12 +106,22 @@ function NavBar() {
                     Welcome, {whoAmIResult.Name}
                     </button>
                     <ul className="dropdown-menu">
-                      <Link to='/pesanan-saya'>
+                      <Link to='/pesanan-saya' className="text-decoration-none">
                         <li><p className="dropdown-item">Pesanan saya</p></li>
                       </Link>
-                      <Link to={`profile`}>
+                      <Link to={`profile`} className="text-decoration-none">
                         <li><p className="dropdown-item">Profile saya</p></li>
                       </Link>
+                      {roleAdmin === "Admin" ? (
+                        <li>
+                          <Link
+                            to={`/dashboard`}
+                            className="dropdown-item text-decoration-none"
+                          >
+                            Dashboard
+                          </Link>
+                        </li>
+                      ) : null}
                       <li><hr className="dropdown-divider"/></li>
                       <li><a className="dropdown-item" href="/#" onClick={handleLogout}>Logout</a></li>
                     </ul>

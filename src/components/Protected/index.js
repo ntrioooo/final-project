@@ -12,7 +12,7 @@ function Protected({ children }) {
     dispatch(whoAmI());
   }, [dispatch]);
 
-  console.log(whoAmIResult);
+  // console.log(whoAmIResult);
 
   const token = localStorage.getItem("token");
 

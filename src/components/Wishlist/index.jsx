@@ -15,24 +15,28 @@ function Wishlist() {
     <div className="container">
       <NavBar />
       <div className="container top">
-        <h1 className="text-center mt-2 mb-5">
-          Wishlist Destinations
-        </h1>
+        <h1 className="text-center mt-2 mb-5">Wishlist Destination</h1>
         <div className="row">
           {wishlist &&
             wishlist.map((item) => {
               return (
                 <div className="col-md-4" key={item.id}>
                   <div className="card mb-3">
+                      <img
+                        src={item.Foto}
+                        className="card-img-top"
+                        alt={item.Foto}
+                        style={{ maxWidth: "450px", maxHeight: "200px" }}
+                      />
                     <div className="card-body">
-                      <p>{item.Airport_Code}</p>
                       <p>{item.Airport_Name}</p>
+                      <p>{item.City}</p>
+                      <p className="text-secondary">{item.Description}</p>
                     </div>
                   </div>
                 </div>
-              )
-            }
-          )}
+              );
+            })}
         </div>
       </div>
     </div>

@@ -58,7 +58,7 @@ const NavbarAdmin = () => {
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown-menu">
                   <li><a className="dropdown-item" href="/profile">Profile</a></li>
-                  <li><a className="dropdown-item" href="/#" onClick={handleLogout}>Logout</a></li>
+                  <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                 </ul>
               </li>
             </ul>
@@ -76,7 +76,7 @@ const NavbarAdmin = () => {
                 <li key={index} className={item.cName}>
                   <Link to={item.path}>
                     {item.icon}
-                    <span>{item.title}</span>
+                    <span className='text-white'>{item.title}</span>
                   </Link>
                 </li>
               );

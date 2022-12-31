@@ -40,7 +40,7 @@ function CardPilihPenerbangan() {
 
   const pricex = filteredSchedule.map((price) => price.price)
 
-  console.log(pricex);
+  // console.log(pricex);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ function CardPilihPenerbangan() {
     }
   }, [value, navigate]);
 
-  console.log(value);
+  // console.log(value);
 
   return (
     <div>

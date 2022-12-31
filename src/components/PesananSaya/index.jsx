@@ -3,7 +3,7 @@ import { whoAmI, editListUsers } from "../../actions/usersAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { getIsiDetail } from "../../actions/formAction";
-import NavProfile from '../ProfileSaya/NavProfile';
+import NavProfile from "../ProfileSaya/NavProfile";
 
 function Pesanan() {
   const { whoAmIResult } = useSelector((state) => state.UsersReducer);
@@ -12,14 +12,14 @@ function Pesanan() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [value, setValue] = useState(null)
+  const [value, setValue] = useState(null);
 
   const handleClick = (price) => {
-    setValue(price)
-  }
+    setValue(price);
+  };
 
   useEffect(() => {
-    console.log("dispatching who login action with id: ", whoAmIResult.id);
+    // console.log("dispatching who login action with id: ", whoAmIResult.id);
     dispatch(whoAmI());
   }, [dispatch]);
 
@@ -29,19 +29,17 @@ function Pesanan() {
 
   useEffect(() => {
     if (value) {
-      navigate('/pesanan-saya/tiket', { state: { price: value } });
+      navigate("/pesanan-saya/tiket", { state: { price: value } });
     }
   }, [value, navigate]);
 
   const filteredBooking = Array.isArray(getIsiDetailResult)
     ? getIsiDetailResult.filter(
-      (booking) => booking.user_id === whoAmIResult.id
-    )
+        (booking) => booking.user_id === whoAmIResult.id
+      )
     : [];
 
-
-
-  console.log(filteredBooking);
+  // console.log(filteredBooking);
 
   return (
     <div className="dashboard-pg text-grey-blue">
@@ -67,7 +65,7 @@ function Pesanan() {
                     <th scope="col">Tipe</th>
                     <th scope="col">Tiket</th>
                     <th scope="col">Tanggal</th>
-                    <th scope='col'>E-Ticket</th>
+                    <th scope="col">E-Ticket</th>
                   </tr>
                 </thead>
 
@@ -85,7 +83,10 @@ function Pesanan() {
                             <td>{booking.flight_date.slice(0, 10)}</td>
                             <td>
                               {/* <Link to='/pesanan-saya/tiket'> */}
-                              <button className="btn btn-dark" onClick={() => handleClick(booking.price)}>
+                              <button
+                                className="btn btn-dark"
+                                onClick={() => handleClick(booking.price)}
+                              >
                                 View
                               </button>
                               {/* </Link> */}
@@ -95,14 +96,34 @@ function Pesanan() {
                       );
                     })
                   ) : (
-                    <p className="text-center">Tidak Pernah Pesan</p>
+                    <tbody>
+                      <tr>
+                        <td colSpan="7">
+                          <p className="text-center">Tidak Pernah Pesan</p>
+                        </td>
+                      </tr>
+                    </tbody>
                   )
                 ) : getIsiDetailLoading ? (
-                  <h1>Loading</h1>
+                  <tbody>
+                    <tr>
+                      <td colSpan="7">
+                        <h1 className="text-center">Loading</h1>
+                      </td>
+                    </tr>
+                  </tbody>
                 ) : (
-                  <h1>
-                    {getIsiDetailError ? getIsiDetailError : "Data Kosong"}
-                  </h1>
+                  <tbody>
+                    <tr>
+                      <td colSpan="7">
+                        <h1>
+                          {getIsiDetailError
+                            ? getIsiDetailError
+                            : "Data Kosong"}
+                        </h1>
+                      </td>
+                    </tr>
+                  </tbody>
                 )}
               </table>
             </div>

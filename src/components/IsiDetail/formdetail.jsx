@@ -6,6 +6,7 @@ import { getListAirlines } from "../../actions/airlinesAction";
 import { postIsiDetail } from "../../actions/formAction";
 import { getListSchedule } from "../../actions/scheduleAction";
 import { whoAmI } from "../../actions/usersAction";
+import NavBar from "../LandingPage/navbar";
 
 function FormDetail() {
   const {
@@ -28,7 +29,7 @@ function FormDetail() {
   const location = useLocation()
   const price = location.state?.price
 
-  console.log(price)
+  // console.log(price)
 
   // const currentPrice =
   //   getListAirlinesResult &&
@@ -66,7 +67,7 @@ function FormDetail() {
   const getScheduleDepar = filteredSchedule.map((item) => item.departure_hour)
   const getScheduleArriv = filteredSchedule.map((item) => item.arrival_hour)
 
-  console.log(filteredSchedule)
+  // console.log(filteredSchedule)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -110,13 +111,15 @@ function FormDetail() {
       postIsiDetail(payload)
     );
 
-    console.log(payload);
+    // console.log(payload);
 
-    // navigate("/sukses");
+    navigate("/sukses");
   };
 
   return (
     <div>
+
+      <NavBar />
       <Container className="form-detail mt-3">
         <div className="text-form-detail">
           <h3>Informasi Kontak</h3>

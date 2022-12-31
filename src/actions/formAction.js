@@ -17,7 +17,8 @@ export const postIsiDetail = (data) => (dispatch) => {
       // POST API
   axios({
     method: 'POST',
-    url: 'http://localhost:8000/booking-ticket',
+    url: 'https://testdev5-production.up.railway.app/booking-ticket',
+    // url: 'http://localhost:8000/booking-ticket',
     timeout: 120000,
     data: data,
     headers: {
@@ -25,7 +26,7 @@ export const postIsiDetail = (data) => (dispatch) => {
     },
   })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       dispatch({
         type: POST_ISIDETAIL,
         payload: {
@@ -36,7 +37,7 @@ export const postIsiDetail = (data) => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log(error)
+      // console.log(error)
       dispatch({
         type: POST_ISIDETAIL,
         payload: {
@@ -61,11 +62,12 @@ export const getIsiDetail = () => (dispatch) => {
 
   axios({
     method: 'GET',
-    url: 'http://localhost:8000/history',
+    // url: 'http://localhost:8000/history',
+    url: 'https://testdev5-production.up.railway.app/history',
     timeout: 120000,
   })
     .then((response) => {
-      console.log(response.data.data.Booking);
+      // console.log(response.data.data.Booking);
       dispatch({
         type: GET_ISIDETAIL,
         payload: {
@@ -76,7 +78,7 @@ export const getIsiDetail = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log(error)
+      // console.log(error)
       dispatch({
         type: GET_ISIDETAIL,
         payload: {

@@ -1,58 +1,54 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDetailListAirlines } from "../../actions/airlinesAction";
+import { getDetailListSchedule, getListSchedule } from "../../actions/scheduleAction";
 import { useParams } from "react-router-dom";
 import Navbar from "../LandingPage/navbar";
 
 function DashboardDetail() {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [destinations, setDestinations] = useState(null);
 
-  const { getDetailListAirlinesResult } = useSelector(
-    (state) => state.AirlinesReducer
+  const { getDetailListScheduleResult } = useSelector(
+    (state) => state.ScheduleReducer
   );
-
+  
   useEffect(() => {
-    console.log("dispatching getListAirlines action with id:", id);
-    dispatch(getDetailListAirlines(id));
+    dispatch(getDetailListSchedule(id));
   }, [dispatch, id]);
 
-  // if (destinations === null) {
-  //   return <h1 className="text-center">Lagi Loading Cuyy...</h1>;
-  // }
+  // const detailSchedule = getDetailListScheduleResult
+  //   ? Object.values(getDetailListScheduleResult).map((schedule, index) => {
+  //       return (
+  //         <div key={index}>
+  //           <p>{schedule.id}</p>
+  //           <p>{schedule.airline_name}</p>
+  //           <p>{schedule.departure_hour}</p>
+  //         </div>
+  //       );
+  //     })
+  //   : [];
 
-  return (
-    <div className="container">
-      <Navbar />
-      <div className="container top">
-        <h1 className="text-center mt-2 mb-5">
-          Detail Destination
-          <div className="row">
-            <div className="col-md">
-              <img src="" alt="GAMBAR" />
-            </div>
-            <div className="col-md px-5 py-5">
-              <div>
-                <strong>originAirport:</strong>{" "}
-                {getDetailListAirlinesResult.originAirport}
-              </div>
-              <div>
-                <strong>price:</strong> {getDetailListAirlinesResult.Price}
-              </div>
-              <button
-                type="submit"
-                class="btn btn-dark"
-                style={{ width: "250px", marginRight: "20px" }}
-              >
-                Bookmark
-              </button>
-            </div>
-          </div>
-        </h1>
-      </div>
-    </div>
-  );
+  // return (
+  //   <div className="container">
+  //     <div className="container top">
+  //       <h1 className="text-center mt-2 mb-5">
+  //         Detail Schedule
+  //         <div className="row">
+  //           <p>asdasd</p>
+  //           {Array.isArray(getDetailListScheduleResult) && 
+  //             getDetailListScheduleResult.map((schedule) => {
+  //               return (
+  //                 <div className="col-md-12">
+  //                   {schedule.id}
+  //                 </div>
+                  
+  //               )
+  //             })}
+  //         </div>
+  //       </h1>
+  //     </div>
+  //   </div>
+  // );
 }
 
 export default DashboardDetail;

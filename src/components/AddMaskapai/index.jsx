@@ -113,7 +113,7 @@ function AddMaskapai() {
 
     console.log(payload)
 
-    // navigate("/dashboard");
+    navigate("/dashboard/penerbangan");
   };
 
   return (

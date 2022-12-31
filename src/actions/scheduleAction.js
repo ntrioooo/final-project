@@ -28,7 +28,7 @@ export const getListSchedule = () => (dispatch) => {
     },
   })
     .then((response) => {
-      console.log(response.data);
+      // console.log(response.data);
       dispatch({
         type: GET_LIST_SCHEDULE,
         payload: {
@@ -39,7 +39,7 @@ export const getListSchedule = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log("ERRRRR", error);
+      // console.log("ERRRRR", error);
       dispatch({
         type: GET_LIST_SCHEDULE,
         payload: {
@@ -110,23 +110,23 @@ export const getDetailListSchedule = (id) => (dispatch) => {
 
   axios({
     method: "GET",
-    url: `https://testdev5-production.up.railway.app/schedule/${id}`,
+    url: 'https://testdev5-production.up.railway.app/schedule/'+ id,
     // url: `http://localhost:8000/schedule/${id}`,
     timeout: 120000,
   })
     .then((response) => {
-      console.log(response);
+      // console.log(response.data.data);
       dispatch({
         type: GET_DETAIL_LIST_SCHEDULE,
         payload: {
           loading: false,
-          data: response.data,
+          data: response.data.data,
           errorMessage: false,
         },
       });
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       dispatch({
         type: GET_DETAIL_LIST_SCHEDULE,
         payload: {
@@ -162,7 +162,7 @@ export const editListSchedule = (id, data) => (dispatch) => {
     },
   })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       dispatch({
         type: EDIT_LIST_SCHEDULE,
         payload: {
@@ -173,7 +173,7 @@ export const editListSchedule = (id, data) => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       dispatch({
         type: EDIT_LIST_SCHEDULE,
         payload: {
@@ -208,7 +208,7 @@ export const deleteListSchedule = (id) => (dispatch) => {
     },
   })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       dispatch(getListSchedule());
       dispatch({
         type: EDIT_LIST_SCHEDULE,
@@ -220,7 +220,7 @@ export const deleteListSchedule = (id) => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log(error);
+      // console.log(error);
       dispatch({
         type: EDIT_LIST_SCHEDULE,
         payload: {

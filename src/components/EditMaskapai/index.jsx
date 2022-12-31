@@ -469,7 +469,7 @@ function EditMaskapai() {
         swal("Poof! Data has been updated", {
           icon: "success",
         });
-        navigate("/dashboard");
+        navigate("/dashboard/penerbangan");
       } else {
         swal("Data is safe");
       }

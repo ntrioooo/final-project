@@ -26,7 +26,7 @@ function NavBar() {
 
   return (
     <>
-      <Navbar fixed="top" expand="lg" key={"lg"}>
+      {/* <Navbar fixed="top" expand="lg" key={"lg"}>
         <Container className={`${!scrolled() ? "" : "invisible"}`}>
           <Navbar.Brand href="/">
             <img src={logo} alt="Logo" />
@@ -70,7 +70,7 @@ function NavBar() {
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
-      </Navbar>
+      </Navbar> */}
     </>
   );
 }

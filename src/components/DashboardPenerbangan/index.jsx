@@ -105,11 +105,6 @@ function Maskapai() {
                           >
                             <button className="btn btn-primary">Edit</button>
                           </Link>
-                          <Link
-                            to={`/dashboard/penerbangan/detail/${schedule.id}`}
-                          >
-                            <button className="btn btn-primary">View</button>
-                          </Link>
                           <button
                             className="btn btn-danger"
                             onClick={() => handleClick(schedule.id)}

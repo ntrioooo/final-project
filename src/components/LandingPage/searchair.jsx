@@ -29,7 +29,7 @@ function SearchAir() {
     const { name, value } = e.target;
     setFormData({...formData, [name] : value})
   
-    console.log(formData);
+    // console.log(formData);
   }
 
   const handleSubmit = (e) => {

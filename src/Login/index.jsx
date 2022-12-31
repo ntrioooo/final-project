@@ -24,7 +24,7 @@ import { whoAmI } from "../actions/usersAction";
 
 async function doLoginWithGoogle(token, email, name) {
   // Sesuaikan endpoint
-  const response = await fetch("http://localhost:8000/api/v1/google", {
+  const response = await fetch("https://testdev5-production.up.railway.app/api/v1/google", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -107,7 +107,7 @@ function Login() {
           localStorage.setItem('token', `Bearer ${token}`);
           console.log(token);
           setIsLoggedIn(token);
-          // navigate('/')
+          navigate('/')
         })
         .catch((err) => console.log(err.message))
         .finally(() => setIsLoading(false));

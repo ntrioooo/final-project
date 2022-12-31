@@ -1,11 +1,27 @@
-import React from "react";
-import popularImg from "../../assets/images/popular.png";
-import airports from "../../list-airport";
+import React, { useEffect } from "react";
+import { getListAirlines } from "../../actions/airlinesAction";
+import { useSelector, useDispatch } from "react-redux";
 
 function MostPopularRes() {
+  const {
+    getListAirlinesResult,
+  } = useSelector((state) => state.AirlinesReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getListAirlines());
+  }, [dispatch]);
+
+  const sliceAirport = Array.isArray(getListAirlinesResult)
+    ? getListAirlinesResult.slice(0, 3)
+    : [];
+
   return (
     <div>
-      <div id="most-popular" className="most-popular d-xxl-none d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block">
+      <div
+        id="most-popular"
+        className="most-popular d-xxl-none d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block"
+      >
         <div className="container mt-3">
           <div className="row justify-content-center">
             <p className="text-title-blue text-center">
@@ -20,7 +36,7 @@ function MostPopularRes() {
             </p>
           </div>
           <div className="row">
-            {airports.map((airport, index) => {
+            {sliceAirport.map((airport, index) => {
               return (
                 <div
                   key={index}
@@ -28,8 +44,8 @@ function MostPopularRes() {
                   id="most-popular-item-active"
                 >
                   <img
-                    src={popularImg}
-                    alt={airport.image}
+                    src={airport.Foto}
+                    alt={airport.Foto}
                     className="w-100 h-100"
                   />
                   <div className="most-popular-card">
@@ -44,10 +60,10 @@ function MostPopularRes() {
                               </span>
                             </p>
                             <h3 className="most-popular-card-title">
-                              {airport.name}
+                              {airport.Airport_Name}
                             </h3>
                             <p className="most-popular-card-location d-flex">
-                              {`${airport.city}, ${airport.country}`}
+                              {`${airport.Airport_Code}, ${airport.City}`}
                             </p>
                           </div>
                           <a href="/#" className="btn btn-cream rounded-4">
@@ -61,7 +77,10 @@ function MostPopularRes() {
               );
             })}
           </div>
-          <a href="/#" className="btn btn-view d-flex justify-content-center mt-3">
+          <a
+            href="/destinations"
+            className="btn btn-view d-flex justify-content-center mt-3"
+          >
             View All Destination
           </a>
         </div>

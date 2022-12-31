@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import { whoAmI, editListUsers } from "../../actions/usersAction";
+import { whoAmI } from "../../actions/usersAction";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { getIsiDetail } from "../../actions/formAction";
 import logo from "../../assets/images/Logo.png";
 import { ImBarcode } from "react-icons/im";
@@ -13,13 +13,12 @@ function Tiket() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("dispatching who login action with id: ", whoAmIResult.id);
     dispatch(whoAmI());
   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getIsiDetail());
-  }, [getIsiDetail]);
+  }, [dispatch]);
   
   const location = useLocation()
   const price = location.state?.price
