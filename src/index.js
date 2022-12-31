@@ -41,7 +41,7 @@ import Admin from "./pages/Admin";
 import Maskapai from "./pages/Maskapai";
 import Pesanan from "./pages/Pesanan";
 
-const reduxDevToolsExtension = true;
+const reduxDevToolsExtension = false;
 
 const composeEnhancers = composeWithDevTools({});
 
