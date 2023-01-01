@@ -21,7 +21,7 @@ const DashboardAdmin = () => {
             <div className="col-md-3">
               <div className="p-3 shadow-sm d-flex justify-content-around align-items-center rounded shadow-lg" id="card">
                 <div>
-                  <p className="fs-5">Maskapai</p>
+                  <p className="fs-5">Penerbangan</p>
                   <h3 className="fs-2">12</h3>
                 </div>
                 <i className="fa-sharp fa-solid fa-plane fs-1 border rounded-full bg-white p-3"></i>
