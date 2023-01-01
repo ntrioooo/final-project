@@ -28,7 +28,6 @@ export const getListSchedule = () => (dispatch) => {
     },
   })
     .then((response) => {
-      // console.log(response.data);
       dispatch({
         type: GET_LIST_SCHEDULE,
         payload: {
@@ -39,7 +38,6 @@ export const getListSchedule = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      // console.log("ERRRRR", error);
       dispatch({
         type: GET_LIST_SCHEDULE,
         payload: {
@@ -115,7 +113,6 @@ export const getDetailListSchedule = (id) => (dispatch) => {
     timeout: 120000,
   })
     .then((response) => {
-      // console.log(response.data.data);
       dispatch({
         type: GET_DETAIL_LIST_SCHEDULE,
         payload: {
@@ -126,7 +123,6 @@ export const getDetailListSchedule = (id) => (dispatch) => {
       });
     })
     .catch((error) => {
-      // console.log(error);
       dispatch({
         type: GET_DETAIL_LIST_SCHEDULE,
         payload: {
@@ -162,7 +158,6 @@ export const editListSchedule = (id, data) => (dispatch) => {
     },
   })
     .then((response) => {
-      // console.log(response);
       dispatch({
         type: EDIT_LIST_SCHEDULE,
         payload: {
@@ -173,7 +168,6 @@ export const editListSchedule = (id, data) => (dispatch) => {
       });
     })
     .catch((error) => {
-      // console.log(error);
       dispatch({
         type: EDIT_LIST_SCHEDULE,
         payload: {
@@ -208,7 +202,6 @@ export const deleteListSchedule = (id) => (dispatch) => {
     },
   })
     .then((response) => {
-      // console.log(response);
       dispatch(getListSchedule());
       dispatch({
         type: EDIT_LIST_SCHEDULE,
@@ -220,7 +213,6 @@ export const deleteListSchedule = (id) => (dispatch) => {
       });
     })
     .catch((error) => {
-      // console.log(error);
       dispatch({
         type: EDIT_LIST_SCHEDULE,
         payload: {

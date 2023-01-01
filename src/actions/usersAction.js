@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
 export const GET_LIST_USERS = "GET_LIST_USERS";
 export const GET_DETAIL_LIST_USERS = "GET_DETAIL_LIST_USERS";
@@ -8,6 +7,7 @@ export const DELETE_LIST_USERS = "DELETE_LIST_USERS";
 export const EDIT_LIST_USERS = "EDIT_LIST_USERS";
 export const LOGIN_USERS = "LOGIN_USERS";
 export const WHO_AM_I = "WHO_AM_I";
+export const NOTIFICATION = "NOTIFICATION";
 
 export const whoAmI = () => (dispatch) => {
   const token = localStorage.getItem("token");
@@ -31,7 +31,6 @@ export const whoAmI = () => (dispatch) => {
     },
   })
     .then((response) => {
-      // console.log(response.data.data);
       dispatch({
         type: WHO_AM_I,
         payload: {
@@ -42,8 +41,6 @@ export const whoAmI = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log(error);
-      console.log(token);
       dispatch({
         type: WHO_AM_I,
         payload: {
@@ -78,7 +75,6 @@ export const loginUsers = (data) => (dispatch) => {
     },
   })
     .then((response) => {
-      console.log(response.data);
       dispatch({
         type: LOGIN_USERS,
         payload: {
@@ -89,7 +85,6 @@ export const loginUsers = (data) => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log(error.message);
       dispatch({
         type: LOGIN_USERS,
         payload: {
@@ -111,7 +106,6 @@ export const getListUsers = () => (dispatch) => {
     },
   });
 
-  // get API
   axios({
     method: "GET",
     // url: "http://localhost:8000/get-airport",
@@ -140,42 +134,6 @@ export const getListUsers = () => (dispatch) => {
     });
 };
 
-// export const getListAirlines = () => async (dispatch) => {
-//   dispatch({
-//     type: GET_LIST_AIRLINES,
-//     payload: {
-//       loading: true,
-//       data: false,
-//       errorMessage: false,
-//     },
-//   });
-
-//   try {
-//     const response = await axios({
-//       method: "GET",
-//       url: "http://localhost:8000/get-airport",
-//       timeout: 120000,
-//     });
-//     dispatch({
-//       type: GET_LIST_AIRLINES,
-//       payload: {
-//         loading: false,
-//         data: response.data,
-//         errorMessage: false,
-//       },
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: GET_LIST_AIRLINES,
-//       payload: {
-//         loading: false,
-//         data: false,
-//         errorMessage: error.message,
-//       },
-//     });
-//   }
-// };
-
 export const addListUsers = (data) => (dispatch) => {
   dispatch({
     type: ADD_LIST_USERS,
@@ -195,7 +153,6 @@ export const addListUsers = (data) => (dispatch) => {
     timeout: 120000,
   })
     .then((response) => {
-      // console.log(data);
       dispatch({
         type: ADD_LIST_USERS,
         payload: {
@@ -207,7 +164,6 @@ export const addListUsers = (data) => (dispatch) => {
       swal("Yeayyy", "Akun berhasil dibuat", "success");
     })
     .catch((error) => {
-      // console.log("ERRRRR", error);
       dispatch({
         type: ADD_LIST_USERS,
         payload: {
@@ -258,37 +214,6 @@ export const getDetailListUsers = (id) => (dispatch) => {
     });
 };
 
-export const deleteListUsers = (id) => (dispatch) => {
-  dispatch({
-    type: DELETE_LIST_USERS,
-    payload: {
-      loading: true,
-      data: false,
-      errorMessage: false,
-    },
-  });
-
-  // get API
-  axios({
-    method: "delete",
-    url: "https://6390373c0bf398c73a805426.mockapi.io/price_list/" + id,
-    timeout: 120000,
-  })
-    .then((response) => {
-      dispatch(getListUsers());
-    })
-    .catch((error) => {
-      dispatch({
-        type: DELETE_LIST_USERS,
-        payload: {
-          loading: false,
-          data: false,
-          errorMessage: error.message,
-        },
-      });
-    });
-};
-
 export const editListUsers = (id, formData) => (dispatch) => {
   console.log("formdata ", formData);
   dispatch({
@@ -312,8 +237,6 @@ export const editListUsers = (id, formData) => (dispatch) => {
     },
   })
     .then((response) => {
-      console.log(response.data.data[0]);
-      console.log(response);
       dispatch({
         type: EDIT_LIST_USERS,
         payload: {
@@ -328,6 +251,49 @@ export const editListUsers = (id, formData) => (dispatch) => {
       console.log(error.message);
       dispatch({
         type: EDIT_LIST_USERS,
+        payload: {
+          loading: false,
+          data: false,
+          errorMessage: error.message,
+        },
+      });
+    });
+};
+
+export const notification = (id) => (dispatch) => {
+  console.log('notif id: ', id)
+  dispatch({
+    type: NOTIFICATION,
+    payload: {
+      loading: true,
+      data: false,
+      errorMessage: false,
+    },
+  });
+
+  axios({
+    method: "GET",
+    url: `https://testdev5-production.up.railway.app/notification/${id}`,
+    timeout: 120000,
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+    .then((response) => {
+      // console.log("response",response.data.data[0]);
+      dispatch({
+        type: NOTIFICATION,
+        payload: {
+          loading: false,
+          data: response.data.data,
+          errorMessage: false,
+        },
+      });
+    })
+    .catch((error) => {
+      // console.log(error);
+      dispatch({
+        type: NOTIFICATION,
         payload: {
           loading: false,
           data: false,

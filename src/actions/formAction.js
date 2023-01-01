@@ -26,7 +26,6 @@ export const postIsiDetail = (data) => (dispatch) => {
     },
   })
     .then((response) => {
-      // console.log(response);
       dispatch({
         type: POST_ISIDETAIL,
         payload: {
@@ -37,7 +36,6 @@ export const postIsiDetail = (data) => (dispatch) => {
       });
     })
     .catch((error) => {
-      // console.log(error)
       dispatch({
         type: POST_ISIDETAIL,
         payload: {
@@ -48,7 +46,6 @@ export const postIsiDetail = (data) => (dispatch) => {
       });
     });
 }
-
 
 export const getIsiDetail = () => (dispatch) => {
     dispatch({
@@ -67,7 +64,6 @@ export const getIsiDetail = () => (dispatch) => {
     timeout: 120000,
   })
     .then((response) => {
-      // console.log(response.data.data.Booking);
       dispatch({
         type: GET_ISIDETAIL,
         payload: {
@@ -78,7 +74,6 @@ export const getIsiDetail = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      // console.log(error)
       dispatch({
         type: GET_ISIDETAIL,
         payload: {

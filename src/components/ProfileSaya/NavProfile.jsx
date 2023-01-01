@@ -1,14 +1,17 @@
 import { React, useState, useEffect } from "react";
-import { whoAmI } from "../../actions/usersAction";
+import { whoAmI, notification } from "../../actions/usersAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import Logo from "../../assets/images/Logo.svg";
 import Logo2 from "../../assets/images/Logo.png";
 
 const NavProfile = () => {
-  const { id } = useParams();
+  const [id, setId] = useState({});
 
   const { whoAmIResult } = useSelector((state) => state.UsersReducer);
+  const { notificationResult, notificationError } = useSelector(
+    (state) => state.UsersReducer
+  );
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -19,9 +22,15 @@ const NavProfile = () => {
   const roleAdmin = localStorage.getItem("role");
 
   useEffect(() => {
-    // console.log("dispatching getListAirlines action with id: ", whoAmIResult.id);
-    dispatch(whoAmI());
-  }, [dispatch]);
+    if (whoAmIResult) {
+      setId(whoAmIResult.id);
+      dispatch(notification(id));
+    }
+  }, [whoAmIResult]);
+
+  function handleClick() {
+    window.location.reload();
+  }
 
   function handleLogout(e) {
     setIsLoading(true);
@@ -61,9 +70,16 @@ const NavProfile = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  <i className="fa-regular fa-bell"></i>
+                  {notificationResult &&
+                  notificationResult.some(
+                    (notif) => notif.status === "unread"
+                  ) ? (
+                    <i className="fa-solid fa-bell"></i>
+                  ) : (
+                    <i className="fa-regular fa-bell"></i>
+                  )}
                 </a>
-                <ul className="dropdown-menu">
+                <ul className="dropdown-menu" style={{ width: "400px" }}>
                   <li>
                     <h3 className="dropdown-item-text" id="disabledSelect">
                       Notification
@@ -73,19 +89,38 @@ const NavProfile = () => {
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <a className="dropdown-item" href="/#">
-                      Action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/#">
-                      Another action
-                    </a>
-                  </li>
-                  <li>
-                    <a className="dropdown-item" href="/#">
-                      Something else here
-                    </a>
+                    <div className="dropdown-item-text">
+                      <table className="table bg-white rounded shadow-sm  table-hover">
+                        {notificationResult &&
+                          notificationResult.map((notif, index) => {
+                            return (
+                              <tbody key={notif.id}>
+                                <tr
+                                  onClick={handleClick}
+                                  style={
+                                    notif.status === "unread"
+                                      ? {
+                                          backgroundColor: "#b7b7b7",
+                                          border: "none",
+                                        }
+                                      : {}
+                                  }
+                                >
+                                  <th scope="row">{index + 1}</th>
+                                  <td>{notif.message}</td>
+                                  <td>
+                                    {notif.status === "unread" ? (
+                                      <i class="fa-solid fa-check"></i>
+                                    ) : (
+                                      <i className="fa-solid fa-check-double"></i>
+                                    )}
+                                  </td>
+                                </tr>
+                              </tbody>
+                            );
+                          })}
+                      </table>
+                    </div>
                   </li>
                 </ul>
               </div>
@@ -99,7 +134,6 @@ const NavProfile = () => {
                   <i className="fas fa-user"></i>
                 </a>
                 <ul className="dropdown-menu">
-                  {/* <li><a className="dropdown-item" href="#">Profile</a></li> */}
                   <li>
                     <Link to={`/profile`} className="dropdown-item">
                       Profile
@@ -111,8 +145,7 @@ const NavProfile = () => {
                         Dashboard
                       </Link>
                     </li>
-                  ) : null
-                  }
+                  ) : null}
                   <li>
                     <Link to={`/pesanan-saya`} className="dropdown-item">
                       Pesanan Saya

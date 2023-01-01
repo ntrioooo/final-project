@@ -1,29 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
-// import { GoogleLogin } from "react-google-login";
 import { loginUsers } from "../actions/usersAction";
 import { useDispatch, useSelector } from "react-redux";
 import { whoAmI } from "../actions/usersAction";
 
-// async function doLogin({ email, password }) {
-//   const response = await fetch("http://localhost:8000/login", {
-//     // mode: "no-cors",
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       email,
-//       password,
-//     }),
-//   });
-//   const data = await response.json();
-//   return data;
-// }
-
 async function doLoginWithGoogle(token, email, name) {
-  // Sesuaikan endpoint
   const response = await fetch("https://testdev5-production.up.railway.app/api/v1/google", {
     method: "POST",
     headers: {
@@ -54,8 +36,6 @@ function Login() {
   const [error, setError] = useState("");
   const Token = localStorage.getItem("token");
 
-  // console.log(loginUsersResult);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -81,25 +61,9 @@ function Login() {
         password,
       })
     );
-
-    // if(Token === true) {
-    //   navigate('/profile')
-    // }
-    // doLogin({ email, password })
-    //   .then((user) => {
-    //     if (user) {
-    //       localStorage.setItem("token", user.Token);
-    //       // navigate('/')
-    //     } else {
-    //       setError("Email or password is incorrect");
-    //     }
-    //   })
-    //   .catch((err) => console.log(err.message))
-    //   .finally(() => setIsLoading(false));
   };
 
   const haldleSuccessGoogle = (response) => {
-    // console.log(response);
     console.log(response.credential);
     if (response.credential) {
       doLoginWithGoogle(response.credential)
@@ -115,7 +79,6 @@ function Login() {
   };
 
   const haldleFailureGoogle = (response) => {
-    console.log(response);
     alert(response);
   };
 
@@ -126,8 +89,6 @@ function Login() {
     setIsLoggedIn(false);
     setIsLoading(false);
   }
-
-  // console.log(email, password, Token);
 
   return (
     <div className="register">
@@ -168,13 +129,6 @@ function Login() {
                     )}
                   </div>
                   <div className="mt-3">
-                    {/* <GoogleLogin
-                      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                      buttonText="Login with Google"
-                      onSuccess={haldleSuccessGoogle}
-                      onFailure={haldleFailureGoogle}
-                      cookiePolicy="single_host_origin"
-                    /> */}
                     <GoogleOAuthProvider
                       clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
                     >

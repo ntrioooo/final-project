@@ -30,7 +30,6 @@ export const getListAirlines = () => (dispatch) => {
     },
   })
     .then((response) => {
-      // console.log(response);
       dispatch({
         type: GET_LIST_AIRLINES,
         payload: {
@@ -41,7 +40,6 @@ export const getListAirlines = () => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log(error);
       dispatch({
         type: GET_LIST_AIRLINES,
         payload: {
@@ -52,42 +50,6 @@ export const getListAirlines = () => (dispatch) => {
       });
     });
 };
-
-// export const getListAirlines = () => async (dispatch) => {
-//   dispatch({
-//     type: GET_LIST_AIRLINES,
-//     payload: {
-//       loading: true,
-//       data: false,
-//       errorMessage: false,
-//     },
-//   });
-
-//   try {
-//     const response = await axios({
-//       method: "GET",
-//       url: "http://localhost:8000/get-airport",
-//       timeout: 120000,
-//     });
-//     dispatch({
-//       type: GET_LIST_AIRLINES,
-//       payload: {
-//         loading: false,
-//         data: response.data,
-//         errorMessage: false,
-//       },
-//     });
-//   } catch (error) {
-//     dispatch({
-//       type: GET_LIST_AIRLINES,
-//       payload: {
-//         loading: false,
-//         data: false,
-//         errorMessage: error.message,
-//       },
-//     });
-//   }
-// };
 
 export const addListAirlines = (data) => (dispatch) => {
   dispatch({
@@ -112,7 +74,6 @@ export const addListAirlines = (data) => (dispatch) => {
     }
   })
     .then((response) => {
-      console.log(data);
       dispatch({
         type: ADD_LIST_AIRLINES,
         payload: {
@@ -123,7 +84,6 @@ export const addListAirlines = (data) => (dispatch) => {
       });
     })
     .catch((error) => {
-      console.log('ERRRRR', error);
       dispatch({
         type: ADD_LIST_AIRLINES,
         payload: {
