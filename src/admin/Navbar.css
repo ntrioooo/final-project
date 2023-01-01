@@ -79,3 +79,9 @@ span {
   float: right;
   padding-left: 200;
 }
+
+@media only screen and (max-width: 600px) {
+  .text-dashboard-admin {
+    display: none;
+  }
+}

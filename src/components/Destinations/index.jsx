@@ -19,6 +19,10 @@ function Destinations() {
   useEffect(() => {
     dispatch(getListAirlines());
   }, [dispatch]);
+  
+  useEffect(() => {
+    dispatch(getListAirlines());
+  }, [dispatch]);
 
   const [colors, setColors] = useState({});
 
@@ -38,7 +42,7 @@ function Destinations() {
       setColors({ ...colors, [airline.id]: 'black' });
     }
     localStorage.setItem("wishlist", JSON.stringify(existingData));
-    console.log(existingData);
+    // console.log(existingData);
   };
 
   return (
@@ -58,7 +62,7 @@ function Destinations() {
       </div>
       <div className="container">
         <div className="text-center">
-          <Link to='/wishlist'>
+          <Link to='/wishlist' target="_blank">
             <button className="btn btn-primary">
               Wishlist
             </button>

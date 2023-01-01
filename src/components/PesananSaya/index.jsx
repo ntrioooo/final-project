@@ -53,7 +53,7 @@ function Pesanan() {
         <div className="container">
           <div className="row my-5">
             <h3 className="fs-4 mb-3">Daftar Pesanan</h3>
-            <div className="col">
+            <div className="col" style={{ width: "100%", overflowX: "auto" }}>
               <table className="table bg-white rounded shadow-sm  table-hover">
                 <thead>
                   <tr>

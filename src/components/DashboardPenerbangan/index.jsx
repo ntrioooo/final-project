@@ -59,7 +59,7 @@ function Maskapai() {
           </div>
         </div>
         <div className="row my-2">
-          <div className="col">
+          <div className="col" style={{ width: "100%", overflowX: "auto" }}>
             <table className="table bg-white rounded shadow-sm  table-hover">
               <thead>
                 <tr>

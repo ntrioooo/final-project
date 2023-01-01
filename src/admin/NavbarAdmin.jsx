@@ -35,7 +35,7 @@ const NavbarAdmin = () => {
             <FaIcons.FaBars onClick={showSidebar} />
           </Link>
           <div className="d-flex align-items-center ms-1 mt-2">
-            <h2 className="fs-2 m-0 ms-3 me-5">Dashboard Admin</h2>
+            <h2 className="fs-2 m-0 ms-3 me-5 text-dashboard-admin">Dashboard Admin</h2>
           </div>
 
           <button className="navbar-toggler mt-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -45,19 +45,13 @@ const NavbarAdmin = () => {
 
           <div className="collapse navbar-collapse mt-2" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0" id='kanan'>
-              <li>
-                <a className="nav-link second-text fw-bold" href="/#" id="notifcation" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  <i className="fa-sharp fa-solid fa-bell me-2"></i>
-                </a>
-              </li>
               <li className="nav-item dropdown">
                 <a className="nav-link dropdown-toggle second-text fw-bold" href="/#" id="navbarDropdown" role="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   <i className="fa-sharp fa-solid fa-user-secret me-2"></i>Administrator
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown" id="dropdown-menu">
-                  <li><a className="dropdown-item" href="/profile">Profile</a></li>
+                  <li><a className="dropdown-item" href="/profile" style={{ margin: '0' }}>Profile</a></li>
                   <li><button className="dropdown-item" onClick={handleLogout}>Logout</button></li>
                 </ul>
               </li>
@@ -82,7 +76,6 @@ const NavbarAdmin = () => {
               );
             })}
           </ul>
-
         </nav>
       </IconContext.Provider>
     </>
