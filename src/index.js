@@ -17,8 +17,6 @@ import {
   DashboardAdmin,
   Register,
   Destinations,
-  AllDestinations,
-  DeatailDestinations,
   Login,
   Protected,
   DashboardDetail,
@@ -36,10 +34,6 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducers from "./reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
-
-import Admin from "./pages/Admin";
-import Maskapai from "./pages/Maskapai";
-import Pesanan from "./pages/Pesanan";
 
 const reduxDevToolsExtension = false;
 
@@ -77,8 +71,6 @@ root.render(
               </Protected>
             }
           />
-          {/* <Route path="/isi-detail" element={<PilihPenerbangan />} /> */}
-          {/* <Route path="/isi-detail" element={<IsiDetail />} /> */}
           <Route
             path="/isi-detail"
             element={
@@ -183,11 +175,6 @@ root.render(
         <Routes>
           <Route path="/unauthorized" element={<Unauthorized />} />
         </Routes>
-        {/* <Routes>
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/daftar-maskapai" element={<Maskapai />} />
-          <Route path="/daftar-pesanan" element={<Pesanan />} />
-        </Routes> */}
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
