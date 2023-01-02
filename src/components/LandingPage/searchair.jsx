@@ -61,7 +61,7 @@ function SearchAir() {
 
   return (
     <div className="search-air">
-      <div className="d-flex justify-content-center container">
+      <div className="d-flex justify-content-center">
         <Row className="form">
             <Col md={'auto'} className="text-center">
               <h4>Book</h4>
