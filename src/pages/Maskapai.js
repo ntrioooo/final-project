@@ -1,10 +1,8 @@
 import React from 'react';
-import Navbar from '../admin/NavbarAdmin';
 
 function Maskapai() {
   return (
     <>
-      <Navbar />
       <div className="container mt-5 maskapai">
             <div className="row">
                 <div className="col-6">

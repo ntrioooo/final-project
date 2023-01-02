@@ -1,11 +1,9 @@
 import React from 'react';
-import Navbar from '../admin/NavbarAdmin';
 
 function Admin() {
   return (
 
     <>
-      <Navbar />
       <div className='home mt-3'>
         {/* <!-- Page Content --> */}
         <div className="container">
