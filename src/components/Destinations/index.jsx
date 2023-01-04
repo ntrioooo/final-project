@@ -63,7 +63,7 @@ function Destinations() {
       <div className="container">
         <div className="text-center">
           <Link to='/wishlist' target="_blank">
-            <button className="btn btn-primary">
+            <button className="btn btn-dark px-5">
               Wishlist
             </button>
           </Link>
