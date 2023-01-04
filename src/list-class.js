@@ -2,11 +2,11 @@ const listClass =
 [
     {
         id: 1,
-        class: 'economy class'
+        class: 'economy'
     },
     {
         id: 2,
-        class: 'business class'
+        class: 'business'
     },
 ]
 
