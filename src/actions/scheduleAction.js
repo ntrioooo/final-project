@@ -158,6 +158,7 @@ export const editListSchedule = (id, data) => (dispatch) => {
     },
   })
     .then((response) => {
+      dispatch(getListSchedule());
       dispatch({
         type: EDIT_LIST_SCHEDULE,
         payload: {
@@ -204,7 +205,7 @@ export const deleteListSchedule = (id) => (dispatch) => {
     .then((response) => {
       dispatch(getListSchedule());
       dispatch({
-        type: EDIT_LIST_SCHEDULE,
+        type: DELETE_LIST_SCHEDULE,
         payload: {
           loading: false,
           data: response.data,
@@ -214,7 +215,7 @@ export const deleteListSchedule = (id) => (dispatch) => {
     })
     .catch((error) => {
       dispatch({
-        type: EDIT_LIST_SCHEDULE,
+        type: DELETE_LIST_SCHEDULE,
         payload: {
           loading: false,
           data: false,
