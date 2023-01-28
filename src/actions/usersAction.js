@@ -22,7 +22,7 @@ export const whoAmI = () => (dispatch) => {
 
   axios({
     method: "get",
-    url: "https://testdev5-production.up.railway.app/api/v1/whoami",
+    url: "https://be-final-production.up.railway.app/api/v1/whoami",
     // url: "http://localhost:8000/api/v1/whoami",
     timeout: 120000,
     headers: {
@@ -66,7 +66,7 @@ export const loginUsers = (data) => (dispatch) => {
   axios({
     method: "post",
     // url: "http://localhost:8000/login",
-    url: "https://testdev5-production.up.railway.app/login",
+    url: "https://be-final-production.up.railway.app/login",
     data: data,
     timeout: 120000,
     headers: {
@@ -109,7 +109,7 @@ export const getListUsers = () => (dispatch) => {
   axios({
     method: "GET",
     // url: "http://localhost:8000/get-airport",
-    url: "https://testdev5-production.up.railway.app/get-airport",
+    url: "https://be-final-production.up.railway.app/get-airport",
     timeout: 120000,
   })
     .then((response) => {
@@ -148,7 +148,7 @@ export const addListUsers = (data) => (dispatch) => {
   axios({
     method: "POST",
     // url: "http://localhost:8000/register",
-    url: "https://testdev5-production.up.railway.app/register",
+    url: "https://be-final-production.up.railway.app/register",
     data: data,
     timeout: 120000,
   })
@@ -189,7 +189,7 @@ export const getDetailListUsers = (id) => (dispatch) => {
   axios({
     method: "GET",
     // url: `http://localhost:8000/user/${id}`,
-    url: `https://testdev5-production.up.railway.app/user/${id}`,
+    url: `https://be-final-production.up.railway.app/user/${id}`,
     timeout: 120000,
   })
     .then((response) => {
@@ -229,7 +229,7 @@ export const editListUsers = (id, formData) => (dispatch) => {
   axios({
     method: "put",
     // url: `http://localhost:8000/user/${id}/update`,
-    url: `https://testdev5-production.up.railway.app/user/${id}/update`,
+    url: `https://be-final-production.up.railway.app/user/${id}/update`,
     data: formData,
     timeout: 120000,
     headers: {
@@ -273,7 +273,7 @@ export const notification = (id) => (dispatch) => {
 
   axios({
     method: "GET",
-    url: `https://testdev5-production.up.railway.app/notification/${id}`,
+    url: `https://be-final-production.up.railway.app/notification/${id}`,
     timeout: 120000,
     headers: {
       "Content-Type": "application/json"
