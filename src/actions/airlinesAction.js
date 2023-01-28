@@ -65,7 +65,7 @@ export const addListAirlines = (data) => (dispatch) => {
   axios({
     method: "POST",
     // url: "http://localhost:8000/add-schedule",
-    url: "https://testdev5-production.up.railway.app/add-schedule",
+    url: "https://be-final-production.up.railway.app/add-schedule",
     data: data,
     timeout: 120000,
     headers: {
