@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { whoAmI } from "../actions/usersAction";
 
 async function doLoginWithGoogle(token, email, name) {
-  const response = await fetch("https://testdev5-production.up.railway.app/api/v1/google", {
+  const response = await fetch("https://be-final-production.up.railway.app//api/v1/google", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
