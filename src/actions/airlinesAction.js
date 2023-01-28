@@ -22,7 +22,7 @@ export const getListAirlines = () => (dispatch) => {
   axios({
     method: "GET",
     // url: "http://localhost:8000/get-airport",
-    url: "https://testdev5-production.up.railway.app/get-airport",
+    url: "https://be-final-production.up.railway.app/get-airport",
     timeout: 120000,
     headers: {
       "Content-Type": "application/json",
